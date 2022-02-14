@@ -1,0 +1,188 @@
+<resources>
+    <string name="app_name">PHA Check-App</string>
+    <!--<string name="app_name">PHA Dummy</string>-->
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string-array name="educational_attainment_value">
+        <item>non</item>
+        <item>elem</item>
+        <item>elem_grad</item>
+        <item>high</item>
+        <item>high_grad</item>
+        <item>college</item>
+        <item>college_grad</item>
+        <item>vocational</item>
+        <item>master</item>
+    </string-array>
+
+    <string-array name="educational_attainment">
+        <item>No Education</item>
+        <item>Elementary Level</item>
+        <item>Elementary Graduate</item>
+        <item>HighSchool Level</item>
+        <item>HighSchool Graduate</item>
+        <item>College Level</item>
+        <item>College Graduate</item>
+        <item>Vocational Course</item>
+        <item>Masteral Degree</item>
+    </string-array>
+
+    <string-array name="yes_no">
+        <item>YES</item>
+        <item>NO</item>
+    </string-array>
+
+    <string-array name="realation_to_head">
+        <item>Son</item>
+        <item>Daughter</item>
+        <item>Husband</item>
+        <item>Wife</item>
+        <item>Father</item>
+        <item>Mother</item>
+        <item>Brother</item>
+        <item>Sister</item>
+        <item>Nephew</item>
+        <item>Niece</item>
+        <item>Grandfather</item>
+        <item>Grandmother</item>
+        <item>Grandson</item>
+        <item>Granddaughter</item>
+        <item>Cousin</item>
+        <item>Relative</item>
+        <item>Granddaughter</item>
+        <item>Daughter in Law</item>
+        <item>Son in Law</item>
+        <item>Sister in Law</item>
+        <item>Brother in Law</item>
+        <item>Father in Law</item>
+        <item>Mother in Law</item>
+        <item>Live-in Partner</item>
+        <item>Deceased</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="suffix">
+        <item>Jr.</item>
+        <item>Sr.</item>
+        <item>I</item>
+        <item>II</item>
+        <item>III</item>
+    </string-array>
+
+    <string-array name="sex">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="diabetic_hypertension">
+        <item>Medication Avail</item>
+        <item>No Avail Medication</item>
+    </string-array>
+
+
+
+    <string-array name="monthly_income">
+        <item value="1">Less Than 7,890</item>
+        <item>Between 7,890 to 15,780</item>
+        <item>Between 15,780 to 31,560</item>
+        <item>Between 31,560 to 78,900</item>
+        <item>Between 78,900 to 118,350</item>
+        <item>Between 118,350 to 157,800</item>
+        <item>At least 157,800</item>
+    </string-array>
+
+    <string-array name="unmet_needs">
+        <item>Option 1\nWomen of Reproductive Age who wants to limit/space but no access to Family Planning Method.</item>
+        <item>Option 2\nCouples and individuals who are fecund and sexually active and report not wanting any more children or wanting to delay the next pregnancy but are not using any Family Planning Method.</item>
+        <item>Option 3\nCurrently using Family Planning Method but in inappropriate way thus leading to pregnancy.</item>
+    </string-array>
+
+    <string-array name="water_supply">
+        <item>Level 1\nFarthest user is not more than 250m from point source</item>
+        <item>Level 2\nFarthest user is not more than 25m from communal faucet</item>
+        <item>Level 3\nIt has service connection from system.</item>
+    </string-array>
+
+    <string-array name="sanitary_toilet">
+        <item>None</item>
+        <item>Communal</item>
+        <item>Individual Household</item>
+    </string-array>
+
+    <string-array name="phic_status">
+        <item>Member</item>
+        <item>Dependent</item>
+        <item>Non-Member</item>
+    </string-array>
+
+    <string-array name="phic_type">
+        <item>Lifetime</item>
+        <item>Sponsored</item>
+        <item>Employed</item>
+    </string-array>
+
+    <string-array name="phic_sponsored">
+        <item>DOH</item>
+        <item>PLGU</item>
+        <item>MLGU</item>
+        <item>Private</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="phic_employment">
+        <item>Government</item>
+        <item>Private</item>
+        <item>Self-Employed</item>
+    </string-array>
+
+    <string-array name="personal_smoking">
+        <item>Never Smoked</item>
+        <item>Current Smoker</item>
+        <item>Former Smoker</item>
+        <item>Secondhand Smoker</item>
+        <item>Thirdhand Smoker</item>
+    </string-array>
+
+    <string-array name="vaccine_received">
+        <item>School</item>
+        <item>Health Center/Community</item>
+        <item>Priv. MD</item>
+    </string-array>
+
+    <string-array name="physical_status">
+        <item>Oriented to Time, Place, and Date</item>
+        <item>Concious</item>
+        <item>Ambulatory</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="physical_skin">
+        <item>Good Skin Turgor</item>
+        <item>Pallor</item>
+        <item>Jaundice</item>
+        <item>Rashes</item>
+        <item>Lesions</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="religion">
+        <item>RC</item>
+        <item>Christian</item>
+        <item>INC</item>
+        <item>Islam</item>
+        <item>Jehovah</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="procedure_diagnostic_result">
+        <item>IgG Positive</item>
+        <item>IgG Negative</item>
+        <item>IgM Positive</item>
+        <item>IgM Negative</item>
+    </string-array>
+
+</resources>
