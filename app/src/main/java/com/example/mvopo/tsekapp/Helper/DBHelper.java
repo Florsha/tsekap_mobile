@@ -69,7 +69,30 @@ public class DBHelper extends SQLiteOpenHelper {
                 "diabetic varchar(30)," +
                 "hypertension varchar(30)," +
                 "pwd varchar(5)," +
-                "pregnant varchar(15))";
+                "pregnant varchar(15)," +
+
+                "birth_place varchar(15)," +
+                "civil_status varchar(15)," +
+                "religion varchar(30)," +
+                "other_religion varchar(30)," +
+                "contact varchar(15)," +
+                "height varchar(10)," +
+                "weight varchar(10)," +
+                "cancer varchar(5)," +
+                "cancer_type varchar(100)," +
+                "mental_med varchar(30)," +
+                "tbdots_med varchar(30)," +
+                "cvd_med varchar(30)," +
+                "covid_status varchar(30)," +
+                "menarche varchar(30)," +
+                "menarche_age varchar(30)," +
+                "newborn_screen varchar(5)," +
+                "newborn_text varchar(50)," +
+                "deceased varchar(5)," +
+                "deceased_date varchar(50)," +
+                "immu_stat varchar(100)," +
+                "nutri_stat varchar(100)," +
+                "pwd_desc varchar(100))" ;
 
         String sql2 = "Create table " + SERVICES + " (id integer primary key autoincrement, request TEXT)";
 
@@ -177,6 +200,29 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("hypertension", familyProfile.hypertension);
         cv.put("pwd", familyProfile.pwd);
         cv.put("pregnant", familyProfile.pregnant);
+
+        cv.put("birth_place", familyProfile.birth_place);
+        cv.put("civil_status", familyProfile.civil_status);
+        cv.put("religion", familyProfile.religion);
+        cv.put("other_religion", familyProfile.other_religion);
+        cv.put("contact", familyProfile.contact);
+        cv.put("height", familyProfile.height);
+        cv.put("weight", familyProfile.weight);
+        cv.put("cancer", familyProfile.cancer);
+        cv.put("cancer_type", familyProfile.cancer_type);
+        cv.put("mental_med", familyProfile.mental_med);
+        cv.put("tbdots_med", familyProfile.tbdots_med);
+        cv.put("cvd_med", familyProfile.cvd_med);
+        cv.put("covid_status", familyProfile.covid_status);
+        cv.put("menarche", familyProfile.menarche);
+        cv.put("menarche_age", familyProfile.menarche_age);
+        cv.put("newborn_screen", familyProfile.newborn_screen);
+        cv.put("newborn_text", familyProfile.newborn_text);
+        cv.put("deceased", familyProfile.deceased);
+        cv.put("deceased_date", familyProfile.deceased_date);
+        cv.put("immu_stat", familyProfile.immu_stat);
+        cv.put("nutri_stat", familyProfile.nutri_stat);
+        cv.put("pwd_desc", familyProfile.pwd_desc);
         db.insertWithOnConflict(PROFILES, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
         db.close();
     }
@@ -210,6 +256,32 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("hypertension", familyProfile.hypertension);
         cv.put("pwd", familyProfile.pwd);
         cv.put("pregnant", familyProfile.pregnant);
+
+        cv.put("birth_place", familyProfile.birth_place);
+        cv.put("civil_status", familyProfile.civil_status);
+        cv.put("religion", familyProfile.religion);
+        cv.put("other_religion", familyProfile.other_religion);
+        cv.put("contact", familyProfile.contact);
+        cv.put("height", familyProfile.height);
+        cv.put("weight", familyProfile.weight);
+        cv.put("cancer", familyProfile.cancer);
+        cv.put("cancer_type", familyProfile.cancer_type);
+        cv.put("mental_med", familyProfile.mental_med);
+        cv.put("tbdots_med", familyProfile.tbdots_med);
+        cv.put("cvd_med", familyProfile.cvd_med);
+        cv.put("covid_status", familyProfile.covid_status);
+        cv.put("menarche", familyProfile.menarche);
+        cv.put("menarche_age", familyProfile.menarche_age);
+        cv.put("newborn_screen", familyProfile.newborn_screen);
+        cv.put("newborn_text", familyProfile.newborn_text);
+        cv.put("deceased", familyProfile.deceased);
+        cv.put("deceased_date", familyProfile.deceased_date);
+        cv.put("immu_stat", familyProfile.immu_stat);
+        cv.put("nutri_stat", familyProfile.nutri_stat);
+        cv.put("pwd_desc", familyProfile.pwd_desc);
+
+
+
         db.update(PROFILES, cv, "uniqueId=?", new String[]{familyProfile.uniqueId});
         db.close();
     }
@@ -218,7 +290,7 @@ public class DBHelper extends SQLiteOpenHelper {
         name += "%";
         ArrayList<FamilyProfile> profiles = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.query(PROFILES, null, "fname LIKE ? or mname LIKE ? or lname LIKE ? or familyId LIKE ?", new String[]{name, name, name, name}, null, null, null, "1");
+        Cursor c = db.query(PROFILES, null, "fname LIKE ? or mname LIKE ? or lname LIKE ? or familyId LIKE ?", new String[]{name, name, name, name}, null, null, null, "20");
 
         if (c.moveToFirst()) {
             while (!c.isAfterLast()) {
@@ -248,6 +320,29 @@ public class DBHelper extends SQLiteOpenHelper {
                 String hypertension = c.getString(c.getColumnIndex("hypertension"));
                 String pwd = c.getString(c.getColumnIndex("pwd"));
                 String pregnant = c.getString(c.getColumnIndex("pregnant"));
+//TODO: uncomment when api is ready
+                String birth_place = c.getString(c.getColumnIndex("birth_place"));
+                String civil_status = c.getString(c.getColumnIndex("civil_status"));
+                String religion = c.getString(c.getColumnIndex("religion"));
+                String other_religion = c.getString(c.getColumnIndex("other_religion"));
+                String contact = c.getString(c.getColumnIndex("contact"));
+                String height = c.getString(c.getColumnIndex("height"));
+                String weight = c.getString(c.getColumnIndex("weight"));
+                String cancer = c.getString(c.getColumnIndex("cancer"));
+                String cancer_type = c.getString(c.getColumnIndex("cancer_type"));
+                String mental_med = c.getString(c.getColumnIndex("mental_med"));
+                String tbdots_med = c.getString(c.getColumnIndex("tbdots_med"));
+                String cvd_med = c.getString(c.getColumnIndex("cvd_med"));
+                String covid_status = c.getString(c.getColumnIndex("covid_status"));
+                String menarche = c.getString(c.getColumnIndex("menarche"));
+                String menarche_age = c.getString(c.getColumnIndex("menarche_age"));
+                String newborn_screen = c.getString(c.getColumnIndex("newborn_screen"));
+                String newborn_text = c.getString(c.getColumnIndex("newborn_text"));
+                String deceased = c.getString(c.getColumnIndex("deceased"));
+                String deceased_date = c.getString(c.getColumnIndex("deceased_date"));
+                String immu_stat = c.getString(c.getColumnIndex("immu_stat"));
+                String nutri_stat = c.getString(c.getColumnIndex("nutri_stat"));
+                String pwd_desc = c.getString(c.getColumnIndex("pwd_desc"));
 
                 FamilyProfile profile = new FamilyProfile(
                         id + "",
@@ -275,7 +370,11 @@ public class DBHelper extends SQLiteOpenHelper {
                         diabetic,
                         hypertension,
                         pwd,
-                        pregnant);
+                        pregnant,/*"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
+*/
+                        birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
+                        tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
+                        immu_stat, nutri_stat, pwd_desc);
 
                 if(familyId.equals(name.substring(0, name.length()-1)) && relation.equalsIgnoreCase("Head")) profiles.add(0, profile);
                 else profiles.add(profile);
@@ -291,7 +390,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public FamilyProfile getProfileForSync() {
         FamilyProfile familyProfile = null;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.query(PROFILES, null, "status = 1", null, null, null, null, "1");
+        Cursor c = db.query(PROFILES, null, "status = 1", null, null, null, null, "20");
 
         if (c.moveToFirst()) {
             int id = c.getInt(c.getColumnIndex("id"));
@@ -321,6 +420,28 @@ public class DBHelper extends SQLiteOpenHelper {
             String pwd = c.getString(c.getColumnIndex("pwd"));
             String pregnant = c.getString(c.getColumnIndex("pregnant"));
 
+            String birth_place = c.getString(c.getColumnIndex("birth_place"));
+            String civil_status = c.getString(c.getColumnIndex("civil_status"));
+            String religion = c.getString(c.getColumnIndex("religion"));
+            String other_religion = c.getString(c.getColumnIndex("other_religion"));
+            String contact = c.getString(c.getColumnIndex("contact"));
+            String height = c.getString(c.getColumnIndex("height"));
+            String weight = c.getString(c.getColumnIndex("weight"));
+            String cancer = c.getString(c.getColumnIndex("cancer"));
+            String cancer_type = c.getString(c.getColumnIndex("cancer_type"));
+            String mental_med = c.getString(c.getColumnIndex("mental_med"));
+            String tbdots_med = c.getString(c.getColumnIndex("tbdots_med"));
+            String cvd_med = c.getString(c.getColumnIndex("cvd_med"));
+            String covid_status = c.getString(c.getColumnIndex("covid_status"));
+            String menarche = c.getString(c.getColumnIndex("menarche"));
+            String menarche_age = c.getString(c.getColumnIndex("menarche_age"));
+            String newborn_screen = c.getString(c.getColumnIndex("newborn_screen"));
+            String newborn_text = c.getString(c.getColumnIndex("newborn_text"));
+            String deceased = c.getString(c.getColumnIndex("deceased"));
+            String deceased_date = c.getString(c.getColumnIndex("deceased_date"));
+            String immu_stat = c.getString(c.getColumnIndex("immu_stat"));
+            String nutri_stat = c.getString(c.getColumnIndex("nutri_stat"));
+            String pwd_desc = c.getString(c.getColumnIndex("pwd_desc"));
 
             familyProfile = new FamilyProfile(
                     id + "",
@@ -348,7 +469,10 @@ public class DBHelper extends SQLiteOpenHelper {
                     diabetic,
                     hypertension,
                     pwd,
-                    pregnant);
+                    pregnant,
+                    birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
+                    tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
+                    immu_stat, nutri_stat,pwd_desc);
         }
         c.close();
         db.close();
@@ -390,6 +514,30 @@ public class DBHelper extends SQLiteOpenHelper {
                 String pwd = c.getString(c.getColumnIndex("pwd"));
                 String pregnant = c.getString(c.getColumnIndex("pregnant"));
 
+
+                String birth_place = c.getString(c.getColumnIndex("birth_place"));
+                String civil_status = c.getString(c.getColumnIndex("civil_status"));
+                String religion = c.getString(c.getColumnIndex("religion"));
+                String other_religion = c.getString(c.getColumnIndex("other_religion"));
+                String contact = c.getString(c.getColumnIndex("contact"));
+                String height = c.getString(c.getColumnIndex("height"));
+                String weight = c.getString(c.getColumnIndex("weight"));
+                String cancer = c.getString(c.getColumnIndex("cancer"));
+                String cancer_type = c.getString(c.getColumnIndex("cancer_type"));
+                String mental_med = c.getString(c.getColumnIndex("mental_med"));
+                String tbdots_med = c.getString(c.getColumnIndex("tbdots_med"));
+                String cvd_med = c.getString(c.getColumnIndex("cvd_med"));
+                String covid_status = c.getString(c.getColumnIndex("covid_status"));
+                String menarche = c.getString(c.getColumnIndex("menarche"));
+                String menarche_age = c.getString(c.getColumnIndex("menarche_age"));
+                String newborn_screen = c.getString(c.getColumnIndex("newborn_screen"));
+                String newborn_text = c.getString(c.getColumnIndex("newborn_text"));
+                String deceased = c.getString(c.getColumnIndex("deceased"));
+                String deceased_date = c.getString(c.getColumnIndex("deceased_date"));
+                String immu_stat = c.getString(c.getColumnIndex("immu_stat"));
+                String nutri_stat = c.getString(c.getColumnIndex("nutri_stat"));
+                String pwd_desc = c.getString(c.getColumnIndex("pwd_desc"));
+
                 FamilyProfile profile = new FamilyProfile(
                         id + "",
                         uniqueId,
@@ -416,7 +564,10 @@ public class DBHelper extends SQLiteOpenHelper {
                         diabetic,
                         hypertension,
                         pwd,
-                        pregnant);
+                        pregnant,
+                        birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
+                        tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
+                        immu_stat, nutri_stat, pwd_desc);
 
                 if(relation.equalsIgnoreCase("Head")) profiles.add(0, profile);
                 else profiles.add(profile);

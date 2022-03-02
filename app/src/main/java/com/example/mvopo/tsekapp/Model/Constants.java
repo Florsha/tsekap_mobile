@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by mvopo on 10/30/2017.
+ * Edited by Romaine on 02/18/2022
  */
 
 public class Constants {
@@ -38,9 +39,14 @@ public class Constants {
 
    /* public static String url = "http://124.6.144.164/tsekap/vii/apiv21?";
     public static String apkUrl = "http://192.168.110.62:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk";*/
-   public static String url = "http://222.127.126.34/tsekap/vii/apiv21?";
-    public static String apkUrl = "http://192.168.81.4:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk";
 
+
+    //   public static String url = "http://222.127.126.34/tsekap/dummy/apiv21?"; /**updated on 02/14/2022*/
+    public static String apkUrl = "http://192.168.81.4:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk"; /**updated on 02/14/2022*/
+
+
+    //r testing
+   public static String url = "http://192.168.111.55/tsekap/apiv21?";
     public static JSONObject getProfileJson() {
 
         FamilyProfile profile = MainActivity.db.getProfileForSync();
@@ -48,7 +54,7 @@ public class Constants {
         JSONObject request = new JSONObject();
         JSONObject data = new JSONObject();
 
-        try {
+       try {
             data.accumulate("unique_id", profile.uniqueId);
             data.accumulate("familyID", profile.familyId);
             data.accumulate("phicID", profile.philId);
@@ -85,6 +91,29 @@ public class Constants {
             data.accumulate("hypertension", profile.hypertension);
             data.accumulate("pwd", profile.pwd);
             data.accumulate("pregnant", profile.pregnant);
+            //update r
+            data.accumulate("birth_place", profile.birth_place);
+            data.accumulate("civil_status", profile.civil_status);
+            data.accumulate("religion", profile.religion);
+            data.accumulate("other_religion", profile.other_religion);
+            data.accumulate("contact", profile.contact);
+            data.accumulate("height", profile.height);
+            data.accumulate("weight", profile.weight);
+            data.accumulate("cancer", profile.cancer);
+            data.accumulate("cancer_type", profile.cancer_type);
+            data.accumulate("mental_med", profile.mental_med);
+            data.accumulate("tbdots_med", profile.tbdots_med);
+            data.accumulate("cvd_med", profile.cvd_med);
+            data.accumulate("covid_status", profile.covid_status);
+            data.accumulate("menarche", profile.menarche);
+            data.accumulate("menarche_age", profile.menarche_age);
+            data.accumulate("newborn_screen", profile.newborn_screen);
+            data.accumulate("newborn_text", profile.newborn_text);
+            data.accumulate("deceased", profile.deceased);
+            data.accumulate("deceased_date", profile.deceased_date);
+            data.accumulate("immu_stat", profile.immu_stat);
+            data.accumulate("nutri_stat", profile.nutri_stat);
+            data.accumulate("pwd_desc", profile.pwd_desc);
 
             request.accumulate("data", data);
             //request.accumulate("_token", MainActivity.user.token);

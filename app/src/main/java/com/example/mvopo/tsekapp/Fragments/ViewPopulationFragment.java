@@ -67,7 +67,7 @@ public class ViewPopulationFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       view = inflater.inflate(R.layout.list_layout, container, false);
+        view = inflater.inflate(R.layout.list_layout, container, false);
 
         lv = view.findViewById(R.id.lv);
         txtSearch = view.findViewById(R.id.list_searchTxt);
@@ -91,6 +91,7 @@ public class ViewPopulationFragment extends Fragment {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
+
 
 //                View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.population_dialog, null);
 //                tvId = dialogView.findViewById(R.id.population_id);
@@ -247,7 +248,8 @@ public class ViewPopulationFragment extends Fragment {
                 String.format("%02d", (c.get(Calendar.SECOND)));
 
                 FamilyProfile familyProfile = new FamilyProfile("", "", famId, "", "", "", "", "", "", "", "", "",
-                        "", "", "", "", "", "", "","", "", "1", "", "", "", "");
+                        "", "", "", "", "", "", "","", "", "1", "", "", "", ""
+                        , "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
 
                 mpf = new ManagePopulationFragment();
                 bundle.putParcelable("familyProfile", familyProfile);

@@ -1,5 +1,6 @@
 package com.example.mvopo.tsekapp.Helper;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
@@ -8,9 +9,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -280,8 +283,8 @@ public class JSONApi {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         mRequestQueue.add(jsonObjectRequest);
     }
-    public void onErrorResponse(VolleyError error)
-    {
+
+    public void onErrorResponse(VolleyError error) {
         error.printStackTrace();
     }
 
@@ -299,7 +302,6 @@ public class JSONApi {
                         new Thread(new Runnable() {
                             public void run() {
                                 try {
-
                                     JSONArray array = object.getJSONArray("data");
                                     int currentCount = db.getProfilesCount(brgyId);
 
@@ -331,7 +333,29 @@ public class JSONApi {
                                         String hypertension = response.getString("hypertension");
                                         String pwd = response.getString("pwd");
                                         String pregnant = response.getString("pregnant");
-
+        //TODO: Uncomment when API is ready
+                                        String birth_place = response.getString("birth_place");
+                                        String civil_status = response.getString("civil_status");
+                                        String religion = response.getString("religion");
+                                        String other_religion = response.getString("other_religion");
+                                        String contact = response.getString("contact");
+                                        String height = response.getString("height");
+                                        String weight = response.getString("weight");
+                                        String cancer = response.getString("cancer");
+                                        String cancer_type = response.getString("cancer_type");
+                                        String mental_med = response.getString("mental_med");
+                                        String tbdots_med = response.getString("tbdots_med");
+                                        String cvd_med = response.getString("cvd_med");
+                                        String covid_status = response.getString("covid_status");
+                                        String menarche = response.getString("menarche");
+                                        String menarche_age = response.getString("menarche_age");
+                                        String newborn_screen = response.getString("newborn_screen");
+                                        String newborn_text = response.getString("newborn_text");
+                                        String deceased = response.getString("deceased");
+                                        String deceased_date = response.getString("deceased_date");
+                                        String immu_stat = response.getString("immu_stat");
+                                        String nutri_stat = response.getString("nutri_stat");
+                                        String pwd_desc = response.getString("pwd_desc");
                                         db.addProfile(new FamilyProfile(
                                                 id,
                                                 unique_id,
@@ -358,7 +382,10 @@ public class JSONApi {
                                                 diabetic,
                                                 hypertension,
                                                 pwd,
-                                                pregnant));
+                                                pregnant, /*"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
+                                                */birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
+                                                tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
+                                                immu_stat, nutri_stat, pwd_desc));
 
                                         if (i == array.length() - 1) {
                                             currentCount = db.getProfilesCount(barangay_id);
@@ -479,7 +506,7 @@ public class JSONApi {
                                 });
                                 builder.setNegativeButton("Later", null);
                                 builder.show();
-                            }else{
+                            } else {
                                 Toast.makeText(context, "This is the latest version.", Toast.LENGTH_SHORT).show();
                             }
 
@@ -492,7 +519,8 @@ public class JSONApi {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.e("GETVERSION", error.getMessage());
-                if(error instanceof NoConnectionError) Toast.makeText(context, "No Internet Connection.", Toast.LENGTH_SHORT).show();
+                if (error instanceof NoConnectionError)
+                    Toast.makeText(context, "No Internet Connection.", Toast.LENGTH_SHORT).show();
                 else compareVersion(url);
             }
         });
@@ -608,7 +636,7 @@ public class JSONApi {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.e("DENGVAXIAREGISTRATION", error.toString());
-                if(error instanceof NoConnectionError){
+                if (error instanceof NoConnectionError) {
                     Toast.makeText(context, "No internet connection.", Toast.LENGTH_SHORT).show();
                     MainActivity.pd.dismiss();
                 } else registerToDengvaxia(url, request);
@@ -881,7 +909,19 @@ public class JSONApi {
 
     public String getSenderInfo() {
         TelephonyManager tMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        String mPhoneNumber = tMgr.getLine1Number();
+        String mPhoneNumber="";
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_NUMBERS) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            //return TODO;
+            mPhoneNumber = tMgr.getLine1Number();
+        }
+
 
         String senderInfo = "Name: " + MainActivity.user.fname + " " + MainActivity.user.lname + "\n" +
                 "Registered Number: " + MainActivity.user.contact + "\n" +

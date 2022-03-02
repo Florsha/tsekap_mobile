@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         txtPass.requestFocus();
                     } else {
 //                        showPinDialog(false);
-                        pd = ProgressDialog.show(LoginActivity.this, "Loading", "Please wait...", false, false);
+                       pd = ProgressDialog.show(LoginActivity.this, "Loading", "Please wait...", false, false);
                         String url = Constants.url + "r=login" + "&user=" + loginId + "&pass=" + loginPass;
                         JSONApi.getInstance(LoginActivity.this).login(url);
                     }

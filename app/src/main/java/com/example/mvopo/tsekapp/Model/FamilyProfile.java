@@ -16,10 +16,18 @@ public class FamilyProfile implements Parcelable {
     public String diabetic, hypertension, pwd;
     public String pregnant;
 
+    //Update r
+    public String birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
+            tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
+            immu_stat, nutri_stat, pwd_desc;
+
     public FamilyProfile(String id, String uniqueId, String familyId, String philId, String nhtsId, String isHead,
                          String relation, String fname, String lname, String mname, String suffix, String dob, String sex,
                          String barangayId, String muncityId, String provinceId, String income, String unmetNeed, String waterSupply,
-                         String sanitaryToilet, String educationalAttainment, String status , String diabetic, String hypertension, String pwd, String pregnant) {
+                         String sanitaryToilet, String educationalAttainment, String status , String diabetic, String hypertension, String pwd, String pregnant,
+                         String birth_place, String civil_status, String religion, String other_religion, String contact, String height, String weight, String cancer,
+                         String cancer_type, String mental_med, String tbdots_med, String cvd_med, String covid_status, String menarche, String menarche_age, String newborn_screen,
+                         String newborn_text, String deceased, String deceased_date, String immu_stat, String nutri_stat, String pwd_desc) {
         this.id = id;
         this.uniqueId = uniqueId;
         this.familyId = familyId;
@@ -48,6 +56,30 @@ public class FamilyProfile implements Parcelable {
         this.hypertension = hypertension;
         this.pwd = pwd;
         this.pregnant = pregnant;
+
+        //Update R
+        this.birth_place = birth_place;
+        this.civil_status = civil_status;
+        this.religion = religion;
+        this.other_religion = other_religion;
+        this.contact = contact;
+        this.height = height;
+        this.weight = weight;
+        this.cancer = cancer;
+        this.cancer_type = cancer_type;
+        this.mental_med = mental_med;
+        this.tbdots_med = tbdots_med;
+        this.cvd_med = cvd_med;
+        this.covid_status = covid_status;
+        this.menarche = menarche;
+        this.menarche_age = menarche_age;
+        this.newborn_screen = newborn_screen;
+        this.newborn_text = newborn_text;
+        this.deceased = deceased;
+        this.deceased_date = deceased_date;
+        this.immu_stat = immu_stat;
+        this.nutri_stat = nutri_stat;
+        this.pwd_desc = pwd_desc;
     }
 
     protected FamilyProfile(Parcel in) {
@@ -79,6 +111,29 @@ public class FamilyProfile implements Parcelable {
         pwd = in.readString();
         pregnant = in.readString();
 
+        //update r
+        birth_place = in.readString();
+        civil_status = in.readString();
+        religion = in.readString();
+        other_religion = in.readString();
+        contact = in.readString();
+        height = in.readString();
+        weight = in.readString();
+        cancer = in.readString();
+        cancer_type = in.readString();
+        mental_med = in.readString();
+        tbdots_med = in.readString();
+        cvd_med = in.readString();
+        covid_status = in.readString();
+        menarche = in.readString();
+        menarche_age = in.readString();
+        newborn_screen = in.readString();
+        newborn_text = in.readString();
+        deceased = in.readString();
+        deceased_date = in.readString();
+        immu_stat = in.readString();
+        nutri_stat = in.readString();
+        pwd_desc = in.readString();
     }
 
     @Override
@@ -111,6 +166,29 @@ public class FamilyProfile implements Parcelable {
         dest.writeString(pwd);
         dest.writeString(pregnant);
 
+        //update r
+        dest.writeString(birth_place);
+        dest.writeString(civil_status);
+        dest.writeString(religion);
+        dest.writeString(other_religion);
+        dest.writeString(contact);
+        dest.writeString(height);
+        dest.writeString(weight);
+        dest.writeString(cancer);
+        dest.writeString(cancer_type);
+        dest.writeString(mental_med);
+        dest.writeString(tbdots_med);
+        dest.writeString(cvd_med);
+        dest.writeString(covid_status);
+        dest.writeString(menarche);
+        dest.writeString(menarche_age);
+        dest.writeString(newborn_screen);
+        dest.writeString(newborn_text);
+        dest.writeString(deceased);
+        dest.writeString(deceased_date);
+        dest.writeString(immu_stat);
+        dest.writeString(nutri_stat);
+        dest.writeString(pwd_desc);
     }
 
     @Override

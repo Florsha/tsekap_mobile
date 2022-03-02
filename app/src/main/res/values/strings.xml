@@ -78,7 +78,7 @@
         <item>Female</item>
     </string-array>
 
-    <string-array name="diabetic_hypertension">
+    <string-array name="medication_availment">
         <item>Medication Avail</item>
         <item>No Avail Medication</item>
     </string-array>
@@ -99,6 +99,7 @@
         <item>Option 1\nWomen of Reproductive Age who wants to limit/space but no access to Family Planning Method.</item>
         <item>Option 2\nCouples and individuals who are fecund and sexually active and report not wanting any more children or wanting to delay the next pregnancy but are not using any Family Planning Method.</item>
         <item>Option 3\nCurrently using Family Planning Method but in inappropriate way thus leading to pregnancy.</item>
+        <item>Option 4\nWomen of reproductive age not sexually active</item>
     </string-array>
 
     <string-array name="water_supply">
@@ -184,5 +185,34 @@
         <item>IgM Positive</item>
         <item>IgM Negative</item>
     </string-array>
+
+    <string-array name="civil_status">
+        <item>Single</item>
+        <item>Married</item>
+        <item>Divorced</item>
+        <item>Separated</item>
+        <item>Widowed</item>
+    </string-array>
+
+    <string-array name="nutrition">
+        <item>Deworming</item>
+        <item>Vitamin A Supplement</item>
+    </string-array>
+
+    <string-array name="immunization">
+        <item>BCG</item>
+        <item>HEP B</item>
+        <item>Penta 1</item>
+        <item>Penta 2</item>
+        <item>Penta 3</item>
+        <item>OPV 1</item>
+        <item>OPV 2</item>
+        <item>OPV 3</item>
+        <item>IPV 1</item>
+        <item>IPV 2</item>
+        <item>MMR 1</item>
+        <item>MMR 2</item>
+    </string-array>
+
 
 </resources>

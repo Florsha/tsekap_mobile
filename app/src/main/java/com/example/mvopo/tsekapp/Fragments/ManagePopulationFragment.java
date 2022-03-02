@@ -3,12 +3,9 @@ package com.example.mvopo.tsekapp.Fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,12 +19,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,12 +35,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mvopo.tsekapp.Helper.JSONApi;
 import com.example.mvopo.tsekapp.Helper.ListAdapter;
-import com.example.mvopo.tsekapp.LoginActivity;
 import com.example.mvopo.tsekapp.MainActivity;
 import com.example.mvopo.tsekapp.Model.Constants;
-import com.example.mvopo.tsekapp.Model.DengvaxiaDetails;
 import com.example.mvopo.tsekapp.Model.FamilyProfile;
 import com.example.mvopo.tsekapp.R;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -51,15 +45,9 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.security.Permission;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -69,7 +57,7 @@ import java.util.List;
 public class ManagePopulationFragment extends Fragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     private final int CAMERA_CODE = 100;
-    LinearLayout updateFields;
+    LinearLayout updateFields ;
     ScrollView optionHolder;
     EditText txtFamilyId, txtPhilHealthId, txtNhtsId, txtFname, txtMname, txtLname, txtBday, txtBrgy,
             txtHead, txtEducation, txtSuffix, txtSex, txtIncome, txtUnmet, txtSupply, txtToilet, txtRelation,
@@ -83,24 +71,27 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
     ImageView ivPatient;
 
     // UPDATE
-    EditText txtDiabetic, txtHypertension, txtPWD;
-    EditText txtPregnantDate, txtIsPregnant;
-
+    EditText txtDiabetic, txtHypertension, txtPWD, txtPregnantDate, txtIsPregnant;
     TextInputLayout til_isPregnantFrame, til_pregnantDate;
-
-
-
     /*END*/
 
     FamilyProfile familyProfile;
     List<FamilyProfile> matchingProfiles = new ArrayList<>();
 
-    String famId, philId, nhtsId, fname, mname, lname, bday, brgy, head, relation, education,
-            suffix, sex, income, unmet, supply, toilet;
+    String famId, philId, nhtsId, fname, mname, lname, bday, brgy, head, relation, education, suffix, sex, income, unmet, supply, toilet;
 
     // UPDATE
-    String diabetic, hypertension, pwd;
-    String pregnant_date, isPregnant;
+    String diabetic, hypertension, pwd, pregnant_date, isPregnant;   /*END*/
+
+    // UPDATE - Romaine
+    EditText  txtBirthPlace, txtCivil, txtReligion, txtOtherReligion, txtContact, txtHeight, txtWeight, txtCancer,txtCancerType, txtMental, txtTBDOTS, txtCVD,
+            txtCovid, txtPwdDesc, txtMenarche, txtMenarcheAge, txtDecease, txtDeceasedDate, txtImmunization, txtNutrition, txtNewbornScreen, txtNewbornText;
+    String birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
+        tbdots_med,cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
+        immu_stat, nutri_stat, pwd_desc;
+
+    TextInputLayout til_otherReligion, til_pwdType, til_cancerType, til_deceasedDate, til_menarche, til_menarcheAge, til_newborn;
+    LinearLayout layout_adult, layout_age5;
     /*END*/
 
     String[] brgys, value;
@@ -124,9 +115,10 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_manage_member, container, false);
+        findViewByIds();
+
         toUpdate = getArguments().getBoolean("toUpdate");
         addHead = getArguments().getBoolean("addHead");
-
         familyProfile = getArguments().getParcelable("familyProfile");
 
         //Toast.makeText(getContext(), addHead+"", Toast.LENGTH_SHORT).show();
@@ -146,39 +138,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
             e.printStackTrace();
         }
 
-        txtFamilyId = view.findViewById(R.id.manage_familyId);
-        txtPhilHealthId = view.findViewById(R.id.manage_philhealthId);
-        txtNhtsId = view.findViewById(R.id.manage_nhtsId);
-        txtFname = view.findViewById(R.id.manage_fname);
-        txtMname = view.findViewById(R.id.manage_mname);
-        txtLname = view.findViewById(R.id.manage_lname);
-        txtBday = view.findViewById(R.id.manage_bday);
-        txtBrgy = view.findViewById(R.id.manage_barangay);
-        txtEducation = view.findViewById(R.id.manage_education);
-        txtSex = view.findViewById(R.id.manage_sex);
-        txtSuffix = view.findViewById(R.id.manage_suffix);
-        txtIncome = view.findViewById(R.id.manage_income);
-        txtUnmet = view.findViewById(R.id.manage_unmet);
-        txtSupply = view.findViewById(R.id.manage_supply);
-        txtToilet = view.findViewById(R.id.manage_toilet);
-        txtHead = view.findViewById(R.id.manage_head);
-        txtRelation = view.findViewById(R.id.manage_relation);
 
-        // UPDATE
-        txtDiabetic = view.findViewById(R.id.manage_diabetes);
-        txtHypertension = view.findViewById(R.id.manage_hypertension);
-        txtPWD = view.findViewById(R.id.manage_pwd);
-
-        txtIsPregnant = view.findViewById(R.id.manage_isPregnant);
-        txtPregnantDate = view.findViewById(R.id.manage_pregnantDate);
-
-        til_isPregnantFrame = view.findViewById(R.id.isPregnant_Frame);
-        til_pregnantDate = view.findViewById(R.id.pregnantDate_frame);
-
-
-        updateFields = view.findViewById(R.id.updateFields_holder);
-        unmetFrame = view.findViewById(R.id.unmet_frame);
-        manageBtn = view.findViewById(R.id.manageBtn);
 //        manageDengvaxia = view.findViewById(R.id.manageDengvaxia);
 
         txtFamilyId.setText(familyProfile.familyId);
@@ -190,7 +150,6 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 til_isPregnantFrame.setVisibility(View.GONE);
                 view.findViewById(R.id.layout_relation).setVisibility(View.VISIBLE);
             }
-
             manageBtn.setText("Add");
         } else {
             try{
@@ -219,12 +178,26 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         txtDiabetic.setOnClickListener(this);
         txtHypertension.setOnClickListener(this);
         txtPWD.setOnClickListener(this);
-
         txtPregnantDate.setOnClickListener(this);
         txtIsPregnant.setOnClickListener(this);
         // END
 
+        //update r
+        txtMental.setOnClickListener(this);
+        txtTBDOTS.setOnClickListener(this);
+        txtCVD.setOnClickListener(this);
+        txtCivil.setOnClickListener(this);
+        txtReligion.setOnClickListener(this);
+        txtDecease.setOnClickListener(this);
+        txtCancer.setOnClickListener(this);
+        txtDeceasedDate.setOnClickListener(this);
+        txtMenarche.setOnClickListener(this);
+        txtNewbornScreen.setOnClickListener(this);
+        txtImmunization.setOnClickListener(this);
+        txtNutrition.setOnClickListener(this);
+        //end
         manageBtn.setOnClickListener(this);
+
 //        manageDengvaxia.setOnClickListener(this);
 
 
@@ -232,7 +205,6 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         txtIsPregnant.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -266,11 +238,14 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 sex = txtSex.getText().toString();
                 if (((age >= 15 && age <= 49) || addHead) && sex.equalsIgnoreCase("Female"))
                 {
+                    til_menarche.setVisibility(View.VISIBLE);
                     unmetFrame.setVisibility(View.VISIBLE);
                     til_isPregnantFrame.setVisibility(View.VISIBLE);
                 }
                 else
                     {
+                        til_menarche.setVisibility(View.GONE);
+                        til_menarcheAge.setVisibility(View.GONE);
                         unmetFrame.setVisibility(View.GONE);
                         til_isPregnantFrame.setVisibility(View.GONE);
                         til_pregnantDate.setVisibility(View.GONE);
@@ -283,8 +258,30 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
             }
         });
 
-        Constants.setDateTextWatcher(getContext(), txtBday);
+        txtBday.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(age < 5){
+                    layout_adult.setVisibility(View.GONE);
+                    layout_age5.setVisibility(View.VISIBLE);
+                }else {
+                    layout_adult.setVisibility(View.VISIBLE);
+                    layout_age5.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        Constants.setDateTextWatcher(getContext(), txtBday);
+        Constants.setDateTextWatcher(getContext(), txtDeceasedDate);
+        Constants.setDateTextWatcher(getContext(), txtPregnantDate);
         if (!toUpdate) showProfileCheckerDialog();
         return view;
     }
@@ -294,13 +291,50 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         int id = v.getId();
 
         switch (id) {
-
             // UPDATE
+            case R.id.manage_immunization:
+                showChecklistDialog(R.array.immunization, txtImmunization);
+                break;
+            case R.id.manage_nutrition:
+                showChecklistDialog(R.array.nutrition, txtNutrition);
+                break;
             case R.id.manage_diabetes:
-                showOptionDialog(R.array.diabetic_hypertension, txtDiabetic);
+                showOptionDialog(R.array.medication_availment, txtDiabetic);
                 break;
             case R.id.manage_hypertension:
-                showOptionDialog(R.array.diabetic_hypertension, txtHypertension);
+                showOptionDialog(R.array.medication_availment, txtHypertension);
+                break;
+            case R.id.manage_mental:
+                showOptionDialog(R.array.medication_availment, txtMental);
+                break;
+            case R.id.manage_tbdots:
+                showOptionDialog(R.array.medication_availment, txtTBDOTS);
+                break;
+            case R.id.manage_cvd:
+                showOptionDialog(R.array.medication_availment, txtCVD);
+                break;
+            case R.id.manage_religion:
+                showOptionDialog(R.array.religion, txtReligion);
+
+                break;
+            case R.id.manage_civil:
+                showOptionDialog(R.array.civil_status, txtCivil);
+                break;
+            case R.id.manage_cancer:
+                showOptionDialog(R.array.yes_no, txtCancer);
+                break;
+            case R.id.manage_menarche:
+                showOptionDialog(R.array.yes_no, txtMenarche);
+                break;
+            case R.id.manage_newborn:
+                showOptionDialog(R.array.yes_no, txtNewbornScreen);
+                break;
+
+            case R.id.manage_deceased:
+                showOptionDialog(R.array.yes_no, txtDecease);
+                break;
+            case R.id.manage_deceased_date:
+                dpd.show(getActivity().getFragmentManager(), "deceased");
                 break;
             case R.id.manage_pwd:
                 showOptionDialog(R.array.yes_no, txtPWD);
@@ -463,6 +497,31 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 hypertension = txtHypertension.getText().toString().trim();
                 pwd = txtPWD.getText().toString().trim();
 
+                //update r
+                birth_place = txtBirthPlace.getText().toString().trim();
+                civil_status = txtCivil.getText().toString().trim();
+                religion = txtReligion.getText().toString().trim();
+                other_religion = txtOtherReligion.getText().toString().trim();
+                contact = txtContact.getText().toString().trim();
+                height = txtHeight.getText().toString().trim();
+                weight = txtWeight.getText().toString().trim();
+                cancer = txtCancer.getText().toString().trim();
+                cancer_type = txtCancerType.getText().toString().trim();
+                mental_med = txtMental.getText().toString().trim();
+                tbdots_med = txtTBDOTS.getText().toString().trim();
+                cvd_med = txtCVD.getText().toString().trim();
+                covid_status = txtCovid.getText().toString().trim();
+                menarche = txtMenarche.getText().toString().trim();
+                menarche_age = txtMenarcheAge.getText().toString().trim();
+                newborn_screen = txtNewbornScreen.getText().toString().trim();
+                newborn_text = txtNewbornText.getText().toString().trim();
+                deceased = txtDecease.getText().toString().trim();
+                deceased_date = txtDeceasedDate.getText().toString().trim();
+                immu_stat = txtImmunization.getText().toString().trim();
+                nutri_stat = txtNutrition.getText().toString().trim();
+                pwd_desc = txtPwdDesc.getText().toString().trim();
+
+                /*end r*/
                 pregnant_date = txtPregnantDate.getText().toString().trim();
 
                 try {
@@ -559,7 +618,10 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                                 diabetic,
                                 hypertension,
                                 pwd,
-                                pregnant_date);
+                                pregnant_date,
+                                birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
+                                tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
+                                immu_stat, nutri_stat, pwd_desc);
                         MainActivity.db.addProfile(newFamilyProfile);
                         Toast.makeText(getContext(), "Successfully added", Toast.LENGTH_SHORT).show();
                     } else {
@@ -592,7 +654,9 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                                 diabetic,
                                 hypertension,
                                 pwd,
-                                pregnant_date);
+                                pregnant_date, birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
+                                tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
+                                immu_stat, nutri_stat, pwd_desc);
                         MainActivity.db.updateProfile(updatedFamilyProfile);
                         Toast.makeText(getContext(), "Successfully updated", Toast.LENGTH_SHORT).show();
                     }
@@ -652,11 +716,12 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         txtLname.setText(familyProfile.lname);
         txtBday.setText(familyProfile.dob);
 
+        txtBrgy.setText(Constants.getBrgyName(familyProfile.barangayId));
+
+
         if (familyProfile.relation.equalsIgnoreCase("partner"))
             txtRelation.setText("Live-in Partner");
         else txtRelation.setText(familyProfile.relation);
-
-        txtBrgy.setText(Constants.getBrgyName(familyProfile.barangayId));
 
         if (toUpdate) {
             txtHead.setText(familyProfile.isHead);
@@ -667,15 +732,27 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
             }
 
             age = Integer.parseInt(Constants.getAge(txtBday.getText().toString(), Calendar.getInstance()).split(" ")[0]);
-            if ((age < 15 || age > 49) && txtSex.getText().toString().equalsIgnoreCase("Female"))
-            {
+            if ((age < 15 || age > 49) && txtSex.getText().toString().equalsIgnoreCase("Female")) {
                 unmetFrame.setVisibility(View.GONE);
                 til_isPregnantFrame.setVisibility(View.GONE);
             }
-            else
-            {
+            else {
                 unmetFrame.setVisibility(View.VISIBLE);
                 til_isPregnantFrame.setVisibility(View.VISIBLE);
+            }
+
+            if(familyProfile.sex.equalsIgnoreCase("Female") && age>5){
+                til_menarche.setVisibility(View.VISIBLE);
+            }else {
+                til_menarche.setVisibility(View.GONE);
+            }
+
+            if(age < 5){
+                layout_adult.setVisibility(View.GONE);
+                layout_age5.setVisibility(View.VISIBLE);
+            }else   {
+                layout_adult.setVisibility(View.VISIBLE);
+                layout_age5.setVisibility(View.GONE);
             }
 
         } else txtHead.setText(familyProfile.relation);
@@ -685,13 +762,13 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         txtDiabetic.setText(familyProfile.diabetic);
         txtHypertension.setText(familyProfile.hypertension);
         txtPWD.setText(familyProfile.pwd);
-        if(!familyProfile.pregnant.isEmpty())
-        {
+
+
+        if(!familyProfile.pregnant.isEmpty()) {
             txtIsPregnant.setText("NO");
             til_pregnantDate.setVisibility(View.GONE);
         }
-        else
-        {
+        else {
             txtIsPregnant.setText("YES");
             txtPregnantDate.setText(familyProfile.pregnant);
             til_pregnantDate.setVisibility(View.VISIBLE);
@@ -734,6 +811,38 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 break;
             }
         }
+
+        //update r
+        txtCovid.setText(familyProfile.covid_status);
+        txtBirthPlace.setText(familyProfile.birth_place);
+        txtCivil.setText(familyProfile.civil_status);
+        txtReligion.setText(familyProfile.religion);
+        txtOtherReligion.setText(familyProfile.other_religion);
+        txtContact.setText(familyProfile.contact);
+        txtHeight.setText(familyProfile.height);
+        txtWeight.setText(familyProfile.weight);
+        txtCancer.setText(familyProfile.cancer);
+        txtCancerType.setText(familyProfile.cancer_type);
+        txtMental.setText(familyProfile.mental_med);
+        txtTBDOTS.setText(familyProfile.tbdots_med);
+        txtCVD.setText(familyProfile.cvd_med);
+        txtMenarcheAge.setText(familyProfile.menarche_age);
+        txtMenarche.setText(familyProfile.menarche);
+        txtDecease.setText(familyProfile.deceased);
+        txtDeceasedDate.setText(familyProfile.deceased_date);
+        txtNutrition.setText(familyProfile.nutri_stat);
+        txtImmunization.setText(familyProfile.immu_stat);
+        txtPwdDesc.setText(familyProfile.pwd_desc);
+        txtNewbornText.setText(familyProfile.newborn_text);
+        txtNewbornScreen.setText(familyProfile.newborn_screen);
+
+
+
+
+
+
+
+
     }
 
     public void showOptionDialog(final int id, final EditText txtView) {
@@ -792,6 +901,55 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 if (radioButton != null) {
                     txtView.setText(radioButton.getText());
 
+                    if(txtView.getId() == R.id.manage_religion){
+                        if (txtView.getText().toString().trim().equalsIgnoreCase("Others")){
+                            til_otherReligion.setVisibility(View.VISIBLE);
+                        }else {
+                            til_otherReligion.setVisibility(View.GONE);
+                        }
+                    }
+
+                    if(txtView.getId() == R.id.manage_pwd){
+                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes")){
+                            til_pwdType.setVisibility(View.VISIBLE);
+                        }else {
+                            til_pwdType.setVisibility(View.GONE);
+                        }
+                    }
+
+                    if(txtView.getId() == R.id.manage_cancer){
+                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes")){
+                            til_cancerType.setVisibility(View.VISIBLE);
+                        }else {
+                            til_cancerType.setVisibility(View.GONE);
+                        }
+                    }
+
+                    if(txtView.getId() == R.id.manage_deceased){
+                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes")){
+                            til_deceasedDate.setVisibility(View.VISIBLE);
+                        }else {
+                            til_deceasedDate.setVisibility(View.GONE);
+                        }
+                    }
+
+                    if(txtView.getId() == R.id.manage_menarche){
+                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes")){
+                            til_menarcheAge.setVisibility(View.VISIBLE);
+                        }else {
+                            til_menarcheAge.setVisibility(View.GONE);
+                        }
+                    }
+
+                    if(txtView.getId() == R.id.manage_newborn){
+                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes")){
+                            til_newborn.setVisibility(View.VISIBLE);
+                        }else {
+                            til_newborn.setVisibility(View.GONE);
+                        }
+                    }
+
+
                     if (txtView.getId() == R.id.manage_barangay) {
                         txtView.setTag(radioButton.getId());
                         txtBrgy = txtView;
@@ -806,9 +964,12 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                             age = Integer.parseInt(Constants.getAge(txtBday.getText().toString(), Calendar.getInstance()).split(" ")[0]);
                             if ((age < 15 || age > 49) && txtSex.getText().toString().equalsIgnoreCase("Female"))
                             {
+                                til_menarche.setVisibility(View.GONE);
+                                til_menarcheAge.setVisibility(View.GONE);
                                 unmetFrame.setVisibility(View.GONE);
                                 til_isPregnantFrame.setVisibility(View.GONE);
                             }
+
                             ManagePopulationFragment.this.view.findViewById(R.id.layout_relation).setVisibility(View.VISIBLE);
                             txtRelation.setText("Son");
                         } else {
@@ -817,6 +978,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                             {
                                 unmetFrame.setVisibility(View.VISIBLE);
                                 til_isPregnantFrame.setVisibility(View.VISIBLE);
+                                til_menarche.setVisibility(View.VISIBLE);
                             }
                             ManagePopulationFragment.this.view.findViewById(R.id.layout_relation).setVisibility(View.GONE);
                         }
@@ -827,7 +989,6 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                             txtSex.setText("Female");
                         else txtSex.setText("");
                     }
-
                 } else {
                     txtView.setText("");
                     txtView.setTag("");
@@ -837,6 +998,75 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
             }
         });
     }
+    private String selectedCheckbox = "";
+    public void showChecklistDialog(final int id, final EditText txtView) {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.options_dialog, null);
+        optionHolder = view.findViewById(R.id.option_holder);
+        optionBtn = view.findViewById(R.id.optionBtn);
+        selectedCheckbox = "";
+
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
+        final RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+
+        final String[] labels;
+
+        if (id != 0) labels = getResources().getStringArray(id);
+        else labels = brgys;
+
+        final LinearLayout.LayoutParams rbParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        rbParam.bottomMargin = 5;
+        rbParam.topMargin = 5;
+
+        final LinearLayout ll = new LinearLayout(getContext());
+        ll.setOrientation(LinearLayout.VERTICAL);
+        final CheckBox[] checkBoxes= new CheckBox[labels.length];
+        for (int i = 0; i < labels.length; i++) {
+
+            CheckBox cb = new CheckBox(getContext());
+            cb.setLayoutParams(rbParam);
+            cb.setText(labels[i]);
+
+            checkBoxes[i]=cb;
+
+            View lineView = new View(getContext());
+            lineView.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            lineView.setLayoutParams(params);
+
+            ll.addView(cb);
+            ll.addView(lineView);
+        }
+        optionHolder.addView(ll);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(view);
+
+        final AlertDialog optionDialog = builder.create();
+        optionDialog.show();
+
+        optionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                for (int i = 0; i < labels.length; i++) {
+                    if(checkBoxes[i].isChecked()){
+                        selectedCheckbox +=(checkBoxes[i].getText().toString().trim() + ", ");
+                    }
+                }
+
+                if(!selectedCheckbox.equalsIgnoreCase("")) {
+                    txtView.setText(selectedCheckbox);
+                    txtView.setTag("");
+
+                } else {
+                    txtView.setText("");
+                    txtView.setTag("");
+                }
+                optionDialog.dismiss();
+            }
+        });
+
+    }
+
 
 //    public void showDengvaxiaDialog() {
 //        View view = LayoutInflater.from(getContext()).inflate(R.layout.dengvaxia_dialog, null);
@@ -906,9 +1136,23 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 txtBday.setText(year + "-" + String.format("%02d", (monthOfYear + 1)) + "-" + String.format("%02d", dayOfMonth));
 
                 age = Integer.parseInt(Constants.getAge(txtBday.getText().toString(), Calendar.getInstance()).split(" ")[0]);
-                if (((age >= 15 && age <= 49) || addHead) && txtSex.getText().toString().equalsIgnoreCase("Female"))
+                if (((age >= 15 && age <= 49) || addHead) && txtSex.getText().toString().equalsIgnoreCase("Female")) {
                     unmetFrame.setVisibility(View.VISIBLE);
-                else unmetFrame.setVisibility(View.GONE);
+                    til_menarche.setVisibility(View.VISIBLE);
+                }
+                else {
+                    til_menarche.setVisibility(View.GONE);
+                    unmetFrame.setVisibility(View.GONE);
+                }
+
+                if(age < 5){
+                    layout_adult.setVisibility(View.GONE);
+                    layout_age5.setVisibility(View.VISIBLE);
+                }else {
+                    layout_adult.setVisibility(View.VISIBLE);
+                    layout_age5.setVisibility(View.GONE);
+                }
+
                 break;
             case "dose_date":
                 txtDoseDate.setText(year + "-" + String.format("%02d", (monthOfYear + 1)) + "-" + String.format("%02d", dayOfMonth));
@@ -919,6 +1163,9 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
             case "lmp" :
                 txtPregnantDate.setText(year + "-" + String.format("%02d", (monthOfYear + 1)) + "-" + String.format("%02d", dayOfMonth));
                 break;
+
+            case "deceased": txtDeceasedDate.setText(year + "-" + String.format("%02d", (monthOfYear + 1)) + "-" + String.format("%02d", dayOfMonth));
+
         }
     }
 
@@ -998,5 +1245,83 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 checkerDialog.dismiss();
             }
         });
+    }
+
+    public void findViewByIds(){
+        txtFamilyId = view.findViewById(R.id.manage_familyId);
+        txtPhilHealthId = view.findViewById(R.id.manage_philhealthId);
+        txtNhtsId = view.findViewById(R.id.manage_nhtsId);
+        txtFname = view.findViewById(R.id.manage_fname);
+        txtMname = view.findViewById(R.id.manage_mname);
+        txtLname = view.findViewById(R.id.manage_lname);
+        txtBday = view.findViewById(R.id.manage_bday);
+        txtBrgy = view.findViewById(R.id.manage_barangay);
+        txtEducation = view.findViewById(R.id.manage_education);
+        txtSex = view.findViewById(R.id.manage_sex);
+        txtSuffix = view.findViewById(R.id.manage_suffix);
+        txtIncome = view.findViewById(R.id.manage_income);
+        txtUnmet = view.findViewById(R.id.manage_unmet);
+        txtSupply = view.findViewById(R.id.manage_supply);
+        txtToilet = view.findViewById(R.id.manage_toilet);
+        txtHead = view.findViewById(R.id.manage_head);
+        txtRelation = view.findViewById(R.id.manage_relation);
+
+        // UPDATE
+        txtDiabetic = view.findViewById(R.id.manage_diabetes);
+        txtHypertension = view.findViewById(R.id.manage_hypertension);
+        txtPWD = view.findViewById(R.id.manage_pwd);
+
+        txtIsPregnant = view.findViewById(R.id.manage_isPregnant);
+        txtPregnantDate = view.findViewById(R.id.manage_pregnantDate);
+        til_isPregnantFrame = view.findViewById(R.id.isPregnant_Frame);
+        til_pregnantDate = view.findViewById(R.id.pregnantDate_frame);
+
+        //update r
+        txtBirthPlace = view.findViewById(R.id.manage_bplace);
+
+        txtContact = view.findViewById(R.id.manage_contact);
+        txtHeight = view.findViewById(R.id.manage_height);
+        txtWeight = view.findViewById(R.id.manage_weight);
+
+
+        txtMental = view.findViewById(R.id.manage_mental);
+        txtTBDOTS = view.findViewById(R.id.manage_tbdots);
+        txtCVD = view.findViewById(R.id.manage_cvd);
+        txtCovid = view.findViewById(R.id.manage_covid);
+
+        txtCivil = view.findViewById(R.id.manage_civil);
+
+        txtReligion = view.findViewById(R.id.manage_religion);
+        txtOtherReligion = view.findViewById(R.id.manage_other_religion);
+        til_otherReligion = view.findViewById(R.id.religion_frame);
+
+        txtCancer = view.findViewById(R.id.manage_cancer);
+        txtCancerType = view.findViewById(R.id.manage_cancer_type);
+        til_cancerType = view.findViewById(R.id.cancer_frame);
+
+        txtPwdDesc = view.findViewById(R.id.manage_pwd_type);
+        til_pwdType = view.findViewById(R.id.pwd_frame);
+
+        txtDecease = view.findViewById(R.id.manage_deceased);
+        txtDeceasedDate = view.findViewById(R.id.manage_deceased_date);
+        til_deceasedDate = view.findViewById(R.id.deceased_frame);
+
+        txtMenarche  = view.findViewById(R.id.manage_menarche);
+        txtMenarcheAge  = view.findViewById(R.id.manage_menarche_age);
+        til_menarche  = view.findViewById(R.id.menarche_frame);
+        til_menarcheAge  = view.findViewById(R.id.menarche_age_frame);
+        layout_adult = view.findViewById(R.id.adult_medication_holder);
+        layout_age5 = view.findViewById(R.id.age5_holder);
+
+        txtNewbornScreen = view.findViewById(R.id.manage_newborn);
+        txtNewbornText = view.findViewById(R.id.manage_newborn_type);
+        til_newborn  = view.findViewById(R.id.newborn_frame);
+
+        txtImmunization  = view.findViewById(R.id.manage_immunization);
+        txtNutrition  = view.findViewById(R.id.manage_nutrition);
+
+        updateFields = view.findViewById(R.id.updateFields_holder);
+        unmetFrame = view.findViewById(R.id.unmet_frame);
+        manageBtn = view.findViewById(R.id.manageBtn);
     }
 }
