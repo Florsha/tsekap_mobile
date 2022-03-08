@@ -68,7 +68,8 @@
                 android:padding="2dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/search" />
+                android:src="@drawable/search"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/spotlight_search_focus"

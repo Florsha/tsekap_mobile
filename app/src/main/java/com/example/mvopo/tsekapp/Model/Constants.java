@@ -41,12 +41,12 @@ public class Constants {
     public static String apkUrl = "http://192.168.110.62:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk";*/
 
 
-    //   public static String url = "http://222.127.126.34/tsekap/dummy/apiv21?"; /**updated on 02/14/2022*/
+    public static String url = "http://222.127.126.34/tsekap/dummy/apiv21?"; /**updated on 02/14/2022*/
     public static String apkUrl = "http://192.168.81.4:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk"; /**updated on 02/14/2022*/
 
 
     //r testing
-   public static String url = "http://192.168.111.55/tsekap/apiv21?";
+   //public static String url = "http://192.168.111.55/tsekap/apiv21?";
     public static JSONObject getProfileJson() {
 
         FamilyProfile profile = MainActivity.db.getProfileForSync();
@@ -74,7 +74,6 @@ public class Constants {
             data.accumulate("unmet", profile.unmetNeed);
             data.accumulate("water", profile.waterSupply);
             data.accumulate("user_id", MainActivity.user.id);
-
 
             String toilet = profile.sanitaryToilet;
 
