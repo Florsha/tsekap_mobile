@@ -320,7 +320,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String hypertension = c.getString(c.getColumnIndex("hypertension"));
                 String pwd = c.getString(c.getColumnIndex("pwd"));
                 String pregnant = c.getString(c.getColumnIndex("pregnant"));
-//TODO: uncomment when api is ready
+
                 String birth_place = c.getString(c.getColumnIndex("birth_place"));
                 String civil_status = c.getString(c.getColumnIndex("civil_status"));
                 String religion = c.getString(c.getColumnIndex("religion"));

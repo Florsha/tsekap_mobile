@@ -1,23 +1,19 @@
 package com.example.mvopo.tsekapp.Helper;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.mvopo.tsekapp.Fragments.MessageThreadFragment;
 import com.example.mvopo.tsekapp.Fragments.ViewChatThreadFragment;
 import com.example.mvopo.tsekapp.MainActivity;
-import com.example.mvopo.tsekapp.Model.FamilyProfile;
 import com.example.mvopo.tsekapp.Model.Message;
 import com.example.mvopo.tsekapp.Model.MessageThread;
-import com.example.mvopo.tsekapp.Model.User;
 import com.example.mvopo.tsekapp.R;
-import com.google.firebase.database.DataSnapshot;
 
 import java.util.List;
 

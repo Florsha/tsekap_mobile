@@ -2,15 +2,14 @@ package com.example.mvopo.tsekapp.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,11 +17,8 @@ import android.widget.Toast;
 
 import com.example.mvopo.tsekapp.ChatActivity;
 import com.example.mvopo.tsekapp.Helper.ChatAdapter;
-import com.example.mvopo.tsekapp.ChatActivity;
-import com.example.mvopo.tsekapp.MainActivity;
 import com.example.mvopo.tsekapp.Model.Message;
 import com.example.mvopo.tsekapp.Model.MessageThread;
-import com.example.mvopo.tsekapp.Model.User;
 import com.example.mvopo.tsekapp.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,16 +26,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by mvopo on 1/30/2018.

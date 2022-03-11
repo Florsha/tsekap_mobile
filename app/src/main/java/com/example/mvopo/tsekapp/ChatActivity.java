@@ -1,19 +1,18 @@
 package com.example.mvopo.tsekapp;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.MenuItem;
 import android.view.View;
 
 import com.example.mvopo.tsekapp.Fragments.MessageThreadFragment;
 import com.example.mvopo.tsekapp.Model.User;
 import com.github.clans.fab.FloatingActionMenu;
-import com.google.firebase.database.Query;
 
 /**
  * Created by mvopo on 1/30/2018.

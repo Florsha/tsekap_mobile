@@ -10,33 +10,29 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.ActionMenuItemView;
-import android.support.v7.widget.Toolbar;
-import android.telephony.TelephonyManager;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import com.google.android.material.navigation.NavigationView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
+import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
 import com.example.mvopo.tsekapp.Fragments.AvailServicesPopulationFragment;
 import com.example.mvopo.tsekapp.Fragments.ChangePassFragment;
 import com.example.mvopo.tsekapp.Fragments.FeedbackFragment;
 import com.example.mvopo.tsekapp.Fragments.HomeFragment;
-import com.example.mvopo.tsekapp.Fragments.ManagePopulationFragment;
 import com.example.mvopo.tsekapp.Fragments.PendingDengvaxiaFragment;
 import com.example.mvopo.tsekapp.Fragments.ServicesStatusFragment;
 import com.example.mvopo.tsekapp.Fragments.ViewChatThreadFragment;
@@ -45,21 +41,17 @@ import com.example.mvopo.tsekapp.Helper.ConnectionChecker;
 import com.example.mvopo.tsekapp.Helper.DBHelper;
 import com.example.mvopo.tsekapp.Helper.JSONApi;
 import com.example.mvopo.tsekapp.Model.Constants;
-import com.example.mvopo.tsekapp.Model.DengvaxiaDetails;
 import com.example.mvopo.tsekapp.Model.ServiceAvailed;
 import com.example.mvopo.tsekapp.Model.User;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.wooplr.spotlight.SpotlightView;
-import com.wooplr.spotlight.prefs.PreferencesManager;
 import com.wooplr.spotlight.utils.SpotlightListener;
-import com.wooplr.spotlight.utils.SpotlightSequence;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -426,7 +418,7 @@ public class MainActivity extends AppCompatActivity
     public void showTutorial() {
         queue.add(makeSpotlightView(fabMenu.getMenuIconView(),
                 "Whoops!\nRead Me!",
-                "Im a floating menu 1button, click me to show available actions for this Page",
+                "Im a floating menu button, click me to show available actions for this Page",
                 "FabMenu"));
         queue.add(makeSpotlightView(toolbar.getChildAt(1),
                 "Me! Me! Me!",
@@ -447,7 +439,7 @@ public class MainActivity extends AppCompatActivity
 
                     queue.add(makeSpotlightView(fabUpload,
                             "Sumimasen",
-                            "Im Upload Button, I save Added/Updated profiles from you phone to the web server. I also require Internet Connection!",
+                            "Im Upload Button, I save Added/Updated profiles from your phone to the web server. I also require Internet Connection!",
                             "FabUpload"));
 
                     startSequence();

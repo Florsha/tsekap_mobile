@@ -13,8 +13,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.LruCache;
@@ -43,7 +43,6 @@ import com.example.mvopo.tsekapp.Fragments.ServicesStatusFragment;
 import com.example.mvopo.tsekapp.LoginActivity;
 import com.example.mvopo.tsekapp.MainActivity;
 import com.example.mvopo.tsekapp.Model.Constants;
-import com.example.mvopo.tsekapp.Model.DengvaxiaDetails;
 import com.example.mvopo.tsekapp.Model.DengvaxiaPatient;
 import com.example.mvopo.tsekapp.Model.FamilyProfile;
 import com.example.mvopo.tsekapp.Model.ServiceAvailed;
@@ -133,7 +132,7 @@ public class JSONApi {
                                 String lname = data.getString("lname");
                                 String muncity = data.getString("muncity");
                                 String contact = data.getString("contact");
-//                                String image = data.getString("hrh_photo");
+//                              String image = data.getString("hrh_photo");
                                 String image = "";
                                 String userBrgy = response.getJSONArray("userBrgy").toString();
                                 String target = response.getString("target");
@@ -333,7 +332,7 @@ public class JSONApi {
                                         String hypertension = response.getString("hypertension");
                                         String pwd = response.getString("pwd");
                                         String pregnant = response.getString("pregnant");
-        //TODO: Uncomment when API is ready
+
                                         String birth_place = response.getString("birth_place");
                                         String civil_status = response.getString("civil_status");
                                         String religion = response.getString("religion");

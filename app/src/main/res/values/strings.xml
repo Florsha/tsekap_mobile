@@ -80,7 +80,7 @@
 
     <string-array name="medication_availment">
         <item>Medication Avail</item>
-        <item>No Avail Medication</item>
+        <item>No Medication Avail</item>
     </string-array>
 
 
