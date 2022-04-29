@@ -12,6 +12,10 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.mvopo.tsekapp.Fragments.ManageFacilityFragment;
+import com.example.mvopo.tsekapp.Fragments.ManageSpecialistFragment;
+import com.example.mvopo.tsekapp.Fragments.ViewFacilitiesFragment;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -83,11 +87,18 @@ public class MainActivity extends AppCompatActivity
     public static HomeFragment hf = new HomeFragment();
     public static ViewPopulationFragment vpf = new ViewPopulationFragment();
     public static ServicesStatusFragment ssf = new ServicesStatusFragment();
+
+    ViewFacilitiesFragment vff = new ViewFacilitiesFragment();
+    ManageFacilityFragment mff=new ManageFacilityFragment();
+    ManageSpecialistFragment msf = new ManageSpecialistFragment();
+
+
     FeedbackFragment ff = new FeedbackFragment();
     PendingDengvaxiaFragment pdf = new PendingDengvaxiaFragment();
     AvailServicesPopulationFragment aspf = new AvailServicesPopulationFragment();
     ChangePassFragment cpf = new ChangePassFragment();
     ViewChatThreadFragment vctf = new ViewChatThreadFragment();
+
 
     AlertDialog dialog;
     View headerView;
@@ -373,7 +384,14 @@ public class MainActivity extends AppCompatActivity
 //            Toast.makeText(this, "This feature is under development process", Toast.LENGTH_SHORT).show();
 //        } else if (id == R.id.nav_pending_dengvaxia) {
 //            ft.replace(R.id.fragment_container, pdf).commit();
-        } else if (id == R.id.nav_logout) {
+        }
+        else if(id==R.id.nav_manage_facility){
+            ft.replace(R.id.fragment_container, vff).commit();
+        }
+        else if(id==R.id.nav_manage_specialist){
+            ft.replace(R.id.fragment_container, msf).commit();
+        }
+        else if (id == R.id.nav_logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             int uploadableCount = db.getUploadableCount();
             if (uploadableCount <= 0) {

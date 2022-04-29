@@ -1,11 +1,14 @@
 package com.example.mvopo.tsekapp.Model;
 
 import android.content.Context;
+import android.os.Build;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 import com.example.mvopo.tsekapp.Helper.DBHelper;
 import com.example.mvopo.tsekapp.MainActivity;
@@ -14,10 +17,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -41,12 +51,14 @@ public class Constants {
     public static String apkUrl = "http://192.168.110.62:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk";*/
 
 
-    public static String url = "http://222.127.126.34/tsekap/dummy/apiv21?"; /**updated on 02/14/2022*/
+    //public static String url = "http://222.127.126.34/tsekap/dummy/apiv21?"; /**updated on 02/14/2022*/
+    public static String url = "http://222.127.126.34/tsekap/vii/apiv21?"; /**updated on 02/14/2022*/
     public static String apkUrl = "http://192.168.81.4:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk"; /**updated on 02/14/2022*/
 
+    private static  final NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("ph", "PH"));
 
-    //r testing
-   //public static String url = "http://192.168.111.55/tsekap/apiv21?";
+
+   //public static String url = "http://192.168.111.55/tsekap/apiv21?";  //r testing
     public static JSONObject getProfileJson() {
 
         FamilyProfile profile = MainActivity.db.getProfileForSync();
@@ -127,7 +139,6 @@ public class Constants {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -198,6 +209,55 @@ public class Constants {
             }
         });
     }
+
+    public static void setMoneyTextWatcher(final Context context, final EditText editText){
+        numberFormat.setMaximumFractionDigits(0);
+        numberFormat.setRoundingMode(RoundingMode.FLOOR);
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                editText.removeTextChangedListener(this);
+
+                String initialText = editText.getText().toString();
+                String formatted;
+                String decimal="", integer="";
+                /**Remove all not numbers, (, . PHP)*/
+                String tempo1 = initialText.replaceAll("PHP", "");
+                String tempo2 = tempo1.replaceAll(",", "");
+                String currentValue = tempo2.replaceAll("\\.", "");
+
+                if(!currentValue.isEmpty()){
+                    if(currentValue.length()==1){
+                        decimal="0"+currentValue.trim();
+                    }
+                    else {
+                        decimal=currentValue.substring(currentValue.length()-2);
+                        integer=currentValue.substring(0, currentValue.length()-2);
+                    }
+                    if(!integer.trim().isEmpty()){
+                        formatted = numberFormat.format(Double.parseDouble(integer)) + "." + decimal;
+                    }
+                    else{
+                        formatted="PHP0." + decimal;
+                    }
+                }else{
+                    formatted="PHP0." + decimal;
+                }
+
+                editText.setText(formatted);
+                editText.setSelection(editText.getText().length());
+                editText.addTextChangedListener(this);
+            }
+        });
+    }
+
     public static String getAge(String date, Calendar c) {
         int year, month, day;
         String ageString = "";
@@ -272,4 +332,11 @@ public class Constants {
         }
         return name;
     }
+
+    public static String twoDigitFormat(int value)
+    {
+        return new DecimalFormat("00").format(value);
+    }
+
+
 }

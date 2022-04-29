@@ -74,7 +74,7 @@ public class ViewPopulationFragment extends Fragment {
 //        familyProfiles.add(new FamilyProfile("06082017-1203-2391263", "", "", "Nacario", "Abelgas", "Basd", "", "1/1/11", "Male", "Cubacub", "", "", "", "", "", true));
 //        familyProfiles.add(new FamilyProfile("06022017-1203-1759539", "", "", "Alexander James", "Abenaza", "Basd", "", "1/1/11", "Male", "Cubacub", "", "", "", "", "", true));
 
-        adapter = new ListAdapter(getContext(), R.layout.population_item, familyProfiles, null, null);
+        adapter = new ListAdapter(getContext(), R.layout.population_item, familyProfiles, null, null,null);
         lv.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -113,7 +113,7 @@ public class ViewPopulationFragment extends Fragment {
                 btnAdd = dialogView.findViewById(R.id.population_addBtn);
 
                 memberProfiles = MainActivity.db.getFamilyProfiles(familyProfiles.get(position).familyId);
-                memAdapter = new ListAdapter(getContext(), R.layout.population_dialog_item, memberProfiles, null, null);
+                memAdapter = new ListAdapter(getContext(), R.layout.population_dialog_item, memberProfiles, null, null,null);
                 lvMembers.setAdapter(memAdapter);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

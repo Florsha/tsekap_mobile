@@ -3,11 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/drawable/side_nav_bar.xml" value="0.3728205128205128" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/activity_login.xml" value="0.3625" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/activity_main.xml" value="0.3625" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/app_bar_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/dengvaxia_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/facility_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/feedback_dialog.xml" value="0.23822463768115942" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/feedback_item.xml" value="0.23822463768115942" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_avail_services.xml" value="0.23822463768115942" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_change_password.xml" value="0.23822463768115942" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_manage_facility.xml" value="0.3188405797101449" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_manage_member.xml" value="0.1" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_manage_specialist.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_must_services.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/list_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/nav_header_main.xml" value="0.36666666666666664" />
@@ -19,6 +29,10 @@
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/population_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/population_list_dialog.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/profile_checker_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/schedule_dialog.xml" value="0.67" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/service_status_filter.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/services_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/temporary_layout.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/menu/activity_main_drawer.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/menu/add_head.xml" value="0.2851851851851852" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/menu/download.xml" value="0.2851851851851852" />

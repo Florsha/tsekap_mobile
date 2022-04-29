@@ -53,7 +53,7 @@ public class AvailServicesPopulationFragment extends Fragment implements DatePic
         familyProfiles.clear();
         familyProfiles = MainActivity.db.getFamilyProfiles("");
 
-        adapter = new ListAdapter(getContext(), R.layout.population_item, familyProfiles, null, null);
+        adapter = new ListAdapter(getContext(), R.layout.population_item, familyProfiles, null, null,null);
         lv.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

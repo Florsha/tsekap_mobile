@@ -86,12 +86,12 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
 
     // UPDATE - Romaine
     EditText  txtBirthPlace, txtCivil, txtReligion, txtOtherReligion, txtContact, txtHeight, txtWeight, txtCancer,txtCancerType, txtMental, txtTBDOTS, txtCVD,
-            txtCovid, txtPwdDesc, txtMenarche, txtMenarcheAge, txtDecease, txtDeceasedDate, txtImmunization, txtNutrition, txtNewbornScreen, txtNewbornText;
+            txtCovid, txtPwdDesc, txtMenarche, txtMenarcheAge, txtDecease, txtDeceasedDate, txtImmunization, txtNutrition, txtNewbornScreen, txtNewbornText, txtSexually;
     String birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
         tbdots_med,cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
-        immu_stat, nutri_stat, pwd_desc;
+        immu_stat, nutri_stat, pwd_desc, sexually_active;
 
-    TextInputLayout til_otherReligion, til_pwdDesc, til_cancerType, til_deceasedDate, til_menarche, til_menarcheAge, til_newborn;
+    TextInputLayout til_otherReligion, til_pwdDesc, til_cancerType, til_deceasedDate, til_menarche, til_menarcheAge, til_newborn, til_sexually;
     LinearLayout layout_adult, layout_age5;
     /*END*/
 
@@ -196,6 +196,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         txtNewbornScreen.setOnClickListener(this);
         txtImmunization.setOnClickListener(this);
         txtNutrition.setOnClickListener(this);
+        txtSexually.setOnClickListener(this);
         //end
         manageBtn.setOnClickListener(this);
 
@@ -275,6 +276,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
             }
         });
 
+
         Constants.setDateTextWatcher(getContext(), txtBday);
         Constants.setDateTextWatcher(getContext(), txtDeceasedDate);
         Constants.setDateTextWatcher(getContext(), txtPregnantDate);
@@ -320,6 +322,9 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 break;
             case R.id.manage_menarche:
                 showOptionDialog(R.array.yes_no, txtMenarche);
+                break;
+            case R.id.manage_sexually:
+                showOptionDialog(R.array.yes_no, txtSexually);
                 break;
             case R.id.manage_newborn:
                 showOptionDialog(R.array.yes_no, txtNewbornScreen);
@@ -412,6 +417,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 startActivityForResult(intent, CAMERA_CODE);
 
                 break;
+
 /*            case R.id.dengvaxiaBtn:
                 String doseDate = txtDoseDate.getText().toString().trim();
                 if (doseDate.isEmpty() && doseDate.length() != 10) {
@@ -483,17 +489,14 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 head = txtHead.getText().toString().trim();
                 suffix = txtSuffix.getText().toString().trim();
                 sex = txtSex.getText().toString().trim();
-                diabetic = txtDiabetic.getText().toString().trim();
-                hypertension = txtHypertension.getText().toString().trim();
+
 
                 birth_place = txtBirthPlace.getText().toString().trim();
                 civil_status = txtCivil.getText().toString().trim();
                 contact = txtContact.getText().toString().trim();
                 height = txtHeight.getText().toString().trim();
                 weight = txtWeight.getText().toString().trim();
-                mental_med = txtMental.getText().toString().trim();
-                tbdots_med = txtTBDOTS.getText().toString().trim();
-                cvd_med = txtCVD.getText().toString().trim();
+
                 covid_status = txtCovid.getText().toString().trim();
 
                 relation = txtRelation.getText().toString().trim();
@@ -522,6 +525,22 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                     menarche_age="";
                     pregnant_date="";
                     unmet="";
+                }
+                if(age<5){
+                    diabetic="";
+                    hypertension="";
+                    mental_med="";
+                    tbdots_med="";
+                    cvd_med="";
+                    cancer="";
+                    sexually_active="";
+                }else{
+                    sexually_active = txtSexually.getText().toString().trim();
+                    diabetic = txtDiabetic.getText().toString().trim();
+                    hypertension = txtHypertension.getText().toString().trim();
+                    mental_med = txtMental.getText().toString().trim();
+                    tbdots_med = txtTBDOTS.getText().toString().trim();
+                    cvd_med = txtCVD.getText().toString().trim();
                 }
 
                 deceased = txtDecease.getText().toString().trim();
@@ -799,6 +818,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         if(age < 5){/**5yrs old below **/
             layout_adult.setVisibility(View.GONE);
             layout_age5.setVisibility(View.VISIBLE);
+            til_sexually.setVisibility(View.GONE);
 
             txtNewbornScreen.setText(familyProfile.newborn_screen);
             if(txtNewbornScreen.getText().toString().equalsIgnoreCase("YES")){
@@ -811,6 +831,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         }else   { /** 5yrs old ABOVE **/
             layout_adult.setVisibility(View.VISIBLE);
             layout_age5.setVisibility(View.GONE);
+            til_sexually.setVisibility(View.VISIBLE);
 
             txtDiabetic.setText(familyProfile.diabetic);
             txtHypertension.setText(familyProfile.hypertension);
@@ -1035,6 +1056,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
             }
         });
     }
+
     private String selectedCheckbox = "";
     public void showChecklistDialog(final int id, final EditText txtView) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.options_dialog, null);
@@ -1185,8 +1207,10 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 if(age < 5){
                     layout_adult.setVisibility(View.GONE);
                     layout_age5.setVisibility(View.VISIBLE);
+                    til_sexually.setVisibility(View.GONE);
                 }else {
                     layout_adult.setVisibility(View.VISIBLE);
+                    til_sexually.setVisibility(View.VISIBLE);
                     layout_age5.setVisibility(View.GONE);
                 }
 
@@ -1244,7 +1268,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 matchingProfiles = MainActivity.db.getMatchingProfiles(fname, mname, lname, suffix);
 
                 if (matchingProfiles.size() > 0) {
-                    ListAdapter adapter = new ListAdapter(getContext(), R.layout.population_dialog_item, matchingProfiles, null, null);
+                    ListAdapter adapter = new ListAdapter(getContext(), R.layout.population_dialog_item, matchingProfiles, null, null,null);
                     lvMatchingProfiles.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
 
@@ -1360,5 +1384,8 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         headFields = view.findViewById(R.id.head_fields_holder);
         unmetFrame = view.findViewById(R.id.unmet_frame);
         manageBtn = view.findViewById(R.id.manageBtn);
+
+        txtSexually = view.findViewById(R.id.manage_sexually);
+        til_sexually = view.findViewById(R.id.sexually_frame);
     }
 }

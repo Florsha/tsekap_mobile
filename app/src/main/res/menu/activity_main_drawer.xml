@@ -28,6 +28,20 @@
             </menu>
         </item>
 
+        <item android:title="Networks">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_manage_facility"
+                        android:icon="@drawable/ic_facility"
+                        android:title="Manage Facilities" />
+                    <item
+                        android:id="@+id/nav_manage_specialist"
+                        android:icon="@drawable/ic_facility"
+                        android:title="Manage Specialist" />
+                </group>
+            </menu>
+        </item>
         <!--<item android:title="Dengvaxia">-->
             <!--<menu>-->
                 <!--<group android:checkableBehavior="single">-->

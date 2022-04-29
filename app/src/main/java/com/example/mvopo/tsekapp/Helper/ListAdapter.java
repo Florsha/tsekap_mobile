@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.mvopo.tsekapp.Fragments.FeedbackFragment;
 import com.example.mvopo.tsekapp.MainActivity;
+import com.example.mvopo.tsekapp.Model.FacilityModel;
 import com.example.mvopo.tsekapp.Model.FamilyProfile;
 import com.example.mvopo.tsekapp.Model.FeedBack;
 import com.example.mvopo.tsekapp.Model.ServicesStatus;
@@ -35,9 +36,11 @@ public class ListAdapter extends ArrayAdapter {
     List<FamilyProfile> familyProfiles;
     List<ServicesStatus> serviceStatus;
     List<FeedBack> feedbacks;
+
+    List<FacilityModel> facilityModels;
     LayoutInflater inflater;
 
-    public ListAdapter(Context context, int resource, List familyProfiles, List serviceStatus, List feedbacks) {
+    public ListAdapter(Context context, int resource, List familyProfiles, List serviceStatus, List feedbacks, List facility) {
         super(context, resource);
 
         this.context = context;
@@ -45,6 +48,7 @@ public class ListAdapter extends ArrayAdapter {
         this.familyProfiles = familyProfiles;
         this.serviceStatus = serviceStatus;
         this.feedbacks = feedbacks;
+        this.facilityModels = facility;
 
         inflater = LayoutInflater.from(context);
     }
@@ -56,7 +60,7 @@ public class ListAdapter extends ArrayAdapter {
         if(familyProfiles!=null) size = familyProfiles.size();
         if(serviceStatus!=null) size = serviceStatus.size();
         if(feedbacks!=null) size = feedbacks.size();
-
+        if(facilityModels!=null) size = facilityModels.size();
         return size;
     }
 
@@ -66,17 +70,27 @@ public class ListAdapter extends ArrayAdapter {
         convertView = inflater.inflate(layoutId, parent, false);
 
         if(layoutId == R.layout.population_item){
-            TextView name = convertView.findViewById(R.id.population_name);
-            TextView id = convertView.findViewById(R.id.population_family_id);
+            if(familyProfiles!=null){
+                TextView name = convertView.findViewById(R.id.population_name);
+                TextView id = convertView.findViewById(R.id.population_family_id);
 
-            String fullName = familyProfiles.get(position).fname + " " +
-                    familyProfiles.get(position).mname + " " + familyProfiles.get(position).lname + " " + familyProfiles.get(position).suffix;
+                String fullName = familyProfiles.get(position).fname + " " +
+                        familyProfiles.get(position).mname + " " + familyProfiles.get(position).lname + " " + familyProfiles.get(position).suffix;
 
-            name.setText(fullName);
-            id.setText(familyProfiles.get(position).familyId);
+                name.setText(fullName);
+                id.setText(familyProfiles.get(position).familyId);
 
-            if(familyProfiles.get(position).isHead.equalsIgnoreCase("Yes")) name.setTextColor(getContext().getResources().getColor(R.color.colorAccent));
+                if(familyProfiles.get(position).isHead.equalsIgnoreCase("Yes")) name.setTextColor(getContext().getResources().getColor(R.color.colorAccent));
+            }else if(facilityModels!=null){ /**inserted rml 04/29/22 */
+                TextView name = convertView.findViewById(R.id.population_name);
+                TextView id = convertView.findViewById(R.id.population_family_id);
+
+                name.setText(facilityModels.get(position).facilityName);
+                id.setText(facilityModels.get(position).facilityCode);
+            }
+
         }else if(layoutId == R.layout.population_dialog_item){
+
             TextView name = convertView.findViewById(R.id.profile_name);
             TextView relation = convertView.findViewById(R.id.profile_relation);
 
@@ -87,6 +101,7 @@ public class ListAdapter extends ArrayAdapter {
             relation.setText("(" + familyProfiles.get(position).relation + ", " + familyProfiles.get(position).sex + ")");
 
             if(familyProfiles.get(position).isHead.equalsIgnoreCase("Yes")) name.setTextColor(getContext().getResources().getColor(R.color.colorAccent));
+
         }else if(layoutId == R.layout.services_item){
             TextView name = convertView.findViewById(R.id.services_name);
             ImageView ivGroup1 = convertView.findViewById(R.id.iv_group1);

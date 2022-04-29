@@ -214,5 +214,84 @@
         <item>MMR 2</item>
     </string-array>
 
+    <string-array name="service_capability">
+        <item>Licensed PCF</item>
+        <item>Level 1</item>
+        <item>Level 2</item>
+        <item>Level 3</item>
+        <item>Laboratory Level 1</item>
+        <item>Laboratory Level 2</item>
+        <item>Laboratory Level 3</item>
+        <item>Infirmary</item>
+        <item>RHU</item>
+        <item>Primary Care Facility</item>
+        <item>Health Center</item>
+        <item>ITMF</item>
+        <item>Dental Clinic</item>
+        <item>Radiology</item>
+        <item>Pharmacy</item>
+    </string-array>
+
+    <string-array name="ownership">
+        <item>Government</item>
+        <item>Private</item>
+        <item>Rural Health Unit Government</item>
+        <item>CIU/TTMF</item>
+        <item>Private Birthing Home</item>
+        <item>Government Birthing Home</item>
+        <item>Emergency Operations Center</item>
+        <item>LGU-Owned</item>
+        <item>City-Owned</item>
+        <item>DOH Hospital</item>
+        <item>Department of National Defense</item>
+        <item>Philippine National Police</item>
+    </string-array>
+
+    <string-array name="transport_type">
+        <item>Level 1 Licensed Ambulance</item>
+        <item>Level 2 Licensed Ambulance</item>
+        <item>Level 3 Licensed Ambulance</item>
+        <item>ER Transport Vehicle</item>
+    </string-array>
+
+
+    <string-array name="hospital_status">
+        <item>Active</item>
+        <item>Inactive</item>
+    </string-array>
+
+    <string-array name="classification">
+        <item>Private</item>
+        <item>Public</item>
+    </string-array>
+
+    <string-array name="weekdays">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+    <string-array name="accreditation_status">
+        <item>Accredited</item>
+        <item>Not Accredited</item>
+    </string-array>
+    <string-array name="laboratory_services">
+        <item>Laboratory 1</item>
+        <item>Laboratory 2</item>
+        <item>Laboratory 3</item>
+        <item>Laboratory 4</item>
+    </string-array>
+
+    <string-array name="dental_services">
+        <item>Dental 1</item>
+        <item>Dental 2</item>
+        <item>Dental 3</item>
+        <item>Dental 4</item>
+    </string-array>
+
 
 </resources>
