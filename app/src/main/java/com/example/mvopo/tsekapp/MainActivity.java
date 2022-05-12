@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.mvopo.tsekapp.Fragments.ManageFacilityFragment;
 import com.example.mvopo.tsekapp.Fragments.ManageSpecialistFragment;
 import com.example.mvopo.tsekapp.Fragments.ViewFacilitiesFragment;
+import com.example.mvopo.tsekapp.Fragments.ViewSpecialistFragment;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity
     public static ServicesStatusFragment ssf = new ServicesStatusFragment();
 
     ViewFacilitiesFragment vff = new ViewFacilitiesFragment();
+    ViewSpecialistFragment vsf = new ViewSpecialistFragment();
     ManageFacilityFragment mff=new ManageFacilityFragment();
     ManageSpecialistFragment msf = new ManageSpecialistFragment();
 
@@ -385,11 +387,11 @@ public class MainActivity extends AppCompatActivity
 //        } else if (id == R.id.nav_pending_dengvaxia) {
 //            ft.replace(R.id.fragment_container, pdf).commit();
         }
-        else if(id==R.id.nav_manage_facility){
+        else if(id==R.id.nav_manage_facility){ /**Inserted by Romaine, 04/2022*/
             ft.replace(R.id.fragment_container, vff).commit();
         }
-        else if(id==R.id.nav_manage_specialist){
-            ft.replace(R.id.fragment_container, msf).commit();
+        else if(id==R.id.nav_manage_specialist){ /**Inserted by Romaine, 04/2022*/
+            ft.replace(R.id.fragment_container, vsf).commit();
         }
         else if (id == R.id.nav_logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);

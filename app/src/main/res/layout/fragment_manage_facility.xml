@@ -408,27 +408,158 @@
                 android:padding="5dp"  />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TableLayout android:id="@+id/table_laboratoryServices" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TableLayout android:id="@+id/table_laboratoryServices" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content">
             <TableRow android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="0dp">
-                <com.google.android.material.textfield.TextInputLayout android:layout_weight=".5" android:layout_marginRight="5dp" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/facility_til_labXray" android:layout_weight=".5" android:layout_marginRight="5dp" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
                     <EditText
-                        android:id="@+id/facility_labCost1"
+                        android:id="@+id/facility_labXray"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:hint="Laboratory 1 Cost (PHP)"
+                        android:hint="Chest X-ray Cost"
                         android:inputType="number"
                         android:enabled="false"
                         android:padding="5dp"  />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout android:layout_weight=".5" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/facility_til_labCBC" android:layout_weight=".5" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
                     <EditText
-                        android:id="@+id/facility_labCost2"
+                        android:id="@+id/facility_labCBC"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:hint="Laboratory 2 Cost (PHP)"
+                        android:hint="Complete Blood Count Cost"
+                        android:inputType="number"
+                        android:enabled="false"
+                        android:padding="5dp"  />
+                </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
+
+            <TableRow android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="0dp">
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/facility_til_labCreatine" android:layout_weight=".5" android:layout_marginRight="5dp" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+                    <EditText
+                        android:id="@+id/facility_labCreatine"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Creatinine Cost"
+                        android:inputType="number"
+                        android:enabled="false"
+                        android:padding="5dp"  />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/facility_til_labECG" android:layout_weight=".5" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+                    <EditText
+                        android:id="@+id/facility_labECG"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="ECG Cost"
+                        android:inputType="number"
+                        android:enabled="false"
+                        android:padding="5dp"  />
+                </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
+
+            <TableRow android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="0dp">
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/facility_til_labFBS" android:layout_weight=".5" android:layout_marginRight="5dp" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+                    <EditText
+                        android:id="@+id/facility_labFBS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="FBS Cost"
+                        android:inputType="number"
+                        android:enabled="false"
+                        android:padding="5dp"  />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/facility_til_labFecalysis" android:layout_weight=".5" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+                    <EditText
+                        android:id="@+id/facility_labFecalysis"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Fecalysis Cost"
+                        android:inputType="number"
+                        android:enabled="false"
+                        android:padding="5dp"  />
+                </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
+
+            <TableRow android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="0dp">
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/facility_til_labFOB" android:layout_weight=".5" android:layout_marginRight="5dp" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+                    <EditText
+                        android:id="@+id/facility_labFOB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Fecal Occult Blood Cost"
+
+                        android:inputType="number"
+                        android:enabled="false"
+                        android:padding="5dp"  />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/facility_til_labHbAIC" android:layout_weight=".5" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+                    <EditText
+                        android:id="@+id/facility_labHbAIC"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="HbAIC Cost"
+                        android:inputType="number"
+                        android:enabled="false"
+                        android:padding="5dp"  />
+                </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
+
+            <TableRow android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="0dp">
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/facility_til_labLipid" android:layout_weight=".5" android:layout_marginRight="5dp" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+                    <EditText
+                        android:id="@+id/facility_labLipid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Lipid profile Cost"
+                        android:inputType="number"
+                        android:enabled="false"
+                        android:padding="5dp"  />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/facility_til_labOGT" android:layout_weight=".5" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+                    <EditText
+                        android:id="@+id/facility_labOGT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Oral Glucose Tolerance Cost"
+                        android:inputType="number"
+                        android:enabled="false"
+                        android:padding="5dp"  />
+                </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
+
+            <TableRow android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="0dp">
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/facility_til_labPap" android:layout_weight=".5" android:layout_marginRight="5dp" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+                    <EditText
+                        android:id="@+id/facility_labPap"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Pap smear Cost"
+                        android:inputType="number"
+                        android:enabled="false"
+                        android:padding="5dp"  />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/facility_til_labSputum" android:layout_weight=".5" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+                    <EditText
+                        android:id="@+id/facility_labsputum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Sputum Microscopy Cost"
                         android:inputType="number"
                         android:enabled="false"
                         android:padding="5dp"  />
@@ -436,31 +567,20 @@
             </TableRow>
 
             <TableRow android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="0dp" android:layout_marginBottom="15dp">
-                <com.google.android.material.textfield.TextInputLayout android:layout_weight=".5" android:layout_marginRight="5dp" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+                <com.google.android.material.textfield.TextInputLayout  android:id="@+id/facility_til_labUrine" android:layout_weight=".5" android:layout_marginRight="5dp" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
                     <EditText
-                        android:id="@+id/facility_labCost3"
+                        android:id="@+id/facility_labUrine"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:hint="Laboratory 3 Cost (PHP)"
+                        android:hint="Urinalysis Cost"
                         android:inputType="number"
                         android:enabled="false"
                         android:padding="5dp"  />
                 </com.google.android.material.textfield.TextInputLayout>
 
-
-                <com.google.android.material.textfield.TextInputLayout android:layout_weight=".5" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
-                    <EditText
-                        android:id="@+id/facility_labCost4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:hint="Laboratory 4 Cost (PHP)"
-                        android:inputType="number"
-                        android:enabled="false"
-                        android:padding="5dp"  />
-                </com.google.android.material.textfield.TextInputLayout>
             </TableRow>
+
         </TableLayout>
 
 

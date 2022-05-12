@@ -37,7 +37,7 @@
                         android:title="Manage Facilities" />
                     <item
                         android:id="@+id/nav_manage_specialist"
-                        android:icon="@drawable/ic_facility"
+                        android:icon="@drawable/ic_doctor"
                         android:title="Manage Specialist" />
                 </group>
             </menu>

@@ -1268,7 +1268,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 matchingProfiles = MainActivity.db.getMatchingProfiles(fname, mname, lname, suffix);
 
                 if (matchingProfiles.size() > 0) {
-                    ListAdapter adapter = new ListAdapter(getContext(), R.layout.population_dialog_item, matchingProfiles, null, null,null);
+                    ListAdapter adapter = new ListAdapter(getContext(), R.layout.population_dialog_item, matchingProfiles, null, null,null,null);
                     lvMatchingProfiles.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
 

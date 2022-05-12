@@ -104,7 +104,7 @@ public class ServicesStatusFragment extends Fragment {
         servicesStatuses.clear();
         servicesStatuses = MainActivity.db.getServicesStatus(null);
 
-        adapter = new ListAdapter(getContext(), R.layout.services_item, null, servicesStatuses, null,null);
+        adapter = new ListAdapter(getContext(), R.layout.services_item, null, servicesStatuses, null,null,null);
         lv.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

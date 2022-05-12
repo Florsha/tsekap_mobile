@@ -21,6 +21,7 @@ import com.example.mvopo.tsekapp.Model.FacilityModel;
 import com.example.mvopo.tsekapp.Model.FamilyProfile;
 import com.example.mvopo.tsekapp.Model.FeedBack;
 import com.example.mvopo.tsekapp.Model.ServicesStatus;
+import com.example.mvopo.tsekapp.Model.SpecialistModel;
 import com.example.mvopo.tsekapp.R;
 
 import java.util.List;
@@ -38,9 +39,11 @@ public class ListAdapter extends ArrayAdapter {
     List<FeedBack> feedbacks;
 
     List<FacilityModel> facilityModels;
+    List<SpecialistModel> specialistModels;
+
     LayoutInflater inflater;
 
-    public ListAdapter(Context context, int resource, List familyProfiles, List serviceStatus, List feedbacks, List facility) {
+    public ListAdapter(Context context, int resource, List familyProfiles, List serviceStatus, List feedbacks, List facility, List specialistModels) {
         super(context, resource);
 
         this.context = context;
@@ -49,6 +52,7 @@ public class ListAdapter extends ArrayAdapter {
         this.serviceStatus = serviceStatus;
         this.feedbacks = feedbacks;
         this.facilityModels = facility;
+        this.specialistModels = specialistModels;
 
         inflater = LayoutInflater.from(context);
     }
@@ -61,6 +65,7 @@ public class ListAdapter extends ArrayAdapter {
         if(serviceStatus!=null) size = serviceStatus.size();
         if(feedbacks!=null) size = feedbacks.size();
         if(facilityModels!=null) size = facilityModels.size();
+        if(specialistModels!=null) size = specialistModels.size();
         return size;
     }
 
@@ -87,6 +92,12 @@ public class ListAdapter extends ArrayAdapter {
 
                 name.setText(facilityModels.get(position).facilityName);
                 id.setText(facilityModels.get(position).facilityCode);
+            }else if(specialistModels!=null){ /**inserted rml 04/29/22 */
+                TextView name = convertView.findViewById(R.id.population_name);
+                TextView id = convertView.findViewById(R.id.population_family_id);
+
+                name.setText(specialistModels.get(position).name);
+                id.setText(specialistModels.get(position).code);
             }
 
         }else if(layoutId == R.layout.population_dialog_item){
@@ -139,6 +150,8 @@ public class ListAdapter extends ArrayAdapter {
                     builder.show();
                 }
             });
+        }else if(layoutId == R.layout.specialist_facilities){
+
         }
 
         return convertView;

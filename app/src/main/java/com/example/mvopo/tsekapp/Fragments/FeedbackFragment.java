@@ -64,7 +64,7 @@ public class FeedbackFragment extends Fragment{
 
         if(feedbacks.size() <= 0) tvNothing.setVisibility(View.VISIBLE);
 
-        adapter = new ListAdapter(getContext(), R.layout.feedback_item, null, null, feedbacks,null);
+        adapter = new ListAdapter(getContext(), R.layout.feedback_item, null, null, feedbacks,null,null);
         lv.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

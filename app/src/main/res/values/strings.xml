@@ -280,10 +280,19 @@
         <item>Not Accredited</item>
     </string-array>
     <string-array name="laboratory_services">
-        <item>Laboratory 1</item>
-        <item>Laboratory 2</item>
-        <item>Laboratory 3</item>
-        <item>Laboratory 4</item>
+        <item>Chest X-ray</item>
+        <item>Complete Blood Count</item>
+        <item>Creatinine</item>
+        <item>ECG</item>
+        <item>FBS</item>
+        <item>Fecalysis</item>
+        <item>Fecal Occult Blood</item>
+        <item>HbAIC</item>
+        <item>Lipid profile</item>
+        <item>Oral Glucose Tolerance</item>
+        <item>Pap smear</item>
+        <item>Sputum Microscopy</item>
+        <item>Urinalysis</item>
     </string-array>
 
     <string-array name="dental_services">

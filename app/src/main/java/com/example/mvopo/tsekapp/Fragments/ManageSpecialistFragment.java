@@ -2,6 +2,7 @@ package com.example.mvopo.tsekapp.Fragments;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
@@ -17,7 +19,6 @@ import android.widget.ScrollView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.mvopo.tsekapp.Model.Constants;
 import com.example.mvopo.tsekapp.R;
 
 import java.util.List;
@@ -25,9 +26,10 @@ import java.util.List;
 public class ManageSpecialistFragment extends Fragment implements View.OnClickListener {
     View view;
     ScrollView optionHolder;
-    Button optionBtn;
+    Button optionBtn, updateBtn, addFacility;
     EditText txtCode, txtName, txtContact, txtSpecialization, txtFacility, txtAddress;
-    LinearLayout affiliationLayout;
+    ListView facilitiesHolder;
+    int x;
 
     @Nullable
     @Override
@@ -35,10 +37,8 @@ public class ManageSpecialistFragment extends Fragment implements View.OnClickLi
         view = inflater.inflate(R.layout.fragment_manage_specialist, container, false);
         findViewByIds();
 
-
-
-        //txtSpecialization.setOnClickListener(this);
-        txtFacility.setOnClickListener(this);
+        updateBtn.setOnClickListener(this);
+        addFacility.setOnClickListener(this);
         return view;
     }
 
@@ -48,6 +48,14 @@ public class ManageSpecialistFragment extends Fragment implements View.OnClickLi
         switch (id){
             case R.id.specialist_facility:
                 showOptionDialog(R.array.accreditation_status, null,txtFacility);
+                break;
+            case R.id.specialist_add:
+                addFacility();
+                break;
+            case R.id.specialistBtn:
+                readFacilities();
+                break;
+            case R.id.specialist_remove:
                 break;
         }
     }
@@ -109,8 +117,6 @@ public class ManageSpecialistFragment extends Fragment implements View.OnClickLi
             }
         });
     }
-
-
 
     String selectedCheckbox = ""; String[] labels = {};
     public void showScheduleDialog(final int id, final EditText txtView) {
@@ -175,17 +181,43 @@ public class ManageSpecialistFragment extends Fragment implements View.OnClickLi
                 optionDialog.dismiss();
             }
         });
+    }
 
+    public void addFacility(){
+        View affiliatedFacilityView = LayoutInflater.from(getContext()).inflate(R.layout.specialist_facilities, null);
+        facilitiesHolder.addView(affiliatedFacilityView);
+
+        if(facilitiesHolder.getChildCount()>0){
+            Log.e("affiliated", " count1: " + facilitiesHolder.getChildCount());
+            for(x = 0; x<facilitiesHolder.getChildCount(); x++){
+                facilitiesHolder.getChildAt(x).findViewById(R.id.specialist_remove).setOnClickListener(this);
+                //facilitiesHolder.getChildAt(x).setTag(x);
+            }
+        }
+    }
+
+    public void removeFacility(){
+
+        facilitiesHolder.removeViewAt(0);
+    }
+
+    public void readFacilities(){
+        int child = facilitiesHolder.getChildCount();
+        Log.e("affiliated", " count: " + child);
+
+        /*for(int x=0; x<child ; x++){
+            View view = facilitiesHolder.getChildAt(x);  //reading
+            Button
+        }*/
     }
 
     public void findViewByIds(){
-        txtCode = view.findViewById(R.id.specialist_id);
-        txtName = view.findViewById(R.id.specialist_name);
         txtContact = view.findViewById(R.id.specialist_contact);
-        txtFacility = view.findViewById(R.id.specialist_facility);
-        txtAddress = view.findViewById(R.id.specialist_address);
 
-        affiliationLayout = view.findViewById(R.id.specialist_holder2);
+        updateBtn = view.findViewById(R.id.specialistBtn);
+        facilitiesHolder = view.findViewById(R.id.specialist_holder1);
+        addFacility = view.findViewById(R.id.specialist_add);
+
     }
 
 

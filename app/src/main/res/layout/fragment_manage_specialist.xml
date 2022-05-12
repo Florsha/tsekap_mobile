@@ -11,31 +11,46 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/rounded_edittext" android:padding="5dp">
+        <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
 
             <EditText
-                android:id="@+id/specialist_id"
+                android:id="@+id/specialist_fname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:enabled="false"
-                android:hint="Specialist ID"
+                android:hint="First Name"
+                android:inputType="textCapWords"
                 android:padding="5dp"
-                android:text="DOH000000000037924"
-                android:textColor="@color/colorPrimaryDark" />
+                android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+
             <EditText
-                android:id="@+id/specialist_name"
+                android:id="@+id/specialist_mname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Chief of Hospital (name)"
-                android:text="Dr. Evelyn Pepito, MD"
+                android:hint="Middle Name"
+                android:inputType="textCapWords"
                 android:padding="5dp"
                 android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+
+            <EditText
+                android:id="@+id/specialist_lname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="Last Name"
+                android:inputType="textCapWords"
+                android:padding="5dp"
+                android:singleLine="true" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
@@ -50,65 +65,64 @@
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
 
-        <LinearLayout
-            android:id="@+id/specialist_holder2"
+            <EditText
+                android:id="@+id/specialist_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="Email"
+                android:padding="5dp"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="Affiliated Facilities:"
+                android:padding="5dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:singleLine="true" />
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+        <ListView
+            android:id="@+id/specialist_holder1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
-                <EditText
-                    android:id="@+id/specialist_specialization"
-                    android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp"/>
+
+        <TableLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <TableRow android:layout_weight="1" android:layout_width="0dp" android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/specialist_add"
+                    android:layout_weight=".5"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:hint="Specialization"
-                    android:text="General Practitioner"
+                    android:text="Add affiliated facility"
+                    android:textColor="#fff"
+                    android:background="@color/colorLightBlue"
                     android:padding="5dp"
-                    android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_margin="5dp"/>
 
-            <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
-                <EditText
-                    android:id="@+id/specialist_facility"
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/specialistBtn"
+                    android:layout_weight=".5"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:hint="Affiliated Facility/Clinic"
-                    android:text="Bogo City Health Office"
+                    android:text="Update Specialist"
+                    android:textColor="#fff"
+                    android:background="@color/colorAccent"
                     android:padding="5dp"
-                    android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
-
-                <EditText
-                    android:id="@+id/specialist_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:hint="Address"
-                    android:text="400 Tres de Abril St., San Nicolas, Cebu City, Cebu"
-                    android:padding="5dp"
-                    android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-
-        <Button
-            android:id="@+id/specialist_addFacility"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add facility"
-            android:textColor="#fff" />
-
-        <Button
-            android:id="@+id/specialistBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorAccent"
-            android:text="Update"
-            android:textColor="#fff" />
+                    android:layout_margin="5dp"/>
+            </TableRow>
+        </TableLayout>
     </LinearLayout>
 </ScrollView>

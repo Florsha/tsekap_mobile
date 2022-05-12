@@ -5,7 +5,6 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +18,14 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.mvopo.tsekapp.Model.Constants;
 import com.example.mvopo.tsekapp.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
 import java.util.List;
@@ -34,11 +34,14 @@ public class ManageFacilityFragment extends Fragment implements View.OnClickList
     View view;
     ScrollView optionHolder;
     Button optionBtn;
-    EditText txtServiceCapability, txtOwnership, txtHospitalStatus, txtVaccine, txtReferralUse;
+    EditText txtServiceCapability, txtOwnership, txtHospitalStatus, txtVaccine, txtReferralUse, txtTransport;
     EditText txtDayFrom, txtDayTo, txtTimeFrom, txtTimeTo, txtSchedNote;
     EditText txtLaboratoryServices, txtDentalServices;
-    EditText   txtLabCost1, txtLabCost2, txtLabCost3, txtLabCost4, txtDentalCost1, txtDentalCost2, txtDentalCost3, txtDentalCost4;
+    EditText txtLabXray, txtLabCBC, txtLabCreatine, txtLabECG, txtLabFBS, txtLabFecal, txtLabFOB, txtLabHbAIC, txtLabLipid, txtLabOGT, txtLabPap, txtLabSputum, txtLabUrine;
+    EditText   txtDentalCost1, txtDentalCost2, txtDentalCost3, txtDentalCost4;
     TableLayout tblDental, tblLaboratory;
+
+    TextInputLayout tilLabXray, tilLabCBC, tilLabCreatine, tilLabECG, tilLabFBS, tilLabFecal, tilLabFOB, tilLabHbAIC, tilLabLipid, tilLabOGT, tilLabPap, tilLabSputum, tilLabUrine;
 
     @Nullable
     @Override
@@ -51,6 +54,7 @@ public class ManageFacilityFragment extends Fragment implements View.OnClickList
         txtHospitalStatus.setOnClickListener(this);
         txtVaccine.setOnClickListener(this);
         txtReferralUse.setOnClickListener(this);
+        txtTransport.setOnClickListener(this);
 
         txtDayFrom.setOnClickListener(this);
         txtDayTo.setOnClickListener(this);
@@ -61,10 +65,20 @@ public class ManageFacilityFragment extends Fragment implements View.OnClickList
         txtLaboratoryServices.setOnClickListener(this);
 
         //Constants.setMoneyTextWatcher(getContext(), txtChiefCost);
-        Constants.setMoneyTextWatcher(getContext(), txtLabCost1);
-        Constants.setMoneyTextWatcher(getContext(), txtLabCost2);
-        Constants.setMoneyTextWatcher(getContext(), txtLabCost3);
-        Constants.setMoneyTextWatcher(getContext(), txtLabCost4);
+        Constants.setMoneyTextWatcher(getContext(), txtLabXray);
+        Constants.setMoneyTextWatcher(getContext(), txtLabCBC);
+        Constants.setMoneyTextWatcher(getContext(), txtLabCreatine);
+        Constants.setMoneyTextWatcher(getContext(), txtLabECG);
+        Constants.setMoneyTextWatcher(getContext(), txtLabFBS);
+        Constants.setMoneyTextWatcher(getContext(), txtLabFecal);
+        Constants.setMoneyTextWatcher(getContext(), txtLabFOB);
+        Constants.setMoneyTextWatcher(getContext(), txtLabHbAIC);
+        Constants.setMoneyTextWatcher(getContext(), txtLabLipid);
+        Constants.setMoneyTextWatcher(getContext(), txtLabOGT);
+        Constants.setMoneyTextWatcher(getContext(), txtLabPap);
+        Constants.setMoneyTextWatcher(getContext(), txtLabSputum);
+        Constants.setMoneyTextWatcher(getContext(), txtLabUrine);
+
         Constants.setMoneyTextWatcher(getContext(), txtDentalCost1);
         Constants.setMoneyTextWatcher(getContext(), txtDentalCost2);
         Constants.setMoneyTextWatcher(getContext(), txtDentalCost3);
@@ -85,28 +99,12 @@ public class ManageFacilityFragment extends Fragment implements View.OnClickList
                 String text = txtLaboratoryServices.getText().toString().trim();
                 if(!text.isEmpty()){
                     String[] split = text.split(",");
+                    disableLaboratory();
                     tblLaboratory.setVisibility(View.VISIBLE);
-                    for(int x=0; x<split.length; x++){
-                        switch (split[x].trim()){
-                            case "Laboratory 1":
-                                txtLabCost1.setEnabled(true);
-                                break;
-                            case "Laboratory 2":
-                                txtLabCost2.setEnabled(true);
-                                break;
-                            case "Laboratory 3":
-                                txtLabCost3.setEnabled(true);
-                                break;
-                            case "Laboratory 4":
-                                txtLabCost4.setEnabled(true);
-                                break;
-                        }
-                    }
+                    setVisibilityAvailableServices(split);
+
                 }else {
-                    txtLabCost1.setEnabled(false);
-                    txtLabCost2.setEnabled(false);
-                    txtLabCost3.setEnabled(false);
-                    txtLabCost4.setEnabled(false);
+                    disableLaboratory();
                     tblLaboratory.setVisibility(View.GONE);
                 }
             }
@@ -125,18 +123,7 @@ public class ManageFacilityFragment extends Fragment implements View.OnClickList
                 if(!text.isEmpty()){
                     String[] split = text.split(",");
                     tblDental.setVisibility(View.VISIBLE);
-                    for(int x=0; x<split.length; x++){
-                        switch (split[x].trim()){
-                            case "Dental 1": txtDentalCost1.setEnabled(true);
-                                break;
-                            case "Dental 2": txtDentalCost2.setEnabled(true);
-                                break;
-                            case "Dental 3": txtDentalCost3.setEnabled(true);
-                                break;
-                            case "Dental 4": txtDentalCost4.setEnabled(true);
-                                break;
-                        }
-                    }
+                    setVisibilityAvailableServices(split);
                 }else {
                     txtDentalCost1.setEnabled(false);
                     txtDentalCost2.setEnabled(false);
@@ -168,6 +155,10 @@ public class ManageFacilityFragment extends Fragment implements View.OnClickList
             case R.id.facility_referralUse:
                 showOptionDialog(R.array.yes_no, null,txtReferralUse);
                 break;
+            case R.id.facility_transport:
+                showOptionDialog(R.array.transport_type, null,txtTransport);
+                break;
+
             /**SCHEDULE*/
             case R.id.facility_dayFrom:
                 showOptionDialog(R.array.weekdays, null,txtDayFrom);
@@ -182,7 +173,7 @@ public class ManageFacilityFragment extends Fragment implements View.OnClickList
                 showTimePicker(txtTimeTo);
                 break;
 
-                /**Services*/
+                /**Services Available*/
             case R.id.facility_laboratoryServices:
                 showCheckboxDialog(R.array.laboratory_services, txtLaboratoryServices);
                 break;
@@ -331,12 +322,87 @@ public class ManageFacilityFragment extends Fragment implements View.OnClickList
 
     }
 
+    public void setVisibilityAvailableServices(String[] s){
+        for (String value : s) {
+            switch (value.trim().toUpperCase()) {
+            /**Laboratory*/
+                case "CHEST X-RAY":
+                    txtLabXray.setEnabled(true);
+                    tilLabXray.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.rounded_edittext,null));
+                    break;
+                case "COMPLETE BLOOD COUNT":
+                    txtLabCBC.setEnabled(true);
+                    tilLabCBC.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.rounded_edittext,null));
+                    break;
+                case "CREATININE":
+                    txtLabCreatine.setEnabled(true);
+                    tilLabCreatine.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.rounded_edittext,null));
+                    break;
+                case "ECG":
+                    txtLabECG.setEnabled(true);
+                    tilLabECG.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.rounded_edittext,null));
+                    break;
+                case "FBS":
+                    txtLabFBS.setEnabled(true);
+                    tilLabFBS.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.rounded_edittext,null));
+                    break;
+                case "FECALYSIS":
+                    txtLabFecal.setEnabled(true);
+                    tilLabFecal.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.rounded_edittext,null));
+                    break;
+                case "FECAL OCCULT BLOOD":
+                    txtLabFOB.setEnabled(true);
+                    tilLabFOB.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.rounded_edittext,null));
+                    break;
+                case "HBAIC":
+                    txtLabHbAIC.setEnabled(true);
+                    tilLabHbAIC.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.rounded_edittext,null));
+                    break;
+                case "LIPID PROFILE":
+                    txtLabLipid.setEnabled(true);
+                    tilLabLipid.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.rounded_edittext,null));
+                    break;
+                case "ORAL GLUCOSE TOLERANCE":
+                    txtLabOGT.setEnabled(true);
+                    tilLabOGT.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.rounded_edittext,null));
+                    break;
+                case "PAP SMEAR":
+                    txtLabPap.setEnabled(true);
+                    tilLabPap.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.rounded_edittext,null));
+                    break;
+                case "SPUTUM MICROSCOPY":
+                    txtLabSputum.setEnabled(true);
+                    tilLabSputum.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.rounded_edittext,null));
+                    break;
+                case "URINALYSIS":
+                    txtLabUrine.setEnabled(true);
+                    tilLabUrine.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.rounded_edittext,null));
+                    break;
+
+            /**Dental*/
+                case "DENTAL 1":
+                    txtDentalCost1.setEnabled(true);
+                    break;
+                case "DENTAL 2":
+                    txtDentalCost2.setEnabled(true);
+                    break;
+                case "DENTAL 3":
+                    txtDentalCost3.setEnabled(true);
+                    break;
+                case "DENTAL 4":
+                    txtDentalCost4.setEnabled(true);
+                    break;
+            }
+
+        }
+    }
     public void findViewByIds(){
         txtServiceCapability = view.findViewById(R.id.facility_serviceCapability);
         txtOwnership = view.findViewById(R.id.facility_ownership);
         txtHospitalStatus = view.findViewById(R.id.facility_hospitalStatus);
         txtVaccine = view.findViewById(R.id.facility_vaccine);
         txtReferralUse = view.findViewById(R.id.facility_referralUse);
+        txtTransport = view.findViewById(R.id.facility_transport);
 
         //Schedule
         txtDayFrom = view.findViewById(R.id.facility_dayFrom);
@@ -346,18 +412,73 @@ public class ManageFacilityFragment extends Fragment implements View.OnClickList
         txtSchedNote = view.findViewById(R.id.facility_schedNote);
 
         /**Services And costs*/
+            /**Laboratory*/
         txtLaboratoryServices = view.findViewById(R.id.facility_laboratoryServices);
         tblLaboratory = view.findViewById(R.id.table_laboratoryServices);
-        txtLabCost1 = view.findViewById(R.id.facility_labCost1);
-        txtLabCost2 = view.findViewById(R.id.facility_labCost2);
-        txtLabCost3 = view.findViewById(R.id.facility_labCost3);
-        txtLabCost4 = view.findViewById(R.id.facility_labCost4);
+        txtLabXray = view.findViewById(R.id.facility_labXray);
+        txtLabCBC = view.findViewById(R.id.facility_labCBC);
+        txtLabCreatine = view.findViewById(R.id.facility_labCreatine);
+        txtLabECG = view.findViewById(R.id.facility_labECG);
+        txtLabFBS = view.findViewById(R.id.facility_labFBS);
+        txtLabFecal = view.findViewById(R.id.facility_labFecalysis);
+        txtLabFOB = view.findViewById(R.id.facility_labFOB);
+        txtLabHbAIC = view.findViewById(R.id.facility_labHbAIC);
+        txtLabLipid = view.findViewById(R.id.facility_labLipid);
+        txtLabOGT = view.findViewById(R.id.facility_labOGT);
+        txtLabPap = view.findViewById(R.id.facility_labPap);
+        txtLabSputum = view.findViewById(R.id.facility_labsputum);
+        txtLabUrine = view.findViewById(R.id.facility_labUrine);
 
+        tilLabXray = view.findViewById(R.id.facility_til_labXray);
+        tilLabCBC = view.findViewById(R.id.facility_til_labCBC);
+        tilLabCreatine = view.findViewById(R.id.facility_til_labCreatine);
+        tilLabECG = view.findViewById(R.id.facility_til_labECG);
+        tilLabFBS = view.findViewById(R.id.facility_til_labFBS);
+        tilLabFecal = view.findViewById(R.id.facility_til_labFecalysis);
+        tilLabFOB = view.findViewById(R.id.facility_til_labFOB);
+        tilLabHbAIC = view.findViewById(R.id.facility_til_labHbAIC);
+        tilLabLipid = view.findViewById(R.id.facility_til_labLipid);
+        tilLabOGT = view.findViewById(R.id.facility_til_labOGT);
+        tilLabPap = view.findViewById(R.id.facility_til_labPap);
+        tilLabSputum = view.findViewById(R.id.facility_til_labSputum);
+        tilLabUrine = view.findViewById(R.id.facility_til_labUrine);
+
+            /**Dental*/
         txtDentalServices = view.findViewById(R.id.facility_dentalServices);
         tblDental = view.findViewById(R.id.table_dentalServices);
         txtDentalCost1 = view.findViewById(R.id.facility_dentalCost1);
         txtDentalCost2 = view.findViewById(R.id.facility_dentalCost2);
         txtDentalCost3 = view.findViewById(R.id.facility_dentalCost3);
         txtDentalCost4 = view.findViewById(R.id.facility_dentalCost4);
+    }
+
+    public void disableLaboratory(){
+        tilLabXray.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+        tilLabCBC.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+        tilLabCreatine.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+        tilLabECG.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+        tilLabFBS.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+        tilLabFecal.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+        tilLabFOB.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+        tilLabHbAIC.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+        tilLabLipid.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+        tilLabOGT.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+        tilLabPap.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+        tilLabSputum.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+        tilLabUrine.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+
+        txtLabXray.setEnabled(false);
+        txtLabCBC.setEnabled(false);
+        txtLabCreatine.setEnabled(false);
+        txtLabECG.setEnabled(false);
+        txtLabFBS.setEnabled(false);
+        txtLabFecal.setEnabled(false);
+        txtLabFOB.setEnabled(false);
+        txtLabHbAIC.setEnabled(false);
+        txtLabLipid.setEnabled(false);
+        txtLabOGT.setEnabled(false);
+        txtLabPap.setEnabled(false);
+        txtLabSputum.setEnabled(false);
+        txtLabUrine.setEnabled(false);
     }
 }
