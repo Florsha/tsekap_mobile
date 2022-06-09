@@ -215,7 +215,6 @@
     </string-array>
 
     <string-array name="service_capability">
-        <item>Licensed PCF</item>
         <item>Level 1</item>
         <item>Level 2</item>
         <item>Level 3</item>
@@ -223,9 +222,7 @@
         <item>Laboratory Level 2</item>
         <item>Laboratory Level 3</item>
         <item>Infirmary</item>
-        <item>RHU</item>
         <item>Primary Care Facility</item>
-        <item>Health Center</item>
         <item>ITMF</item>
         <item>Dental Clinic</item>
         <item>Radiology</item>
@@ -234,17 +231,18 @@
 
     <string-array name="ownership">
         <item>Government</item>
-        <item>Private</item>
-        <item>Rural Health Unit Government</item>
-        <item>CIU/TTMF</item>
-        <item>Private Birthing Home</item>
+        <item>(Government) Rural Health Unit</item>
+        <item>(Government) LGU-Owned Hospital</item>
+        <item>(Government) City-Owned Hospital</item>
+        <item>(Government) City Health Office</item>
         <item>Government Birthing Home</item>
         <item>Emergency Operations Center</item>
-        <item>LGU-Owned</item>
-        <item>City-Owned</item>
         <item>DOH Hospital</item>
+        <item>CIU/TTMF</item>
         <item>Department of National Defense</item>
         <item>Philippine National Police</item>
+        <item>Private</item>
+        <item>Private Birthing Home</item>
     </string-array>
 
     <string-array name="transport_type">
@@ -255,9 +253,14 @@
     </string-array>
 
 
-    <string-array name="hospital_status">
+    <string-array name="referral_status">
         <item>Active</item>
         <item>Inactive</item>
+    </string-array>
+
+    <string-array name="facility_status">
+        <item>Functional</item>
+        <item>Not Functional</item>
     </string-array>
 
     <string-array name="classification">
@@ -277,8 +280,14 @@
 
     <string-array name="accreditation_status">
         <item>Accredited</item>
-        <item>Not Accredited</item>
+        <item>Non Accredited</item>
     </string-array>
+
+    <string-array name="license_status">
+        <item>Licensed</item>
+        <item>Non Licensed</item>
+    </string-array>
+
     <string-array name="laboratory_services">
         <item>Chest X-ray</item>
         <item>Complete Blood Count</item>
@@ -296,11 +305,47 @@
     </string-array>
 
     <string-array name="dental_services">
-        <item>Dental 1</item>
-        <item>Dental 2</item>
-        <item>Dental 3</item>
-        <item>Dental 4</item>
+        <item>Extraction</item>
+        <item>Temporary Filling</item>
+        <item>Permanent Filling</item>
+        <item>Orthodontics</item>
+        <item>Oral prophylaxis (Cleaning)</item>
     </string-array>
 
+    <string-array name="familyPlanning_services">
+        <item>NSV</item>
+        <item>BTL</item>
+        <item>Condom</item>
+        <item>LAM</item>
+        <item>Progesterone</item>
+        <item>Implant</item>
+        <item>(Oral Pills) Progesterone Only Pills</item>
+        <item>(Oral Pills) Combine Oral Contraceptive</item>
+        <item>(DMPA) Pure Inject Contraceptive</item>
+        <item>(DMPA) Combine Inject Contraceptive</item>
+        <item>(IUD) Internal</item>
+        <item>(IUD) Postpartum</item>
+    </string-array>
 
+    <string-array name="abtc_services">
+        <item>Category 1</item>
+        <item>Category 2</item>
+        <item>Category 3</item>
+    </string-array>
+
+    <string-array name="tbdots_services">
+        <item>Category 1</item>
+        <item>Category 2</item>
+    </string-array>
+
+    <string-array name="consultation_services">
+        <item>Private Clinic</item>
+        <item>Public Clinic</item>
+    </string-array>
+
+    <string-array name="other_services">
+        <item>Birthing</item>
+        <item>Dialysis Center</item>
+        <item>Pharmacy</item>
+    </string-array>
 </resources>

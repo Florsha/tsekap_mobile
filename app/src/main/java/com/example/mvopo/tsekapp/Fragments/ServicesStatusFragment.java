@@ -154,7 +154,7 @@ public class ServicesStatusFragment extends Fragment {
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.action_download:
+            case R.id.action_download_specialist:
                 int serviceStatusCount = MainActivity.db.getServiceStatusCount("");
                 if (serviceStatusCount == 0) {
                     downloadServices();

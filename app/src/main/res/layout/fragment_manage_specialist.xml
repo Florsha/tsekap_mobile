@@ -53,31 +53,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
-            <EditText
-                android:id="@+id/specialist_contact"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Contact Number"
-                android:text="09175211195"
-                android:padding="5dp"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
-
-            <EditText
-                android:id="@+id/specialist_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Email"
-                android:padding="5dp"
-                android:singleLine="true" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
             <TextView
                 android:layout_width="match_parent"
@@ -92,32 +67,31 @@
 
 
 
-        <ListView
+        <LinearLayout
             android:id="@+id/specialist_holder1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp"/>
+            android:padding="10dp" />
 
-        <TableLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+        <TableLayout android:layout_width="match_parent" android:layout_marginTop="5dp" android:layout_height="wrap_content" android:orientation="horizontal">
             <TableRow android:layout_weight="1" android:layout_width="0dp" android:layout_height="wrap_content">
                 <Button
                     android:id="@+id/specialist_add"
                     android:layout_weight=".5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Add affiliated facility"
+                    android:text="Add new facility"
                     android:textColor="#fff"
                     android:background="@color/colorLightBlue"
                     android:padding="5dp"
                     android:layout_margin="5dp"/>
-
                 <Button
                     android:id="@+id/specialistBtn"
                     android:layout_weight=".5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Update Specialist"
+                    android:text="Update specialist"
                     android:textColor="#fff"
                     android:background="@color/colorAccent"
                     android:padding="5dp"

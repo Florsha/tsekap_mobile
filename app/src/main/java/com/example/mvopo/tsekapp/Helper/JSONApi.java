@@ -355,6 +355,8 @@ public class JSONApi {
                                         String immu_stat = response.getString("immu_stat");
                                         String nutri_stat = response.getString("nutri_stat");
                                         String pwd_desc = response.getString("pwd_desc");
+                                        String sexually_active = response.getString("sexually_active");
+
                                         db.addProfile(new FamilyProfile(
                                                 id,
                                                 unique_id,
@@ -384,7 +386,7 @@ public class JSONApi {
                                                 pregnant, /*"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
                                                 */birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
                                                 tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
-                                                immu_stat, nutri_stat, pwd_desc));
+                                                immu_stat, nutri_stat, pwd_desc, sexually_active));
 
                                         if (i == array.length() - 1) {
                                             currentCount = db.getProfilesCount(barangay_id);

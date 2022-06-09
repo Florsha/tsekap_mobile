@@ -197,7 +197,8 @@
                 android:hint="Birth Date (YYYY-MM-DD)"
                 android:inputType="number"
                 android:maxLength="10"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:focusable="false"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -851,6 +852,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/deceased_frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -868,7 +870,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/deceased_frame"
+            android:id="@+id/deceasedAge_frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

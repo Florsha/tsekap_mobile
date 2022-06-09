@@ -91,7 +91,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         tbdots_med,cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
         immu_stat, nutri_stat, pwd_desc, sexually_active;
 
-    TextInputLayout til_otherReligion, til_pwdDesc, til_cancerType, til_deceasedDate, til_menarche, til_menarcheAge, til_newborn, til_sexually;
+    TextInputLayout til_otherReligion, til_pwdDesc, til_cancerType, til_deceased, til_deceasedDate, til_menarche, til_menarcheAge, til_newborn, til_sexually;
     LinearLayout layout_adult, layout_age5;
     /*END*/
 
@@ -146,10 +146,8 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         if (!toUpdate) {
             view.findViewById(R.id.layout_head).setVisibility(View.GONE);
             if (!addHead || txtHead.getText().toString().equalsIgnoreCase("NO")) {
-                headFields.setVisibility(View.GONE);
-                unmetFrame.setVisibility(View.GONE);
-                til_isPregnantFrame.setVisibility(View.GONE);
-                view.findViewById(R.id.layout_relation).setVisibility(View.VISIBLE);
+               headFields.setVisibility(View.GONE);
+               view.findViewById(R.id.layout_relation).setVisibility(View.VISIBLE);
             }
             manageBtn.setText("Add");
         } else {
@@ -200,60 +198,8 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         //end
         manageBtn.setOnClickListener(this);
 
-//        manageDengvaxia.setOnClickListener(this);
+//      manageDengvaxia.setOnClickListener(this);
 
-
-        // TODO : ADD TEXT CHANGE LISTENER
-        txtIsPregnant.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                isPregnant = txtIsPregnant.getText().toString();{
-                    if(isPregnant.equalsIgnoreCase("Yes")) {
-                        til_pregnantDate.setVisibility(View.VISIBLE);
-                    }
-                    else {
-                        til_pregnantDate.setVisibility(View.GONE);
-                    }
-                }
-            }
-        });
-
-        txtSex.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                sex = txtSex.getText().toString();
-                if (((age >= 15 && age <= 49) || addHead) && sex.equalsIgnoreCase("Female"))
-                {
-                    til_menarche.setVisibility(View.VISIBLE);
-                    unmetFrame.setVisibility(View.VISIBLE);
-                    til_isPregnantFrame.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                    til_menarche.setVisibility(View.GONE);
-                    til_menarcheAge.setVisibility(View.GONE);
-                    unmetFrame.setVisibility(View.GONE);
-                    til_isPregnantFrame.setVisibility(View.GONE);
-                    til_pregnantDate.setVisibility(View.GONE);
-                    txtIsPregnant.setText("");
-                }
-            }
-        });
 
         txtBday.addTextChangedListener(new TextWatcher() {
             @Override
@@ -266,12 +212,26 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
 
             @Override
             public void afterTextChanged(Editable editable) {
+
                 if(age < 5){
                     layout_adult.setVisibility(View.GONE);
                     layout_age5.setVisibility(View.VISIBLE);
                 }else {
                     layout_adult.setVisibility(View.VISIBLE);
                     layout_age5.setVisibility(View.GONE);
+                }
+
+                if (!(age < 15 || age > 49) && txtSex.getText().toString().equalsIgnoreCase("Female")){
+                    til_menarche.setVisibility(View.VISIBLE);
+                    unmetFrame.setVisibility(View.VISIBLE);
+                    til_isPregnantFrame.setVisibility(View.VISIBLE);
+
+                }else {
+                    til_menarche.setVisibility(View.GONE);
+                    til_menarcheAge.setVisibility(View.GONE);
+                    unmetFrame.setVisibility(View.GONE);
+                    til_isPregnantFrame.setVisibility(View.GONE);
+                    til_pregnantDate.setVisibility(View.GONE);
                 }
             }
         });
@@ -280,7 +240,11 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         Constants.setDateTextWatcher(getContext(), txtBday);
         Constants.setDateTextWatcher(getContext(), txtDeceasedDate);
         Constants.setDateTextWatcher(getContext(), txtPregnantDate);
-        if (!toUpdate) showProfileCheckerDialog();
+        if (!toUpdate){
+            showProfileCheckerDialog(); /**also add to specialist and facilities?**/
+            til_deceasedDate.setVisibility(View.GONE);
+            til_deceased.setVisibility(View.GONE);
+        }
         return view;
     }
 
@@ -382,7 +346,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 break;
 //            case R.id.manageDengvaxia:
 ////                showDengvaxiaDialog();
-//                Bundle bundle = new Bundle();
+//
 //                bundle.putParcelable("familyProfile", familyProfile);
 //
 //                DengvaxiaFormFragment dff = new DengvaxiaFormFragment();
@@ -412,7 +376,6 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                         break;
                     }
                 }
-
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, CAMERA_CODE);
 
@@ -490,7 +453,6 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 suffix = txtSuffix.getText().toString().trim();
                 sex = txtSex.getText().toString().trim();
 
-
                 birth_place = txtBirthPlace.getText().toString().trim();
                 civil_status = txtCivil.getText().toString().trim();
                 contact = txtContact.getText().toString().trim();
@@ -499,19 +461,37 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
 
                 covid_status = txtCovid.getText().toString().trim();
 
-                relation = txtRelation.getText().toString().trim();
-                if (relation.equalsIgnoreCase("Live-in Partner")) relation = "partner";
+                if(head.trim().equalsIgnoreCase("NO")){
+                    sexually_active = "";
+                    relation = txtRelation.getText().toString().trim();
+                    if (relation.equalsIgnoreCase("Live-in Partner")) relation = "partner";
+                    income="0";
+                    supply="0";
+                    toilet="";
+                }else { //HEAD
+                    sexually_active = txtSexually.getText().toString().trim();
+                    relation="Head";
+                    try {
+                        income = txtIncome.getTag().toString();
+                    } catch (Exception e) {
+                        income = familyProfile.income;
+                    }
 
-                newborn_screen = txtNewbornScreen.getText().toString().trim();
-                if(newborn_screen.trim().equalsIgnoreCase("NO")){
-                    newborn_text = "";
-                }else {
-                    newborn_text = txtNewbornText.getText().toString().trim();
+                    try {
+                        supply = txtSupply.getTag().toString();
+                    } catch (Exception e) {
+                        supply = familyProfile.waterSupply;
+                    }
+
+                    try {
+                        toilet = txtToilet.getTag().toString();
+                    } catch (Exception e) {
+                        toilet = familyProfile.sanitaryToilet;
+                    }
                 }
-                immu_stat = txtImmunization.getText().toString().trim();
-                nutri_stat = txtNutrition.getText().toString().trim();
 
-                if(txtSex.getText().toString().trim().equalsIgnoreCase("Female") ){
+            // Female inputs
+                if (!(age < 15 || age > 49) && txtSex.getText().toString().equalsIgnoreCase("Female")) {
                     menarche = txtMenarche.getText().toString().trim();
                     menarche_age = txtMenarcheAge.getText().toString().trim();
                     pregnant_date = txtPregnantDate.getText().toString().trim();
@@ -520,12 +500,16 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                     } catch (Exception e) {
                         unmet = familyProfile.unmetNeed;
                     }
-                }else{
+                    if(txtHead.getText().toString().equalsIgnoreCase("YES"))
+                    sexually_active = txtSexually.getText().toString().trim();
+                }else {
                     menarche="";
                     menarche_age="";
                     pregnant_date="";
-                    unmet="";
+                    unmet="0";
+                    sexually_active = "";
                 }
+            // Adult and child inputs
                 if(age<5){
                     diabetic="";
                     hypertension="";
@@ -533,60 +517,47 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                     tbdots_med="";
                     cvd_med="";
                     cancer="";
-                    sexually_active="";
+
+                    newborn_screen = txtNewbornScreen.getText().toString().trim();
+                    if(newborn_screen.trim().equalsIgnoreCase("NO")){
+                        newborn_text = "";
+                    }else {
+                        newborn_text = txtNewbornText.getText().toString().trim();
+                    }
+                    immu_stat = txtImmunization.getText().toString().trim();
+                    nutri_stat = txtNutrition.getText().toString().trim();
                 }else{
-                    sexually_active = txtSexually.getText().toString().trim();
                     diabetic = txtDiabetic.getText().toString().trim();
                     hypertension = txtHypertension.getText().toString().trim();
                     mental_med = txtMental.getText().toString().trim();
                     tbdots_med = txtTBDOTS.getText().toString().trim();
                     cvd_med = txtCVD.getText().toString().trim();
+
+                    cancer = txtCancer.getText().toString().trim();
+                    if(cancer.trim().equalsIgnoreCase("NO")) cancer_type = "";
+                    else cancer_type = txtCancerType.getText().toString().trim();
+
+                    newborn_screen="";
+                    newborn_text = "";
+                    immu_stat = "";
+                    nutri_stat = "";
                 }
 
-                deceased = txtDecease.getText().toString().trim();
-                if(deceased.trim().equalsIgnoreCase("NO")){
-                    deceased_date = "";
-                }else {
-                    deceased_date = txtDeceasedDate.getText().toString().trim();
+                if (toUpdate){
+                    deceased = txtDecease.getText().toString().trim();
+                    if(deceased.trim().equalsIgnoreCase("NO")) deceased_date = "";
+                    else deceased_date = txtDeceasedDate.getText().toString().trim();
                 }
+
 
                 pwd = txtPWD.getText().toString().trim();
-                if(pwd.trim().equalsIgnoreCase("NO")){
-                    pwd_desc = "";
-                }else {
-                    pwd_desc = txtPwdDesc.getText().toString().trim();
-                }
+                if(pwd.trim().equalsIgnoreCase("NO")) pwd_desc = "";
+                else pwd_desc = txtPwdDesc.getText().toString().trim();
 
                 religion = txtReligion.getText().toString().trim();
-                if(religion.trim().equalsIgnoreCase("others")){
-                    other_religion = txtOtherReligion.getText().toString().trim();
-                }else {
-                    other_religion = "";
-                }
+                if(religion.trim().equalsIgnoreCase("others")) other_religion = txtOtherReligion.getText().toString().trim();
+                else other_religion = "";
 
-                cancer = txtCancer.getText().toString().trim();
-                if(cancer.trim().equalsIgnoreCase("NO")){
-                    cancer_type = "";
-                }else {
-                    cancer_type = txtCancerType.getText().toString().trim();
-                }
-
-                try {
-                    income = txtIncome.getTag().toString();
-                } catch (Exception e) {
-                    income = familyProfile.income;
-                }
-
-                try {
-                    supply = txtSupply.getTag().toString();
-                } catch (Exception e) {
-                    supply = familyProfile.waterSupply;
-                }
-                try {
-                    toilet = txtToilet.getTag().toString();
-                } catch (Exception e) {
-                    toilet = familyProfile.sanitaryToilet;
-                }
                 try {
                     education = txtEducation.getTag().toString();
                 } catch (Exception e) {
@@ -599,36 +570,23 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 } else if (lname.isEmpty()) {
                     txtLname.setError("Required");
                     txtLname.requestFocus();
-                } else if (bday.isEmpty() && bday.length() != 10)
-                {
+                } else if (bday.isEmpty() && bday.length() != 10) {
                     Toast.makeText(getContext(), "Invalid date, please follow YYYY-MM-DD format", Toast.LENGTH_SHORT).show();
-                }
-                else if (sex.isEmpty())
-                {
+                } else if (sex.isEmpty()) {
                     Toast.makeText(getContext(), "Gender required", Toast.LENGTH_SHORT).show();
-                }
-                // UPDATE
-                else if (diabetic.isEmpty())
-                {
+                } else if (age > 5 && diabetic.isEmpty()) {
                     Toast.makeText(getContext(), "Is the person Diabetic?", Toast.LENGTH_SHORT).show();
-                }
-                else if(hypertension.isEmpty())
-                {
+                } else if(age > 5 && hypertension.isEmpty()) {
                     Toast.makeText(getContext(), "Is the person experiencing Hypertension?", Toast.LENGTH_SHORT).show();
-                }
-                else if(pwd.isEmpty())
-                {
+                } else if(pwd.isEmpty()) {
                     Toast.makeText(getContext(), "Is the person with disabilities?", Toast.LENGTH_SHORT).show();
-                }
-                // END
-                else if (brgy.isEmpty())
+                } else if (brgy.isEmpty())
                 {
                     Toast.makeText(getContext(), "Barangay required", Toast.LENGTH_SHORT).show();
                 } else {
                     if (brgyFieldClicked) brgy = txtBrgy.getTag().toString();
                     else brgy = familyProfile.barangayId;
 
-                    //Toast.makeText(getContext(), brgy, Toast.LENGTH_SHORT).show();
                     if (manageBtn.getText().toString().equalsIgnoreCase("ADD")) {
                         if (addHead) {
                             head = "YES";
@@ -664,7 +622,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                                 pregnant_date,
                                 birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
                                 tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
-                                immu_stat, nutri_stat, pwd_desc);
+                                immu_stat, nutri_stat, pwd_desc, sexually_active);
                         MainActivity.db.addProfile(newFamilyProfile);
                         Toast.makeText(getContext(), "Successfully added", Toast.LENGTH_SHORT).show();
                     } else {
@@ -699,7 +657,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                                 pwd,
                                 pregnant_date, birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
                                 tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
-                                immu_stat, nutri_stat, pwd_desc);
+                                immu_stat, nutri_stat, pwd_desc, sexually_active);
                         MainActivity.db.updateProfile(updatedFamilyProfile);
                         Toast.makeText(getContext(), "Successfully updated", Toast.LENGTH_SHORT).show();
                     }
@@ -769,56 +727,57 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         txtWeight.setText(familyProfile.weight);
 
         txtHead.setText(familyProfile.isHead);
-        if(txtHead.getText().toString().equalsIgnoreCase("NO")){
+        if(familyProfile.isHead.trim().equalsIgnoreCase("NO")){
             headFields.setVisibility(View.GONE);
+            til_sexually.setVisibility(View.GONE);
             view.findViewById(R.id.layout_relation).setVisibility(View.VISIBLE);
-
             if (familyProfile.relation.equalsIgnoreCase("partner"))
                     txtRelation.setText("Live-in Partner");
             else txtRelation.setText(familyProfile.relation);
+        }else {
+            til_sexually.setVisibility(View.VISIBLE);
+            txtSexually.setText(familyProfile.sexually_active);
         }
 
         age = Integer.parseInt(Constants.getAge(txtBday.getText().toString(), Calendar.getInstance()).split(" ")[0]);
 
         txtSex.setText(familyProfile.sex);
-        if(txtSex.getText().toString().equalsIgnoreCase("Female")){
-            if (age < 15 || age > 49){
-                til_isPregnantFrame.setVisibility(View.GONE);
-                unmetFrame.setVisibility(View.GONE);
-            }else{
-                til_isPregnantFrame.setVisibility(View.VISIBLE);
-                unmetFrame.setVisibility(View.VISIBLE);
 
-                if(familyProfile.pregnant.isEmpty() || familyProfile.pregnant.equalsIgnoreCase("0000-00-00") ) {
-                    txtIsPregnant.setText("NO");
-                    til_pregnantDate.setVisibility(View.GONE);
-                }
-                else {
-                    txtIsPregnant.setText("YES");
-                    til_pregnantDate.setVisibility(View.VISIBLE);
-                    txtPregnantDate.setText(familyProfile.pregnant);
-                }
+        if (!(age < 15 || age > 49) && familyProfile.sex.trim().equalsIgnoreCase("Female")){
+            unmetFrame.setVisibility(View.VISIBLE);
+
+            //menarche
+            til_menarche.setVisibility(View.VISIBLE);
+            txtMenarche.setText(familyProfile.menarche);
+            if(familyProfile.menarche.equalsIgnoreCase("YES")){
+                til_menarcheAge.setVisibility(View.VISIBLE);
+                txtMenarcheAge.setText(familyProfile.menarche_age);
+            }else
+                til_menarcheAge.setVisibility(View.GONE);
+
+            //pregnant
+            til_isPregnantFrame.setVisibility(View.VISIBLE);
+            if(familyProfile.pregnant.isEmpty() || familyProfile.pregnant.equalsIgnoreCase("0000-00-00") ) {
+                txtIsPregnant.setText("NO");
+                til_pregnantDate.setVisibility(View.GONE);
             }
-            if(age>5){
-                til_menarche.setVisibility(View.VISIBLE);
-                txtMenarche.setText(familyProfile.menarche);
-                if(txtMenarche.getText().toString().equalsIgnoreCase("YES")){
-                    til_menarcheAge.setVisibility(View.VISIBLE);
-                    txtMenarcheAge.setText(familyProfile.menarche_age);
-                }else
-                    til_menarcheAge.setVisibility(View.GONE);
+            else {
+                txtIsPregnant.setText("YES");
+                til_pregnantDate.setVisibility(View.VISIBLE);
+                txtPregnantDate.setText(familyProfile.pregnant);
             }
-        } else {
+        }else { //beyond age and male
+            til_menarche.setVisibility(View.GONE);
+            til_menarcheAge.setVisibility(View.GONE);
+            unmetFrame.setVisibility(View.GONE);
             til_isPregnantFrame.setVisibility(View.GONE);
             til_pregnantDate.setVisibility(View.GONE);
-            unmetFrame.setVisibility(View.GONE);
-            til_menarche.setVisibility(View.GONE);
         }
+
 
         if(age < 5){/**5yrs old below **/
             layout_adult.setVisibility(View.GONE);
             layout_age5.setVisibility(View.VISIBLE);
-            til_sexually.setVisibility(View.GONE);
 
             txtNewbornScreen.setText(familyProfile.newborn_screen);
             if(txtNewbornScreen.getText().toString().equalsIgnoreCase("YES")){
@@ -831,7 +790,6 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         }else   { /** 5yrs old ABOVE **/
             layout_adult.setVisibility(View.VISIBLE);
             layout_age5.setVisibility(View.GONE);
-            til_sexually.setVisibility(View.VISIBLE);
 
             txtDiabetic.setText(familyProfile.diabetic);
             txtHypertension.setText(familyProfile.hypertension);
@@ -874,30 +832,23 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
 
         Log.e("MPF", familyProfile.income + " " + familyProfile.unmetNeed + " " + familyProfile.waterSupply + " " + familyProfile.sanitaryToilet);
         if (!familyProfile.income.isEmpty() && !familyProfile.income.equals("0"))
-            txtIncome.setText(getResources()
-                    .getStringArray(R.array.monthly_income)[Integer.parseInt(familyProfile.income) - 1]);
+            txtIncome.setText(getResources().getStringArray(R.array.monthly_income)[Integer.parseInt(familyProfile.income) - 1]);
         if (!familyProfile.unmetNeed.isEmpty() && !familyProfile.unmetNeed.equals("0"))
-            txtUnmet.setText(getResources()
-                    .getStringArray(R.array.unmet_needs)[Integer.parseInt(familyProfile.unmetNeed) - 1]);
+            txtUnmet.setText(getResources().getStringArray(R.array.unmet_needs)[Integer.parseInt(familyProfile.unmetNeed) - 1]);
         if (!familyProfile.waterSupply.isEmpty() && !familyProfile.waterSupply.equals("0"))
-            txtSupply.setText(getResources()
-                    .getStringArray(R.array.water_supply)[Integer.parseInt(familyProfile.waterSupply) - 1]);
+            txtSupply.setText(getResources().getStringArray(R.array.water_supply)[Integer.parseInt(familyProfile.waterSupply) - 1]);
         try {
             if (!familyProfile.sanitaryToilet.isEmpty() && !familyProfile.sanitaryToilet.equals("0"))
-                txtToilet.setText(getResources()
-                        .getStringArray(R.array.sanitary_toilet)[Integer.parseInt(familyProfile.sanitaryToilet) - 1]);
+                txtToilet.setText(getResources().getStringArray(R.array.sanitary_toilet)[Integer.parseInt(familyProfile.sanitaryToilet) - 1]);
         } catch (Exception e) {
             String toilet = familyProfile.sanitaryToilet;
 
             if (toilet.equals("non")) {
-                txtToilet.setText(getResources()
-                        .getStringArray(R.array.sanitary_toilet)[0]);
+                txtToilet.setText(getResources().getStringArray(R.array.sanitary_toilet)[0]);
             } else if (toilet.equals("comm")) {
-                txtToilet.setText(getResources()
-                        .getStringArray(R.array.sanitary_toilet)[1]);
+                txtToilet.setText(getResources().getStringArray(R.array.sanitary_toilet)[1]);
             } else {
-                txtToilet.setText(getResources()
-                        .getStringArray(R.array.sanitary_toilet)[2]);
+                txtToilet.setText(getResources().getStringArray(R.array.sanitary_toilet)[2]);
             }
         }
 
@@ -960,98 +911,81 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                     txtView.setText(radioButton.getText());
 
                     if(txtView.getId() == R.id.manage_religion){
-                        if (txtView.getText().toString().trim().equalsIgnoreCase("Others")){
-                            til_otherReligion.setVisibility(View.VISIBLE);
-                        }else {
-                            til_otherReligion.setVisibility(View.GONE);
-                        }
-                    }
+                        if (txtView.getText().toString().trim().equalsIgnoreCase("Others")) til_otherReligion.setVisibility(View.VISIBLE);
+                        else til_otherReligion.setVisibility(View.GONE);
 
-                    if(txtView.getId() == R.id.manage_pwd){
-                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes")){
-                            til_pwdDesc.setVisibility(View.VISIBLE);
-                        }else {
-                            til_pwdDesc.setVisibility(View.GONE);
-                        }
-                    }
+                    } else if(txtView.getId() == R.id.manage_pwd){
+                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes")) til_pwdDesc.setVisibility(View.VISIBLE);
+                        else til_pwdDesc.setVisibility(View.GONE);
 
-                    if(txtView.getId() == R.id.manage_cancer){
-                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes")){
-                            til_cancerType.setVisibility(View.VISIBLE);
-                        }else {
-                            til_cancerType.setVisibility(View.GONE);
-                        }
-                    }
+                    }else if(txtView.getId() == R.id.manage_cancer){
+                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes")) til_cancerType.setVisibility(View.VISIBLE);
+                        else til_cancerType.setVisibility(View.GONE);
 
-                    if(txtView.getId() == R.id.manage_deceased){
-                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes")){
-                            til_deceasedDate.setVisibility(View.VISIBLE);
-                        }else {
-                            til_deceasedDate.setVisibility(View.GONE);
-                        }
-                    }
+                    }else if(txtView.getId() == R.id.manage_deceased){
+                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes")) til_deceasedDate.setVisibility(View.VISIBLE);
+                        else til_deceasedDate.setVisibility(View.GONE);
 
-                    if(txtView.getId() == R.id.manage_menarche){
-                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes")){
-                            til_menarcheAge.setVisibility(View.VISIBLE);
-                        }else {
-                            til_menarcheAge.setVisibility(View.GONE);
-                        }
-                    }
+                    }else if(txtView.getId() == R.id.manage_menarche){
+                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes")) til_menarcheAge.setVisibility(View.VISIBLE);
+                        else til_menarcheAge.setVisibility(View.GONE);
 
-                    if(txtView.getId() == R.id.manage_newborn){
-                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes")){
+                    }else if(txtView.getId() == R.id.manage_newborn) {
+                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes"))
                             til_newborn.setVisibility(View.VISIBLE);
-                        }else {
-                            til_newborn.setVisibility(View.GONE);
-                        }
-                    }
+                        else til_newborn.setVisibility(View.GONE);
 
+                    }else if(txtView.getId() == R.id.manage_isPregnant){
+                        if (txtView.getText().toString().trim().equalsIgnoreCase("Yes"))
+                            til_pregnantDate.setVisibility(View.VISIBLE);
+                        else til_pregnantDate.setVisibility(View.GONE);
 
-                    if (txtView.getId() == R.id.manage_barangay) {
+                    }else if (txtView.getId() == R.id.manage_barangay) {
                         txtView.setTag(radioButton.getId());
                         txtBrgy = txtView;
+
                     } else if (txtView.getId() == R.id.manage_education) {
                         txtView.setTag(radioButton.getTag().toString());
-                    } else if (txtView.getId() == R.id.manage_income || txtView.getId() == R.id.manage_unmet ||
-                            txtView.getId() == R.id.manage_supply || txtView.getId() == R.id.manage_toilet) {
-                        txtView.setTag(radioButton.getId());
-                    } else if (txtView.getId() == R.id.manage_head) {
-                        if (txtView.getText().toString().equalsIgnoreCase("NO")) {
-                            headFields.setVisibility(View.GONE);
-                            age = Integer.parseInt(Constants.getAge(txtBday.getText().toString(), Calendar.getInstance()).split(" ")[0]);
-                            if ((age < 15 || age > 49) && txtSex.getText().toString().equalsIgnoreCase("Female"))
-                            {
-                                til_menarche.setVisibility(View.GONE);
-                                til_menarcheAge.setVisibility(View.GONE);
-                                unmetFrame.setVisibility(View.GONE);
-                                til_isPregnantFrame.setVisibility(View.GONE);
-                            }
 
+                    } else if (txtView.getId() == R.id.manage_income || txtView.getId() == R.id.manage_unmet || txtView.getId() == R.id.manage_supply || txtView.getId() == R.id.manage_toilet) {
+                        txtView.setTag(radioButton.getId());
+
+                    } else if (txtView.getId() == R.id.manage_head) {
+                        if (txtView.getText().toString().equalsIgnoreCase("NO")) { //NOT head
+                            headFields.setVisibility(View.GONE);
                             ManagePopulationFragment.this.view.findViewById(R.id.layout_relation).setVisibility(View.VISIBLE);
                             txtRelation.setText("Son");
-                        } else {
+                            til_sexually.setVisibility(View.GONE);
+                        } else { //HEAD
+                            til_sexually.setVisibility(View.VISIBLE);
+
                             headFields.setVisibility(View.VISIBLE);
-                            if (txtSex.getText().toString().equalsIgnoreCase("Female"))
-                            {
-                                unmetFrame.setVisibility(View.VISIBLE);
-                                til_isPregnantFrame.setVisibility(View.VISIBLE);
-                                til_menarche.setVisibility(View.VISIBLE);
-                            }
+                            txtRelation.setText("");
                             ManagePopulationFragment.this.view.findViewById(R.id.layout_relation).setVisibility(View.GONE);
                         }
-                    } else if (txtView.getId() == R.id.manage_relation) {
+                    } else if (txtView.getId() == R.id.manage_sex){
+                        if (!(age < 15 || age > 49) && txtSex.getText().toString().equalsIgnoreCase("Female")){
+                            til_menarche.setVisibility(View.VISIBLE);
+                            unmetFrame.setVisibility(View.VISIBLE);
+                            til_isPregnantFrame.setVisibility(View.VISIBLE);
+                        }else {
+                            til_menarche.setVisibility(View.GONE);
+                            til_menarcheAge.setVisibility(View.GONE);
+                            unmetFrame.setVisibility(View.GONE);
+                            til_isPregnantFrame.setVisibility(View.GONE);
+                            til_pregnantDate.setVisibility(View.GONE);
+                        }
+
+                    }else if (txtView.getId() == R.id.manage_relation) {
                         String relation = txtView.getText().toString();
-                        if (males.contains(txtView.getText().toString())) txtSex.setText("Male");
-                        else if (females.contains(txtView.getText().toString()))
-                            txtSex.setText("Female");
+                        if (males.contains(relation)) txtSex.setText("Male");
+                        else if (females.contains(relation)) txtSex.setText("Female");
                         else txtSex.setText("");
                     }
                 } else {
                     txtView.setText("");
                     txtView.setTag("");
                 }
-
                 optionDialog.dismiss();
             }
         });
@@ -1193,27 +1127,28 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         switch (view.getTag().toString()) {
             case "bday":
                 txtBday.setText(year + "-" + String.format("%02d", (monthOfYear + 1)) + "-" + String.format("%02d", dayOfMonth));
-
                 age = Integer.parseInt(Constants.getAge(txtBday.getText().toString(), Calendar.getInstance()).split(" ")[0]);
-                if (((age >= 15 && age <= 49) || addHead) && txtSex.getText().toString().equalsIgnoreCase("Female")) {
-                    unmetFrame.setVisibility(View.VISIBLE);
+
+                if (!(age < 15 || age > 49) && txtSex.getText().toString().equalsIgnoreCase("Female")){
                     til_menarche.setVisibility(View.VISIBLE);
-                }
-                else {
+                    unmetFrame.setVisibility(View.VISIBLE);
+                    til_isPregnantFrame.setVisibility(View.VISIBLE);
+
+                }else {
                     til_menarche.setVisibility(View.GONE);
+                    til_menarcheAge.setVisibility(View.GONE);
                     unmetFrame.setVisibility(View.GONE);
+                    til_isPregnantFrame.setVisibility(View.GONE);
+                    til_pregnantDate.setVisibility(View.GONE);
                 }
 
                 if(age < 5){
                     layout_adult.setVisibility(View.GONE);
                     layout_age5.setVisibility(View.VISIBLE);
-                    til_sexually.setVisibility(View.GONE);
                 }else {
                     layout_adult.setVisibility(View.VISIBLE);
-                    til_sexually.setVisibility(View.VISIBLE);
                     layout_age5.setVisibility(View.GONE);
                 }
-
                 break;
             case "dose_date":
                 txtDoseDate.setText(year + "-" + String.format("%02d", (monthOfYear + 1)) + "-" + String.format("%02d", dayOfMonth));
@@ -1364,8 +1299,10 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         til_pwdDesc = view.findViewById(R.id.pwd_frame);
 
         txtDecease = view.findViewById(R.id.manage_deceased);
+        til_deceased = view.findViewById(R.id.deceased_frame);
         txtDeceasedDate = view.findViewById(R.id.manage_deceased_date);
-        til_deceasedDate = view.findViewById(R.id.deceased_frame);
+        til_deceasedDate = view.findViewById(R.id.deceasedAge_frame);
+
 
         txtMenarche  = view.findViewById(R.id.manage_menarche);
         txtMenarcheAge  = view.findViewById(R.id.manage_menarche_age);
@@ -1387,5 +1324,9 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
 
         txtSexually = view.findViewById(R.id.manage_sexually);
         til_sexually = view.findViewById(R.id.sexually_frame);
+    }
+
+    public void setVisibilityFemale(int visibility){
+
     }
 }

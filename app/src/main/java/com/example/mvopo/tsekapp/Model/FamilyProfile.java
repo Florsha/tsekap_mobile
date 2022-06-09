@@ -19,7 +19,7 @@ public class FamilyProfile implements Parcelable {
     //Update r
     public String birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
             tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
-            immu_stat, nutri_stat, pwd_desc;
+            immu_stat, nutri_stat, pwd_desc, sexually_active;
 
     public FamilyProfile(String id, String uniqueId, String familyId, String philId, String nhtsId, String isHead,
                          String relation, String fname, String lname, String mname, String suffix, String dob, String sex,
@@ -27,7 +27,7 @@ public class FamilyProfile implements Parcelable {
                          String sanitaryToilet, String educationalAttainment, String status , String diabetic, String hypertension, String pwd, String pregnant,
                          String birth_place, String civil_status, String religion, String other_religion, String contact, String height, String weight, String cancer,
                          String cancer_type, String mental_med, String tbdots_med, String cvd_med, String covid_status, String menarche, String menarche_age, String newborn_screen,
-                         String newborn_text, String deceased, String deceased_date, String immu_stat, String nutri_stat, String pwd_desc) {
+                         String newborn_text, String deceased, String deceased_date, String immu_stat, String nutri_stat, String pwd_desc, String sexually_active) {
         this.id = id;
         this.uniqueId = uniqueId;
         this.familyId = familyId;
@@ -80,6 +80,7 @@ public class FamilyProfile implements Parcelable {
         this.immu_stat = immu_stat;
         this.nutri_stat = nutri_stat;
         this.pwd_desc = pwd_desc;
+        this.sexually_active = sexually_active;
     }
 
     protected FamilyProfile(Parcel in) {
@@ -134,6 +135,7 @@ public class FamilyProfile implements Parcelable {
         immu_stat = in.readString();
         nutri_stat = in.readString();
         pwd_desc = in.readString();
+        sexually_active = in.readString();
     }
 
     @Override
@@ -189,6 +191,7 @@ public class FamilyProfile implements Parcelable {
         dest.writeString(immu_stat);
         dest.writeString(nutri_stat);
         dest.writeString(pwd_desc);
+        dest.writeString(sexually_active);
     }
 
     @Override

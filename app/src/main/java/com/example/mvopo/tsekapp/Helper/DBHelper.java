@@ -9,10 +9,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.mvopo.tsekapp.MainActivity;
+import com.example.mvopo.tsekapp.Model.AffiliatedFacilitiesModel;
 import com.example.mvopo.tsekapp.Model.FamilyProfile;
 import com.example.mvopo.tsekapp.Model.FeedBack;
 import com.example.mvopo.tsekapp.Model.ServicesStatus;
 import com.example.mvopo.tsekapp.Model.ServiceAvailed;
+import com.example.mvopo.tsekapp.Model.SpecialistModel;
 import com.example.mvopo.tsekapp.Model.User;
 
 import org.json.JSONException;
@@ -33,8 +35,12 @@ public class DBHelper extends SQLiteOpenHelper {
     final static String CLUSTER = "tbl_cluster";
     final static String DISTRICT = "tbl_district";
 
+    final static String SPECIALIST = "tbl_specialist";
+    final static String FACILITY = "tbl_facility";
+    final static String FACILITY_ASSIGNMENT = "tbl_facility_assignment";
+
     public DBHelper(Context context) {
-        super(context, DBNAME, null, 5);
+        super(context, DBNAME, null, 6);
         this.context = context;
     }
 
@@ -92,7 +98,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 "deceased_date varchar(50)," +
                 "immu_stat varchar(100)," +
                 "nutri_stat varchar(100)," +
-                "pwd_desc varchar(100))" ;
+                "pwd_desc varchar(100)," +
+                "sexually_active varchar(5))";
 
         String sql2 = "Create table " + SERVICES + " (id integer primary key autoincrement, request TEXT)";
 
@@ -101,11 +108,30 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String sql4 = "Create table " + FEEDBACK + " (id integer primary key autoincrement, subject varchar(25), body varchar(255))";
 
+        String sql5 = "Create table " + SPECIALIST + " " +
+                "(id integer  primary key autoincrement, " +
+                "username varchar(100), " +
+                "fname varchar(100), " +
+                "mname varchar(100), " +
+                "lname varchar(100))";
+
+        String sql6 = "Create table " + FACILITY_ASSIGNMENT + " " +
+                "(id integer  primary key autoincrement, " +
+                "username varchar(100), " +
+                "facility_id varchar(50), " +
+                "specialization varchar(100), " +
+                "contact varchar(100), " +
+                "email varchar(100), " +
+                "schedule varchar(100), " +
+                "fee varchar(100))";
+
         db.execSQL(sql);
         db.execSQL(sql1);
         db.execSQL(sql2);
         db.execSQL(sql3);
         db.execSQL(sql4);
+        db.execSQL(sql5);
+        db.execSQL(sql6);
     }
 
     @Override
@@ -223,6 +249,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("immu_stat", familyProfile.immu_stat);
         cv.put("nutri_stat", familyProfile.nutri_stat);
         cv.put("pwd_desc", familyProfile.pwd_desc);
+        cv.put("sexually_active", familyProfile.sexually_active);
         db.insertWithOnConflict(PROFILES, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
         db.close();
     }
@@ -279,7 +306,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("immu_stat", familyProfile.immu_stat);
         cv.put("nutri_stat", familyProfile.nutri_stat);
         cv.put("pwd_desc", familyProfile.pwd_desc);
-
+        cv.put("sexually_active", familyProfile.sexually_active);
 
 
         db.update(PROFILES, cv, "uniqueId=?", new String[]{familyProfile.uniqueId});
@@ -343,9 +370,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 String immu_stat = c.getString(c.getColumnIndex("immu_stat"));
                 String nutri_stat = c.getString(c.getColumnIndex("nutri_stat"));
                 String pwd_desc = c.getString(c.getColumnIndex("pwd_desc"));
+                String sexually_active = c.getString(c.getColumnIndex("sexually_active"));
 
                 FamilyProfile profile = new FamilyProfile(
-                        id + "",
+                        id + "", /**Hello am here*/
                         uniqueId,
                         familyId,
                         philId,
@@ -370,11 +398,10 @@ public class DBHelper extends SQLiteOpenHelper {
                         diabetic,
                         hypertension,
                         pwd,
-                        pregnant,/*"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
-*/
+                        pregnant,
                         birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
                         tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
-                        immu_stat, nutri_stat, pwd_desc);
+                        immu_stat, nutri_stat, pwd_desc, sexually_active);
 
                 if(familyId.equals(name.substring(0, name.length()-1)) && relation.equalsIgnoreCase("Head")) profiles.add(0, profile);
                 else profiles.add(profile);
@@ -442,6 +469,7 @@ public class DBHelper extends SQLiteOpenHelper {
             String immu_stat = c.getString(c.getColumnIndex("immu_stat"));
             String nutri_stat = c.getString(c.getColumnIndex("nutri_stat"));
             String pwd_desc = c.getString(c.getColumnIndex("pwd_desc"));
+            String sexually_active = c.getString(c.getColumnIndex("sexually_active"));
 
             familyProfile = new FamilyProfile(
                     id + "",
@@ -472,7 +500,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     pregnant,
                     birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
                     tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
-                    immu_stat, nutri_stat,pwd_desc);
+                    immu_stat, nutri_stat,pwd_desc, sexually_active);
         }
         c.close();
         db.close();
@@ -537,6 +565,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String immu_stat = c.getString(c.getColumnIndex("immu_stat"));
                 String nutri_stat = c.getString(c.getColumnIndex("nutri_stat"));
                 String pwd_desc = c.getString(c.getColumnIndex("pwd_desc"));
+                String sexually_active = c.getString(c.getColumnIndex("sexually_active"));
 
                 FamilyProfile profile = new FamilyProfile(
                         id + "",
@@ -567,7 +596,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         pregnant,
                         birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
                         tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
-                        immu_stat, nutri_stat, pwd_desc);
+                        immu_stat, nutri_stat, pwd_desc, sexually_active);
 
                 if(relation.equalsIgnoreCase("Head")) profiles.add(0, profile);
                 else profiles.add(profile);
@@ -800,4 +829,122 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return count;
     }
+
+
+    /**SPECIALIST*/
+    public void addSpecialist(SpecialistModel specialist) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("username", specialist.username);
+        cv.put("fname", specialist.fname);
+        cv.put("mname", specialist.mname);
+        cv.put("lname", specialist.lname);
+
+        db.insertWithOnConflict(SPECIALIST, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
+        db.close();
+    }
+    public void updateSpecialist(SpecialistModel specialist) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("username", specialist.username);
+        cv.put("fname", specialist.fname);
+        cv.put("mname", specialist.mname);
+        cv.put("lname", specialist.lname);
+        db.update(SPECIALIST, cv, "username=?", new String[]{specialist.username});
+        db.close();
+    }
+
+    public ArrayList<SpecialistModel> getSpecialists(String name) {
+        name += "%";
+        ArrayList<SpecialistModel> specialists = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.query(SPECIALIST, null, "fname LIKE ? or mname LIKE ? or lname LIKE ?", new String[]{name, name, name}, null, null, null, "20");
+
+        if (c.moveToFirst()) {
+            while (!c.isAfterLast()) {
+                int id = c.getInt(c.getColumnIndex("id"));
+                String username = c.getString(c.getColumnIndex("username"));
+                String fname = c.getString(c.getColumnIndex("fname"));
+                String mname = c.getString(c.getColumnIndex("mname"));
+                String lname = c.getString(c.getColumnIndex("lname"));
+
+                SpecialistModel specialist = new SpecialistModel(id + "", username, fname, mname, lname);
+                specialists.add(specialist);
+
+                c.moveToNext();
+            }
+            c.close();
+        }
+        db.close();
+        return specialists;
+    }
+
+    public void addAffiliatedFacility(AffiliatedFacilitiesModel facility) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("username", facility.username);
+        cv.put("facility_id", facility.facility_id);
+        cv.put("specialization", facility.specialization);
+        cv.put("contact", facility.contact);
+        cv.put("email", facility.email);
+        cv.put("schedule", facility.schedule);
+        cv.put("fee", facility.fee);
+
+        db.insertWithOnConflict(FACILITY_ASSIGNMENT, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
+        db.close();
+    }
+    public void updateAffiliatedFacility(AffiliatedFacilitiesModel facility) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("username", facility.username);
+        cv.put("facility_id", facility.facility_id);
+        cv.put("specialization", facility.specialization);
+        cv.put("contact", facility.contact);
+        cv.put("email", facility.email);
+        cv.put("schedule", facility.schedule);
+        cv.put("fee", facility.fee);
+
+        db.update(FACILITY_ASSIGNMENT, cv, "id=?", new String[]{facility.id});
+        db.close();
+    }
+    public ArrayList<AffiliatedFacilitiesModel> getAffiliatedFacilities(String name) {
+        name += "%";
+        ArrayList<AffiliatedFacilitiesModel> facilities = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.query(FACILITY_ASSIGNMENT, null, "username LIKE ? ", new String[]{name}, null, null, null, "20");
+
+        if (c.moveToFirst()) {
+            while (!c.isAfterLast()) {
+                int id = c.getInt(c.getColumnIndex("id"));
+                String username = c.getString(c.getColumnIndex("username"));
+                String facility_id = c.getString(c.getColumnIndex("facility_id"));
+                String specialization = c.getString(c.getColumnIndex("specialization"));
+                String contact = c.getString(c.getColumnIndex("contact"));
+                String email = c.getString(c.getColumnIndex("email"));
+                String schedule = c.getString(c.getColumnIndex("schedule"));
+                String fee = c.getString(c.getColumnIndex("fee"));
+
+                AffiliatedFacilitiesModel facility = new AffiliatedFacilitiesModel(id + "", username, facility_id, specialization, contact, email, schedule, fee);
+                facilities.add(facility);
+
+                c.moveToNext();
+            }
+            c.close();
+        }
+        db.close();
+        return facilities;
+    }
+
+
+    public void deleteAffiliatedFacility(String username) {
+        SQLiteDatabase db = getWritableDatabase();
+        if(username.isEmpty()) db.delete(FACILITY_ASSIGNMENT, null, null);
+        else db.delete(FACILITY_ASSIGNMENT, "username=?", new String[]{username});
+    }
+    public void deleteAffiliatedFacilityById(String id) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(FACILITY_ASSIGNMENT, "id=?", new String[]{id});
+    }
+
+
 }

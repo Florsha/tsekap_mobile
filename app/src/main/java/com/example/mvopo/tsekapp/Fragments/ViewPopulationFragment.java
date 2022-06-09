@@ -70,9 +70,6 @@ public class ViewPopulationFragment extends Fragment {
 
         familyProfiles.clear();
         familyProfiles = MainActivity.db.getFamilyProfiles("");
-//        familyProfiles.add(new FamilyProfile("06062017-1203-2099362", "", "", "Johnny Boy", "Abapo", "Basd", "", "1/1/11", "Male", "Cubacub", "", "", "", "", "", true));true
-//        familyProfiles.add(new FamilyProfile("06082017-1203-2391263", "", "", "Nacario", "Abelgas", "Basd", "", "1/1/11", "Male", "Cubacub", "", "", "", "", "", true));
-//        familyProfiles.add(new FamilyProfile("06022017-1203-1759539", "", "", "Alexander James", "Abenaza", "Basd", "", "1/1/11", "Male", "Cubacub", "", "", "", "", "", true));
 
         adapter = new ListAdapter(getContext(), R.layout.population_item, familyProfiles, null, null,null,null);
         lv.setAdapter(adapter);
@@ -86,8 +83,6 @@ public class ViewPopulationFragment extends Fragment {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
-
-
 //                View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.population_dialog, null);
 //                tvId = dialogView.findViewById(R.id.population_id);
 //                tvName = dialogView.findViewById(R.id.population_name);
@@ -172,7 +167,6 @@ public class ViewPopulationFragment extends Fragment {
 
                 familyProfiles.clear();
 
-
                 if (!search.isEmpty()) {
                     familyProfiles.addAll(MainActivity.db.getFamilyProfiles(search));
                 }else{
@@ -244,7 +238,8 @@ public class ViewPopulationFragment extends Fragment {
 
                 FamilyProfile familyProfile = new FamilyProfile("", "", famId, "", "", "", "", "", "", "", "", "",
                         "", "", "", "", "", "", "","", "", "1", "", "", "", ""
-                        , "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                        , "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "","");
 
                 mpf = new ManagePopulationFragment();
                 bundle.putParcelable("familyProfile", familyProfile);

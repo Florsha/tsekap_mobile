@@ -51,8 +51,8 @@ public class Constants {
     public static String apkUrl = "http://192.168.110.62:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk";*/
 
 
-    //public static String url = "http://222.127.126.34/tsekap/dummy/apiv21?"; /**updated on 02/14/2022*/
-    public static String url = "http://222.127.126.34/tsekap/vii/apiv21?"; /**updated on 02/14/2022*/
+    public static String url = "http://222.127.126.34/tsekap/dummy/apiv21?"; /**updated on 02/14/2022*/
+    // public static String url = "http://222.127.126.34/tsekap/vii/apiv21?"; /**updated on 02/14/2022*/
     public static String apkUrl = "http://192.168.81.4:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk"; /**updated on 02/14/2022*/
 
     private static  final NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("ph", "PH"));
@@ -125,6 +125,7 @@ public class Constants {
             data.accumulate("immu_stat", profile.immu_stat);
             data.accumulate("nutri_stat", profile.nutri_stat);
             data.accumulate("pwd_desc", profile.pwd_desc);
+           data.accumulate("sexually_active", profile.sexually_active);
 
             request.accumulate("data", data);
             //request.accumulate("_token", MainActivity.user.token);
@@ -229,7 +230,7 @@ public class Constants {
                 String formatted;
                 String decimal="", integer="";
                 /**Remove all not numbers, (, . PHP)*/
-                String tempo1 = initialText.replaceAll("PHP", "");
+                String tempo1 = initialText.replaceAll("PHP ", "");
                 String tempo2 = tempo1.replaceAll(",", "");
                 String currentValue = tempo2.replaceAll("\\.", "");
 
@@ -243,12 +244,13 @@ public class Constants {
                     }
                     if(!integer.trim().isEmpty()){
                         formatted = numberFormat.format(Double.parseDouble(integer)) + "." + decimal;
+                        formatted = formatted.replaceAll("PHP", "PHP ");
                     }
                     else{
-                        formatted="PHP0." + decimal;
+                        formatted="PHP 0." + decimal;
                     }
                 }else{
-                    formatted="PHP0." + decimal;
+                    formatted="PHP 0." + decimal;
                 }
 
                 editText.setText(formatted);
@@ -257,6 +259,8 @@ public class Constants {
             }
         });
     }
+
+
 
     public static String getAge(String date, Calendar c) {
         int year, month, day;

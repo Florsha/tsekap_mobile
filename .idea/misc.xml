@@ -9,13 +9,14 @@
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/app_bar_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/dengvaxia_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/dengvaxia_form_phic.xml" value="0.3046875" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/facility_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/feedback_dialog.xml" value="0.23822463768115942" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/feedback_item.xml" value="0.23822463768115942" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_avail_services.xml" value="0.23822463768115942" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_change_password.xml" value="0.23822463768115942" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_manage_facility.xml" value="0.3188405797101449" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_manage_facility.xml" value="0.2556818181818182" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_manage_member.xml" value="0.1" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_manage_specialist.xml" value="0.33" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_must_services.xml" value="0.36666666666666664" />
@@ -37,6 +38,7 @@
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/menu/activity_main_drawer.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/menu/add_head.xml" value="0.2851851851851852" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/menu/download.xml" value="0.2851851851851852" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/menu/download_add.xml" value="0.3296875" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/xml/network_security_config.xml" value="0.13229166666666667" />
       </map>
     </option>
