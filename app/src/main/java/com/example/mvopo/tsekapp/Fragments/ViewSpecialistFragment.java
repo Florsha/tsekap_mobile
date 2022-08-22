@@ -1,6 +1,8 @@
 package com.example.mvopo.tsekapp.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,37 +18,41 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.example.mvopo.tsekapp.Helper.JSONApi;
 import com.example.mvopo.tsekapp.Helper.ListAdapter;
 import com.example.mvopo.tsekapp.MainActivity;
 import com.example.mvopo.tsekapp.Model.AffiliatedFacilitiesModel;
+import com.example.mvopo.tsekapp.Model.Constants;
 import com.example.mvopo.tsekapp.Model.SpecialistModel;
 import com.example.mvopo.tsekapp.R;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class ViewSpecialistFragment extends Fragment {
     public View view;
-    ListView lv, lvMembers;
+    ListView lv ;
     ListAdapter adapter;
     ImageView btnSearch;
     EditText txtSearch;
     ManageSpecialistFragment msf;
     Menu menu;
+    int facilityTotalCount=0;
 
     Bundle bundle = new Bundle();
     List<SpecialistModel> specialistModelList = new ArrayList<>();
-    List<AffiliatedFacilitiesModel> affiliatedFacilitiesModelList = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     @Nullable
@@ -60,10 +66,7 @@ public class ViewSpecialistFragment extends Fragment {
 
         specialistModelList.clear();
         specialistModelList = MainActivity.db.getSpecialists("");
-
-        for(SpecialistModel model: specialistModelList){
-            Log.e("specialist", "ViewSF fname: " + model.username +" id: "+model.id);
-        }
+        facilityTotalCount = MainActivity.db.getFacilityTotalCount();
 
         adapter = new ListAdapter(getContext(), R.layout.population_item, null, null, null,null, specialistModelList);
         lv.setAdapter(adapter);
@@ -77,11 +80,17 @@ public class ViewSpecialistFragment extends Fragment {
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
 
-                bundle.putParcelable("specialist", specialistModelList.get(position));
-                bundle.putBoolean("toUpdate", true);
-                msf.setArguments(bundle);
-                MainActivity.ft = MainActivity.fm.beginTransaction();
-                MainActivity.ft.replace(R.id.fragment_container, msf).addToBackStack("").commit();
+                if(facilityTotalCount <= 0){
+                    Toast.makeText(getContext(), "Please Download facilities in \'Manage Facilities\', as it is needed for the dropdown", Toast.LENGTH_LONG).show();
+                } else {
+                    bundle.putParcelable("specialist", specialistModelList.get(position));
+                    bundle.putBoolean("toUpdate", true);
+                    msf.setArguments(bundle);
+                    MainActivity.ft = MainActivity.fm.beginTransaction();
+                    MainActivity.ft.replace(R.id.fragment_container, msf).addToBackStack("").commit();
+                }
+
+
             }});
 
         txtSearch.addTextChangedListener(new TextWatcher() {
@@ -109,7 +118,7 @@ public class ViewSpecialistFragment extends Fragment {
 
             }
         });
-
+        showTutorial();
         return view;
     }
 
@@ -126,40 +135,90 @@ public class ViewSpecialistFragment extends Fragment {
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.action_add_specialist:
-                msf = new ManageSpecialistFragment();
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("specialist", new SpecialistModel("", "", "", "","") );
-                bundle.putBoolean("toUpdate", false);
-                msf.setArguments(bundle);
-                MainActivity.ft = MainActivity.fm.beginTransaction();
-                MainActivity.ft.replace(R.id.fragment_container, msf).addToBackStack("").commit();
+            case R.id.action_add:
+                if(facilityTotalCount <= 0){
+                    Toast.makeText(getContext(), "Please Download facilities in \'Manage Facilities\', as it is needed for the dropdown", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    msf = new ManageSpecialistFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("specialist", new SpecialistModel("", "", "", "", "", "1"));
+                    bundle.putBoolean("toUpdate", false);
+                    msf.setArguments(bundle);
+                    MainActivity.ft = MainActivity.fm.beginTransaction();
+                    MainActivity.ft.replace(R.id.fragment_container, msf).addToBackStack("").commit();
+                }
                 break;
 
-            case R.id.action_download_specialist:
+            case R.id.action_download: // http://222.127.126.34/tsekap/dummy/apiv21/getSpecialists/3270
+                int notUploadedCount = MainActivity.db.getSpecialistUploadableCount();
+                String msg = "Downloading data from server will overwrite all records of specialists in this device.";
+                if(notUploadedCount>0){
+                    msg += "\n\n" + notUploadedCount + " not uploaded specialist(s) will also be deleted.";
+                }
+                msg+= " Do you wish to proceed downloading?";
+
+                AlertDialog.Builder builderDownload = new AlertDialog.Builder(getContext());
+                builderDownload.setMessage(msg);
+                builderDownload.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        MainActivity.pd = ProgressDialog.show(getContext(), "Loading...", "Please wait...", false, false);
+                        String url = Constants.url.replace("?", "/getSpecialists/") + MainActivity.user.id;
+                        JSONApi.getInstance(getContext()).getSpecialist(url, 0, 0);
+                    }
+                });
+                builderDownload.setNegativeButton("Cancel", null);
+                builderDownload.show();
+
                 break;
-           /* case R.id.action_add_member:
-                Calendar c = Calendar.getInstance();
-                String famId = String.format("%02d", (c.get(Calendar.MONTH) + 1)) +  String.format("%02d", (c.get(Calendar.DAY_OF_MONTH))) +
-                        String.format("%02d", (c.get(Calendar.YEAR))) + "-" + String.format("%04d", Integer.parseInt(MainActivity.user.id)) + "-" +
-                        String.format("%02d", (c.get(Calendar.HOUR))) + String.format("%02d", (c.get(Calendar.MINUTE))) +
-                        String.format("%02d", (c.get(Calendar.SECOND)));
+            case R.id.action_upload: // http://222.127.126.34/tsekap/dummy/apiv21/uploadSpecialist
+                int uploadCount = MainActivity.db.getSpecialistUploadableCount();
+                if(uploadCount>0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("Uploadable Specialist(s): " + uploadCount );
+                    builder.setPositiveButton("Upload", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            MainActivity.pd = ProgressDialog.show(getContext(), "Loading...", "Uploading "+uploadCount+ " specialist(s). \nPlease wait...", false, false);
+                            String url = Constants.url.replace("?", "/uploadSpecialist");
+                            JSONApi.getInstance(getContext()).uploadSpecialists(url, Constants.getSpecialistsJson(), uploadCount, 0);
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", null);
+                    builder.show();
+                }else {
+                    Toast.makeText(getContext(), "Nothing to upload", Toast.LENGTH_SHORT).show();
+                }
 
-                FamilyProfile familyProfile = new FamilyProfile("", "", famId, "", "", "", "", "", "", "", "", "",
-                        "", "", "", "", "", "", "","", "", "1", "", "", "", ""
-                        , "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-                        "", "", "", "", "", "", "","");
 
-                mpf = new ManagePopulationFragment();
-                bundle.putParcelable("familyProfile", familyProfile);
-                bundle.putBoolean("toUpdate", false);
-                bundle.putBoolean("addHead", true);
-                mpf.setArguments(bundle);
-                MainActivity.ft = MainActivity.fm.beginTransaction();
-                MainActivity.ft.replace(R.id.fragment_container, mpf).addToBackStack("").commit();
-                break;*/
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showTutorial(){
+        MainActivity.queue.clear();
+        MainActivity.queue.add(MainActivity.makeSpotlightView(view.findViewById(R.id.spotlight_search_focus),
+                "Looking for Specialist?",
+                "Well, well, well! Just type their name and i'll find them for yah.",
+                "ViewSpecialistSearch"));
+
+        MainActivity.queue.add(MainActivity.makeSpotlightView(lv,
+                "Eyes Here!",
+                "These are list of health Specialists",
+                "ViewSpecialistList"));
+
+        MainActivity.queue.add(MainActivity.makeSpotlightView(MainActivity.toolbar.getChildAt(2),
+                "Do Something",
+                "*Plus Button: \n\t\tJust click me if you want to add a new Health Specialist\n\n"+
+                        "*Arrow Down Button: \n\t\tClick me if you want to download list of Health Specialists from server. " +
+                        "I suggest you upload first before clicking me to count your newly added Specialists\n\n" +
+
+                        "*Arrow Up Button: \n\t\tClick me if you want to upload your newly edited/added Health Specialists to server",
+                "ViewSpecialistAdd"));
+
+        MainActivity.startSequence();
     }
 
 

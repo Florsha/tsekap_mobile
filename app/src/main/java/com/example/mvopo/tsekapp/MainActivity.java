@@ -89,10 +89,10 @@ public class MainActivity extends AppCompatActivity
     public static ViewPopulationFragment vpf = new ViewPopulationFragment();
     public static ServicesStatusFragment ssf = new ServicesStatusFragment();
 
-    ViewFacilitiesFragment vff = new ViewFacilitiesFragment();
-    ViewSpecialistFragment vsf = new ViewSpecialistFragment();
-    ManageFacilityFragment mff=new ManageFacilityFragment();
-    ManageSpecialistFragment msf = new ManageSpecialistFragment();
+    public static ViewFacilitiesFragment vff = new ViewFacilitiesFragment();
+    public static ViewSpecialistFragment vsf = new ViewSpecialistFragment();
+    public static ManageFacilityFragment mff=new ManageFacilityFragment();
+    public static ManageSpecialistFragment msf = new ManageSpecialistFragment();
 
 
     FeedbackFragment ff = new FeedbackFragment();
@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        pd = new ProgressDialog(this);
 
         //new PreferencesManager(this).resetAll();
         mainActivity = this;
@@ -228,8 +229,18 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
-
         showTutorial();
+        int provinceCount = db.getProvincesCount();
+        int muncityCount = db.getMuncityCount();
+        int brgyCount = db.getBrgyCount();
+
+
+
+        if(provinceCount  <=0 || muncityCount <=0 || brgyCount <=0){
+            pd = ProgressDialog.show(this, "Loading...", "Downloading dropdown options. \n\nPlease wait...", false, false);
+            JSONApi.getInstance(this).getProvinces(Constants.url);
+        }
+
     }
 
     public void setUpHeader() {
@@ -396,14 +407,26 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             int uploadableCount = db.getUploadableCount();
-            if (uploadableCount <= 0) {
-                builder.setMessage("Logging out will delete all profile data. Are you sure you want to proceed?");
+            int uploadableSpecialist = db.getSpecialistUploadableCount();
+            int uploadableFacilities = db.getFacilityUploadableCount();
+
+            if ((uploadableCount + uploadableSpecialist + uploadableFacilities) <= 0) {
+                builder.setMessage("Logging out will delete all profile/specialist/facility data. Are you sure you want to proceed?");
                 builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         db.deleteProfiles();
                         db.deleteUser();
                         db.deleteServiceStatus();
+                        //updates
+                        db.deleteSpecialist();
+                        db.deleteAffiliatedFacility();
+                        db.deleteFacilities();
+                        db.deleteFacilityServices();
+
+                        db.deleteProvinces();
+                        db.deleteMunCity();
+                        db.deleteBrgy();
 
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
@@ -412,7 +435,7 @@ public class MainActivity extends AppCompatActivity
                 });
                 builder.setNegativeButton("Cancel", null);
             } else {
-                builder.setMessage("Please upload data before logging out.\n\nProfile(s): " + uploadableCount);
+                builder.setMessage("Please upload data before logging out.\n\nProfile(s): " + uploadableCount + "\nHealth Facility(s): " + uploadableFacilities + "\nHealth Specialist(s): " + uploadableSpecialist);
                 builder.setPositiveButton("Ok", null);
             }
             builder.show();

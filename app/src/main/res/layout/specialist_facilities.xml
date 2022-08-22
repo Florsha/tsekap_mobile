@@ -7,12 +7,12 @@
     android:layout_marginTop="10dp">
 
     <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/specialist_facility"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:hint="Affiliated Facility/Clinic"
+            android:hint="Facility Name *"
             android:padding="5dp"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:hint="Specialist's Contact Number"
+            android:hint="Contact Number *"
             android:padding="5dp"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -45,7 +45,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:hint="Specialist's Email"
+            android:hint="Email Address *"
+            android:inputType="textEmailAddress"
             android:padding="5dp"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>

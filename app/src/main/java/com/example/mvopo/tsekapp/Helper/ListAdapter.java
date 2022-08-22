@@ -7,18 +7,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mvopo.tsekapp.Fragments.FeedbackFragment;
 import com.example.mvopo.tsekapp.MainActivity;
-import com.example.mvopo.tsekapp.Model.AffiliatedFacilitiesModel;
 import com.example.mvopo.tsekapp.Model.FacilityModel;
 import com.example.mvopo.tsekapp.Model.FamilyProfile;
 import com.example.mvopo.tsekapp.Model.FeedBack;
@@ -94,8 +91,8 @@ public class ListAdapter extends ArrayAdapter {
                 TextView name = convertView.findViewById(R.id.population_name);
                 TextView id = convertView.findViewById(R.id.population_family_id);
 
-                name.setText(facilityModels.get(position).facilityName);
-                id.setText(facilityModels.get(position).facilityCode);
+                name.setText(facilityModels.get(position).facility_name);
+                id.setText(facilityModels.get(position).facility_code);
             }else if(specialistModels!=null){ /**inserted rml 04/29/22 */
                 TextView facility = convertView.findViewById(R.id.population_name);
                 TextView name = convertView.findViewById(R.id.population_family_id);
@@ -105,17 +102,37 @@ public class ListAdapter extends ArrayAdapter {
             }
 
         }else if(layoutId == R.layout.population_dialog_item){
+            if(familyProfiles!=null){
+                TextView name = convertView.findViewById(R.id.profile_name);
+                TextView relation = convertView.findViewById(R.id.profile_relation);
 
-            TextView name = convertView.findViewById(R.id.profile_name);
-            TextView relation = convertView.findViewById(R.id.profile_relation);
 
-            String fullName = familyProfiles.get(position).lname + ", " +
-                    familyProfiles.get(position).fname + " " + familyProfiles.get(position).mname + " " + familyProfiles.get(position).suffix;
+                String fullName = familyProfiles.get(position).lname + ", " +
+                        familyProfiles.get(position).fname + " " + familyProfiles.get(position).mname + " " + familyProfiles.get(position).suffix;
 
-            name.setText(fullName);
-            relation.setText("(" + familyProfiles.get(position).relation + ", " + familyProfiles.get(position).sex + ")");
+                name.setText(fullName);
+                relation.setText("(" + familyProfiles.get(position).relation + ", " + familyProfiles.get(position).sex + ")");
 
-            if(familyProfiles.get(position).isHead.equalsIgnoreCase("Yes")) name.setTextColor(getContext().getResources().getColor(R.color.colorAccent));
+                if(familyProfiles.get(position).isHead.equalsIgnoreCase("Yes")) name.setTextColor(getContext().getResources().getColor(R.color.colorAccent));
+
+            }else if(specialistModels!=null){
+                TextView name = convertView.findViewById(R.id.profile_name);
+                TextView username = convertView.findViewById(R.id.profile_relation);
+
+
+                String fullName = specialistModels.get(position).lname + ", " +
+                        specialistModels.get(position).fname + " " + specialistModels.get(position).mname;
+
+                name.setText(fullName);
+                username.setText("(" +specialistModels.get(position).username+ ")");
+            }else if(facilityModels!=null){
+                TextView name = convertView.findViewById(R.id.profile_name);
+                TextView id = convertView.findViewById(R.id.profile_relation);
+
+                name.setText(facilityModels.get(position).facility_name);
+                id.setText(facilityModels.get(position).facility_code);
+            }
+
 
         }else if(layoutId == R.layout.services_item){
             TextView name = convertView.findViewById(R.id.services_name);

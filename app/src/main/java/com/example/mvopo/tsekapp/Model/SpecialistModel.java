@@ -4,14 +4,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class SpecialistModel implements Parcelable {
-    public String id, username, fname, mname, lname;
+    public String id, username, fname, mname, lname, status;
 
-    public SpecialistModel(String id, String username, String fname, String mname, String lname){
+    public SpecialistModel(String id, String username,
+                           String fname, String mname,
+                           String lname, String status){
         this.id = id;
         this.username = username;
         this.fname = fname;
         this.mname = mname;
         this.lname = lname;
+        this.status = status;
     }
     protected SpecialistModel(Parcel in) {
         id = in.readString();
@@ -19,6 +22,7 @@ public class SpecialistModel implements Parcelable {
         fname = in.readString();
         mname = in.readString();
         lname = in.readString();
+        status = in.readString();
     }
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -27,6 +31,7 @@ public class SpecialistModel implements Parcelable {
         dest.writeString(fname);
         dest.writeString(mname);
         dest.writeString(lname);
+        dest.writeString(status);
     }
 
     public static final Creator<SpecialistModel> CREATOR = new Creator<SpecialistModel>() {

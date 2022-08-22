@@ -40,13 +40,22 @@ import com.example.mvopo.tsekapp.BuildConfig;
 import com.example.mvopo.tsekapp.Fragments.HomeFragment;
 import com.example.mvopo.tsekapp.Fragments.PendingDengvaxiaFragment;
 import com.example.mvopo.tsekapp.Fragments.ServicesStatusFragment;
+import com.example.mvopo.tsekapp.Fragments.ViewFacilitiesFragment;
+import com.example.mvopo.tsekapp.Fragments.ViewSpecialistFragment;
 import com.example.mvopo.tsekapp.LoginActivity;
 import com.example.mvopo.tsekapp.MainActivity;
+import com.example.mvopo.tsekapp.Model.AffiliatedFacilitiesModel;
+import com.example.mvopo.tsekapp.Model.BarangayModel;
 import com.example.mvopo.tsekapp.Model.Constants;
 import com.example.mvopo.tsekapp.Model.DengvaxiaPatient;
+import com.example.mvopo.tsekapp.Model.FacilityModel;
+import com.example.mvopo.tsekapp.Model.FacilityService;
 import com.example.mvopo.tsekapp.Model.FamilyProfile;
+import com.example.mvopo.tsekapp.Model.MuncityModel;
+import com.example.mvopo.tsekapp.Model.ProvinceModel;
 import com.example.mvopo.tsekapp.Model.ServiceAvailed;
 import com.example.mvopo.tsekapp.Model.ServicesStatus;
+import com.example.mvopo.tsekapp.Model.SpecialistModel;
 import com.example.mvopo.tsekapp.Model.User;
 import com.example.mvopo.tsekapp.R;
 
@@ -132,20 +141,30 @@ public class JSONApi {
                                 String lname = data.getString("lname");
                                 String muncity = data.getString("muncity");
                                 String contact = data.getString("contact");
+                                String province = data.getString("province");
 //                              String image = data.getString("hrh_photo");
                                 String image = "";
                                 String userBrgy = response.getJSONArray("userBrgy").toString();
                                 String target = response.getString("target");
-
-                                User user = new User(id, fname, mname, lname, muncity, contact, userBrgy, target, image);
+                                User user = new User(id, fname, mname, lname, muncity, contact, userBrgy, target, image, province);
 
                                 db.addUser(user);
+
 //                                Intent intent = new Intent(context, MainActivity.class);
 //                                intent.putExtra("user", user);
 //                                context.startActivity(intent);
 //                                ((Activity) context).finish();
 
-                                ((LoginActivity) context).showPinDialog(false, user);
+                                /* String urlLocation = Constants.url;
+
+                               boolean prov = getProvinces(urlLocation.replace("?", "/getProvinces"));
+                                boolean muncity1 = getMuncity(urlLocation.replace("?", "/getMuncities"));
+                                boolean brgy = getBrgy(urlLocation.replace("?", "/getBarangays"));
+
+                                if(prov && muncity1 && brgy)*/
+                                    ((LoginActivity) context).showPinDialog(false, user);
+
+
                             } else {
                                 Toast.makeText(context, "Invalid credentials.", Toast.LENGTH_SHORT).show();
                             }
@@ -168,7 +187,7 @@ public class JSONApi {
     }
 
     public void getCount(String url, final String brgyId, final int brgyCount) {
-        Log.e(TAG, url);
+        Log.e(TAG,"getCount(" + url);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, "",
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -231,7 +250,7 @@ public class JSONApi {
 
     public void uploadProfile(final String url, final JSONObject request, final int totalCount, final int currentCount) {
         Log.e(TAG, url);
-        Log.e(TAG, request.toString());
+        Log.e(TAG, "UPLOAD PROFILE: "+request.toString());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, request,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -288,7 +307,7 @@ public class JSONApi {
     }
 
     public void getProfile(final String url, final int totalCount, final int offset, final int brgyCount, final String brgyId) {
-        Log.e(TAG, url);
+        Log.e(TAG,"getProfile(" + url);
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, "",
                 new Response.Listener<JSONObject>() {
@@ -357,34 +376,9 @@ public class JSONApi {
                                         String pwd_desc = response.getString("pwd_desc");
                                         String sexually_active = response.getString("sexually_active");
 
-                                        db.addProfile(new FamilyProfile(
-                                                id,
-                                                unique_id,
-                                                familyID,
-                                                phicID,
-                                                nhtsID,
-                                                head,
-                                                relation,
-                                                fname,
-                                                lname,
-                                                mname,
-                                                suffix,
-                                                dob,
-                                                sex,
-                                                barangay_id,
-                                                muncity_id,
-                                                province_id,
-                                                income,
-                                                unmet,
-                                                water,
-                                                toilet,
-                                                education,
-                                                "0",
-                                                diabetic,
-                                                hypertension,
-                                                pwd,
-                                                pregnant, /*"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
-                                                */birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
+                                        db.addProfile(new FamilyProfile(id, unique_id, familyID, phicID, nhtsID, head, relation, fname, lname, mname, suffix, dob, sex,
+                                                barangay_id, muncity_id, province_id, income, unmet, water, toilet, education, "0", diabetic, hypertension, pwd,
+                                                pregnant, birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
                                                 tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
                                                 immu_stat, nutri_stat, pwd_desc, sexually_active));
 
@@ -930,4 +924,382 @@ public class JSONApi {
 
         return senderInfo;
     }
+
+    public void getSpecialist(final String url, final int totalCount, final int offset) {
+        Log.e(TAG,"getSpecialist(" + url);
+
+        final JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, "",
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(final JSONArray specialistArray) {
+                        MainActivity.pd.setTitle("Downloading..." );
+                        MainActivity.db.deleteSpecialist();
+                        MainActivity.db.deleteAffiliatedFacility();
+                        new Thread(new Runnable() {
+                            public void run() {
+                                try {
+
+                                    for (int i = 0; i < specialistArray.length(); i++) {
+                                        JSONObject response = specialistArray.getJSONObject(i);
+
+                                        String username = response.getString("username");
+                                        String fname = response.getString("fname");
+                                        String mname = response.getString("mname");
+                                        String lname = response.getString("lname");
+
+                                        db.addSpecialist(new SpecialistModel("",username, fname, mname, lname, "0" ));
+
+                                        JSONArray affiliatedArray = response.getJSONArray("affiliated");
+
+                                        for(int x = 0; x < affiliatedArray.length(); x++) {
+                                            JSONObject affiliated = affiliatedArray.getJSONObject(x);
+
+                                            String facility_code = affiliated.getString("facility_code");
+                                            String specialization = affiliated.getString("specialization");
+                                            String contact = affiliated.getString("contact");
+                                            String email = affiliated.getString("email");
+                                            String schedule = affiliated.getString("schedule");
+                                            String fee = affiliated.getString("fee");
+
+                                             db.addAffiliatedFacility(new AffiliatedFacilitiesModel("", username, facility_code, specialization, contact, email, schedule, fee, "0"));
+                                        }
+
+                                    }
+
+                                    ((Activity) context).runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            MainActivity.vsf = new ViewSpecialistFragment();
+                                            MainActivity.ft = MainActivity.fm.beginTransaction();
+                                            MainActivity.ft.replace(R.id.fragment_container, MainActivity.vsf).commit();
+                                            Toast.makeText(context, "Download finished.", Toast.LENGTH_SHORT).show();
+                                            MainActivity.pd.dismiss();
+                                        }
+                                    });
+
+                                } catch (JSONException e) {
+                                    Log.e(TAG, e.getMessage());
+                                }
+                            }
+                        }).start();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("GETSPECIALIST", error.getMessage());
+                Log.e(TAG, error.toString());
+                Toast.makeText(context, "Unable to get Specialists.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        mRequestQueue.add(jsonObjectRequest);
+    }
+
+    public void uploadSpecialists(final String url, final JSONObject request, final int totalCount, final int currentCount) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, request,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try
+                        {
+                            if(response.getString("status").equalsIgnoreCase("success")){
+                                MainActivity.db.updateSpecialistsStatus();
+                                Toast.makeText(context, "Upload Completed", Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(context, "Failed to Upload, please contact system admin", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        catch (JSONException e) {
+                                e.printStackTrace();
+                        }
+
+                        MainActivity.pd.dismiss();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("UPLOADSPECIALIST", error.getMessage());
+                Log.e(TAG, error.toString());
+                MainActivity.pd.dismiss();
+                Toast.makeText(context, "Unable to connect to server.", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        mRequestQueue.add(jsonObjectRequest);
+    }
+
+    public void getFacilities(final String url, final int totalCount, final int offset) {
+        Log.e(TAG,"getFacilities(" + url);
+
+        final JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, "",
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(final JSONArray facilityArray) {
+
+                        MainActivity.pd.setTitle("Downloading...");
+                        MainActivity.db.deleteFacilities();
+                        MainActivity.db.deleteFacilityServices();
+                        new Thread(new Runnable() {
+                            public void run() {
+                                try {
+                                    for (int i = 0; i < facilityArray.length(); i++) {
+                                        JSONObject response = facilityArray.getJSONObject(i);
+
+                                        String facility_code = response.getString("facility_code");
+                                        String facility_name = response.getString("facility_name");
+                                        String facility_abbr = response.getString("facility_abbr");
+                                        String prov_id = response.getString("prov_id");
+                                        String muncity_id = response.getString("muncity_id");
+                                        String brgy_id = response.getString("brgy_id");
+                                        String address = response.getString("address");
+                                        String contact = response.getString("contact");
+                                        String email = response.getString("email");
+                                        String chief_hospital = response.getString("chief_hospital");
+                                        String service_capability = response.getString("service_capability");
+                                        String license_status = response.getString("license_status");
+                                        String ownership = response.getString("ownership");
+                                        String facility_status = response.getString("facility_status");
+                                        String phic_status = response.getString("phic_status");
+                                        String referral_status = response.getString("referral_status");
+                                        String transport = response.getString("transport");
+                                        String latitude = response.getString("latitude");
+                                        String longitude = response.getString("longitude");
+                                        String sched_day_from = response.getString("sched_day_from");
+                                        String sched_day_to = response.getString("sched_day_to");
+                                        String sched_time_from = response.getString("sched_time_from");
+                                        String sched_time_to = response.getString("sched_time_to");
+                                        String sched_notes = response.getString("sched_notes");
+
+                                        db.addFacility(new FacilityModel("",facility_code,facility_name, facility_abbr, prov_id, muncity_id, brgy_id,
+                                                address, contact, email, chief_hospital, service_capability, license_status, ownership, facility_status,
+                                                referral_status, phic_status, transport, latitude, longitude, sched_day_from, sched_day_to, sched_time_from,
+                                                sched_time_to, sched_notes, "0"));
+
+
+                                        JSONArray servicesArray = response.getJSONArray("services_cost");
+                                        for(int x = 0; x < servicesArray.length(); x++) {
+                                            JSONObject services = servicesArray.getJSONObject(x);
+
+                                            String service_type = services.getString("service_type");
+                                            String service = services.getString("service");
+                                            String cost = services.getString("cost");
+
+                                            db.addFacilityService(new FacilityService("", facility_code, service_type, service, cost, "0"));
+                                        }
+                                    }
+
+                                    ((Activity) context).runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            MainActivity.vff = new ViewFacilitiesFragment();
+                                            MainActivity.ft = MainActivity.fm.beginTransaction();
+                                            MainActivity.ft.replace(R.id.fragment_container, MainActivity.vff).commit();
+
+                                            Toast.makeText(context, "Download finished.", Toast.LENGTH_SHORT).show();
+                                            MainActivity.pd.dismiss();
+                                        }
+                                    });
+                                } catch (JSONException e) {
+                                    Log.e(TAG, e.getMessage());
+                                }
+                            }
+                        }).start();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("GETFACILITY", error.getMessage());
+                Log.e(TAG, error.toString());
+                MainActivity.pd.dismiss();
+                Toast.makeText(context, "Unable to get facilities.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        mRequestQueue.add(jsonObjectRequest);
+    }
+
+    public void uploadFacilities(final String url, final JSONObject request, final int totalCount, final int currentCount) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, request,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try
+                        {
+                            if(response.getString("status").equalsIgnoreCase("success")){
+                                MainActivity.db.updateFacilitiesStatus();
+                                Toast.makeText(context, "Upload Completed", Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(context, "Failed to Upload, please contact system admin", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        MainActivity.pd.dismiss();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("UPLOADFACILITIES", error.getMessage());
+                Log.e(TAG, error.toString());
+                MainActivity.pd.dismiss();
+                Toast.makeText(context, "Unable to connect to server.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        mRequestQueue.add(jsonObjectRequest);
+    }
+
+
+    public void getProvinces(final String url) {
+        final JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url.replace("?", "/getProvinces"), "",
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(final JSONArray array) {
+                        MainActivity.pd.setTitle("Downloading provinces...");
+                        new Thread(new Runnable() {
+                            public void run() {
+                                try {
+                                    MainActivity.db.deleteProvinces();
+                                    for (int i = 0; i < array.length(); i++) {
+                                        JSONObject response = array.getJSONObject(i);
+
+                                        String id = response.getString("id").trim();
+                                        String name = response.getString("name").trim();
+
+                                        db.addProvince(new ProvinceModel(id, name));
+                                    }
+                                    getMuncity(url);
+                                } catch (JSONException e) {
+                                    Log.e(TAG, e.getMessage());
+                                    MainActivity.pd.dismiss();
+                                }
+
+                            }
+                        }).start();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("GETPROVINCE", error.getMessage());
+                Log.e(TAG, error.toString());
+                MainActivity.pd.dismiss();
+                Toast.makeText(context, "Unable to get provinces, pls contact system administrator.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        mRequestQueue.add(jsonObjectRequest);
+        Log.e(TAG, "last getProvinces");
+    }
+
+    public void getMuncity(final String url) {
+        final JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url.replace("?", "/getMuncities"), "",
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(final JSONArray array) {
+                        MainActivity.pd.setTitle("Downloading municipalities...");
+                        new Thread(new Runnable() {
+                            public void run() {
+                                try {
+                                    MainActivity.db.deleteMunCity();
+                                    for (int i = 0; i < array.length(); i++) {
+                                        JSONObject response = array.getJSONObject(i);
+
+                                        String id = response.getString("id").trim();
+                                        String name = response.getString("name").trim();
+                                        String prov_id = response.getString("prov_id").trim();
+
+                                        db.addMuncity(new MuncityModel(id, name, prov_id ));
+                                    }
+                                    getBrgy(url);
+                                } catch (JSONException e) {
+                                    Log.e(TAG, e.getMessage());
+                                    MainActivity.pd.dismiss();
+                                }
+                            }
+                        }).start();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("GETMUNCITY", error.getMessage());
+                Log.e(TAG, error.toString());
+                MainActivity.pd.dismiss();
+                Toast.makeText(context, "Unable to get municipalities, pls contact system administrator.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        mRequestQueue.add(jsonObjectRequest);
+    }
+
+    public void getBrgy(final String url) {
+        final JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url.replace("?", "/getBarangays"), "",
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(final JSONArray array) {
+                        MainActivity.pd.setTitle("Downloading barangays...");
+                        new Thread(new Runnable() {
+                            public void run() {
+                                try {
+                                    MainActivity.db.deleteBrgy();
+                                    for (int i = 0; i < array.length(); i++) {
+                                        JSONObject response = array.getJSONObject(i);
+
+                                        String id = response.getString("id").trim();
+                                        String name = response.getString("name").trim();
+                                        String prov_id = response.getString("prov_id").trim();
+                                        String muncity_id = response.getString("muncity_id").trim();
+
+                                        db.addBrgy(new BarangayModel(id, name, prov_id, muncity_id ));
+                                    }
+                                    MainActivity.pd.dismiss();
+                                } catch (JSONException e) {
+                                    Log.e(TAG, e.getMessage());
+                                    MainActivity.pd.dismiss();
+                                }
+                            }
+                        }).start();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("GETBARANGAY", error.getMessage());
+                Log.e(TAG, error.toString());
+                MainActivity.pd.dismiss();
+                Toast.makeText(context, "Unable to get barangay, pls contact system administrator.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        mRequestQueue.add(jsonObjectRequest);
+    }
+
 }

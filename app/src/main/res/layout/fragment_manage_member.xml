@@ -517,25 +517,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/rounded_edittext"
-            android:padding="5dp">
-
-            <EditText
-                android:id="@+id/manage_covid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:capitalize="sentences"
-                android:hint="Covid Status"
-                android:inputType="textCapWords"
-                android:padding="5dp"
-                android:singleLine="true" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -615,9 +596,136 @@
                     android:padding="5dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-
         </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_edittext"
+            android:padding="5dp">
+
+            <EditText
+                android:id="@+id/manage_education"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:focusable="false"
+                android:hint="Educational Attainment"
+                android:padding="5dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_edittext"
+            android:padding="5dp">
+
+            <EditText
+                android:id="@+id/manage_cancer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:focusable="false"
+                android:hint="Diagnosed with Cancer"
+                android:padding="5dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/cancer_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_edittext"
+            android:padding="5dp"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/manage_cancer_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="Specify type of Cancer"
+                android:padding="5dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_edittext"
+            android:padding="5dp">
+
+            <EditText
+                android:id="@+id/manage_mental"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:focusable="false"
+                android:hint="Mental Health"
+                android:padding="5dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_edittext"
+            android:padding="5dp">
+
+            <EditText
+                android:id="@+id/manage_tbdots"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:focusable="false"
+                android:hint="TBDOTS"
+                android:padding="5dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_edittext"
+            android:padding="5dp">
+
+            <EditText
+                android:id="@+id/manage_cvd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:focusable="false"
+                android:hint="CVD"
+                android:padding="5dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_edittext"
+            android:padding="5dp">
+
+            <EditText
+                android:id="@+id/manage_covid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:capitalize="sentences"
+                android:hint="Covid Status"
+                android:inputType="textCapWords"
+                android:padding="5dp"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
 
         <LinearLayout
@@ -625,24 +733,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/rounded_edittext"
-                android:padding="5dp">
-
-                <EditText
-                    android:id="@+id/manage_education"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:focusable="false"
-                    android:hint="Educational Attainment"
-                    android:padding="5dp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -679,96 +769,6 @@
                     android:padding="5dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/rounded_edittext"
-                android:padding="5dp">
-
-                <EditText
-                    android:id="@+id/manage_mental"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:focusable="false"
-                    android:hint="Mental Health"
-                    android:padding="5dp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/rounded_edittext"
-                android:padding="5dp">
-
-                <EditText
-                    android:id="@+id/manage_tbdots"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:focusable="false"
-                    android:hint="TBDOTS"
-                    android:padding="5dp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/rounded_edittext"
-                android:padding="5dp">
-
-                <EditText
-                    android:id="@+id/manage_cvd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:focusable="false"
-                    android:hint="CVD"
-                    android:padding="5dp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/rounded_edittext"
-                android:padding="5dp">
-
-                <EditText
-                    android:id="@+id/manage_cancer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:focusable="false"
-                    android:hint="Diagnosed with Cancer"
-                    android:padding="5dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/cancer_frame"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/rounded_edittext"
-                android:padding="5dp"
-                android:visibility="gone">
-
-                <EditText
-                    android:id="@+id/manage_cancer_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:hint="Specify type of Cancer"
-                    android:padding="5dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
         </LinearLayout>
 
     <LinearLayout

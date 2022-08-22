@@ -75,10 +75,10 @@
                 android:id="@+id/spotlight_search_focus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sample Text Here"
-                android:layout_marginLeft="-10dp"
                 android:layout_centerVertical="true"
-                android:visibility="invisible"/>
+                android:layout_marginLeft="-10dp"
+                android:text="Sample Text Here"
+                android:visibility="invisible" />
         </RelativeLayout>
 
         <ListView

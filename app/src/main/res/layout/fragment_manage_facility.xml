@@ -13,14 +13,12 @@
         <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/rounded_edittext" android:padding="5dp">
 
             <EditText
-                android:id="@+id/facility_id"
+                android:id="@+id/facility_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:enabled="false"
-                android:hint="Facility Code"
+                android:hint="Facility Code *"
                 android:padding="5dp"
-                android:text="DOH000000000037924"
                 android:textColor="@color/colorPrimaryDark" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -31,8 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Facility Name"
-                android:text="Adventist Hospital - Cebu Inc."
+                android:hint="Facility Name *"
                 android:padding="5dp"
                 android:singleLine="true" />
 
@@ -46,21 +43,18 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="Abbr"
-                android:text="AHCI"
                 android:padding="5dp"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/facility_province"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Province"
-                android:text="Cebu"
-                android:focusable="false"
+                android:hint="Province *"
                 android:padding="5dp"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -72,9 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Municipality"
-                android:text="Cebu City (Capital)"
-                android:focusable="false"
+                android:hint="Municipality *"
                 android:padding="5dp"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -86,9 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Barangay"
-                android:text="San Nicolas Center"
-                android:focusable="false"
+                android:hint="Barangay *"
                 android:padding="5dp"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -100,8 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Address"
-                android:text="400 Tres de Abril St., San Nicolas, Cebu City, Cebu"
+                android:hint="Address *"
                 android:padding="5dp"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -113,8 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Contact Number"
-                android:text="(032)261-2100; loc 103 ; (032) 261-111 fax"
+                android:hint="Contact Number *"
                 android:padding="5dp"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -126,8 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Email Address"
-                android:text="Sample@gmail.com"
+                android:hint="Email Address *"
                 android:padding="5dp"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -138,8 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Chief of Hospital (name)"
-                android:text="Dr. Evelyn Pepito, MD"
+                android:hint="Head of Facility (name)  *"
                 android:padding="5dp"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -152,7 +138,6 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="Service Capability"
-                android:text="Level 2"
                 android:focusable="false"
                 android:padding="5dp"
                 android:singleLine="true" />
@@ -166,7 +151,6 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="Licensing Status"
-                android:text="Licensed"
                 android:focusable="false"
                 android:padding="5dp"
                 android:singleLine="true" />
@@ -180,35 +164,6 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="Ownership"
-                android:text="private"
-                android:focusable="false"
-                android:padding="5dp"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
-
-            <EditText
-                android:id="@+id/facility_hospitalStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Health Facility Status"
-                android:text="Functional"
-                android:padding="5dp"
-                android:focusable="false"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
-
-            <EditText
-                android:id="@+id/facility_referralStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="E-Referral Health Facility Status"
-                android:text="Active"
                 android:focusable="false"
                 android:padding="5dp"
                 android:singleLine="true" />
@@ -222,7 +177,6 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="PHIC Accreditation Status"
-                android:text="Accredited"
                 android:padding="5dp"
                 android:singleLine="true"
                 android:focusable="false"/>
@@ -231,17 +185,29 @@
         <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
 
             <EditText
-                android:id="@+id/facility_vaccine"
+                android:id="@+id/facility_referralStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Vaccine Used"
-                android:text="Yes"
+                android:hint="E-Referral Health Facility Status"
                 android:focusable="false"
                 android:padding="5dp"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
+        <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
+
+            <EditText
+                android:id="@+id/facility_hospitalStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="Health Facility Status"
+                android:padding="5dp"
+                android:focusable="false"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:background="@drawable/rounded_edittext" android:padding="5dp">
@@ -251,7 +217,6 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="Availability and type of transport"
-                android:text="Level 3 Licensed Ambulance"
                 android:focusable="false"
                 android:padding="5dp"
                 android:singleLine="true" />
@@ -264,7 +229,6 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="Latitude"
-                android:text="10.2967702"
                 android:padding="5dp"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -276,7 +240,6 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="Longitude"
-                android:text="123.887592"
                 android:padding="5dp"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -292,10 +255,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:text="Clinical Hours/Schedule"
                         android:padding="5dp"
                         android:layout_marginTop="5dp"
                         android:textColor="@color/colorPrimaryDark"
+                        android:text="Schedule"
                         android:singleLine="true" />
                 </com.google.android.material.card.MaterialCardView>
             </TableRow>
@@ -307,7 +270,6 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:hint="FROM (DAY)"
-                        android:text="Monday"
                         android:focusable="false"
                         android:padding="5dp"  />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -317,7 +279,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
-                    android:text="TO"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:gravity="center"
@@ -330,7 +291,6 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:hint="TO (DAY):"
-                        android:text="Friday"
                         android:focusable="false"
                         android:padding="5dp"  />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -345,7 +305,6 @@
                         android:background="@android:color/transparent"
                         android:hint="FROM (TIME)"
                         android:focusable="false"
-                        android:text="08:00:00"
                         android:padding="5dp"  />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -354,7 +313,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
-                    android:text="TO"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:gravity="center"
@@ -368,7 +326,6 @@
                         android:background="@android:color/transparent"
                         android:hint="TO (TIME):"
                         android:focusable="false"
-                        android:text="17:00:00"
                         android:padding="5dp"  />
                 </com.google.android.material.textfield.TextInputLayout>
             </TableRow>
@@ -381,7 +338,6 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:hint="Other Notes regarding the Schedule"
-                        android:text="Saturday Sunday; Closed"
                         android:padding="5dp"  />
                 </com.google.android.material.textfield.TextInputLayout>
             </TableRow>
@@ -392,10 +348,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="Information of Available Services"
                 android:padding="5dp"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/colorPrimaryDark"
+                android:text="Available Services"
                 android:singleLine="true" />
         </com.google.android.material.card.MaterialCardView>
 
@@ -405,7 +361,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Other Services Available"
+                android:hint="Other Services"
                 android:focusable="false"
                 android:padding="5dp"  />
         </com.google.android.material.textfield.TextInputLayout>
@@ -489,7 +445,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="TBDOTS"
+                android:hint="TB DOTS"
                 android:focusable="false"
                 android:padding="5dp"  />
         </com.google.android.material.textfield.TextInputLayout>
@@ -530,7 +486,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="ABTC"
+                android:hint="Animal Bite Treatment Center (ABTC)"
                 android:focusable="false"
                 android:padding="5dp"  />
         </com.google.android.material.textfield.TextInputLayout>
@@ -586,7 +542,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Dental Available"
+                android:hint="Dental"
                 android:focusable="false"
                 android:padding="5dp"  />
         </com.google.android.material.textfield.TextInputLayout>
@@ -669,7 +625,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Laboratory Services Available"
+                android:hint="Laboratory Services"
                 android:focusable="false"
                 android:padding="5dp"  />
         </com.google.android.material.textfield.TextInputLayout>

@@ -9,106 +9,120 @@ import android.os.Parcelable;
 
 public class FacilityModel implements Parcelable {
 
-    public String id, facilityCode, facilityName, facilityAbbr, provinceId, municipalityId, barangayId, address,
-            contact, email, ChiefName, serviceCapability, ownership, hospitalStatus, phicAccreditation, vaccineUsed,
-    triCity, referralUsed, transport, latitude, longitude;
+    public String id, facility_code, facility_name, facility_abbr, prov_id, muncity_id, brgy_id, address,
+            contact, email, chief_hospital, service_capability, license_status, ownership, facility_status, phic_status,
+            status, referral_status, transport, latitude, longitude;
 
-    public String schedDayFrom, schedDayTo, schedTimeFrom, schedTimeTo, schedNotes;
+    public String sched_day_from, sched_day_to, sched_time_from, sched_time_to, sched_notes;
 
-    public String laboratoryServices, DentalServices;
-
-    public FacilityModel(String Id, String facilityCode, String facilityName, String facilityAbbr, String provinceId, String municipalityId, String barangayId, String address,
-                         String contact, String email, String ChiefName, String serviceCapability, String ownership, String hospitalStatus, String phicAccreditation, String vaccineUsed,
-                         String triCity, String referralUsed, String transport, String latitude, String longitude, String schedDayFrom, String schedDayTo, String schedTimeFrom, String schedTimeTo, String schedNotes){
+    public FacilityModel(String Id, String facility_code, String facility_name,
+                         String facility_abbr, String prov_id, String muncity_id,
+                         String brgy_id, String address, String contact, String email,
+                         String chief_hospital, String service_capability, String license_status,
+                         String ownership, String facility_status, String referral_status,
+                         String phic_status, String transport, String latitude, String longitude,
+                         String sched_day_from, String sched_day_to, String sched_time_from,
+                         String sched_time_to, String sched_notes, String status){
         this.id=Id;
-        this.facilityCode = facilityCode;
-        this.facilityName = facilityName;
-        this.facilityAbbr = facilityAbbr;
-        this.provinceId = provinceId;
-        this.municipalityId = municipalityId;
-        this.barangayId = barangayId;
+        this.facility_code = facility_code;
+        this.facility_name = facility_name;
+        this.facility_abbr = facility_abbr;
+        this.prov_id = prov_id;
+        this.muncity_id = muncity_id;
+        this.brgy_id = brgy_id;
         this.address = address;
+
         this.contact = contact;
         this.email = email;
-        this.ChiefName = ChiefName;
-        this.serviceCapability = serviceCapability;
+        this.chief_hospital = chief_hospital;
+        this.service_capability = service_capability;
+        this.license_status = license_status;
         this.ownership = ownership;
-        this.hospitalStatus = hospitalStatus;
-        this.phicAccreditation = phicAccreditation;
-        this.vaccineUsed = vaccineUsed;
-        this.triCity = triCity;
-        this.referralUsed = referralUsed;
+        this.facility_status = facility_status;
+        this.phic_status = phic_status;
+        this.referral_status = referral_status;
         this.transport = transport;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.schedDayFrom = schedDayFrom;
-        this.schedDayTo = schedDayTo;
-        this.schedTimeFrom = schedTimeFrom;
-        this.schedTimeTo = schedTimeTo;
-        this.schedNotes = schedNotes;
+
+        this.sched_day_from = sched_day_from;
+        this.sched_day_to = sched_day_to;
+        this.sched_time_from = sched_time_from;
+        this.sched_time_to = sched_time_to;
+        this.sched_notes = sched_notes;
+
+        this.status = status;
+
+
     }
 
 
     protected FacilityModel(Parcel in) {
         id = in.readString();
-        facilityCode = in.readString();
-        facilityName = in.readString();
-        facilityAbbr = in.readString();
-        provinceId = in.readString();
-        municipalityId = in.readString();
-        barangayId = in.readString();
+        facility_code = in.readString();
+        facility_name = in.readString();
+        facility_abbr = in.readString();
+        prov_id = in.readString();
+        muncity_id = in.readString();
+        brgy_id = in.readString();
         address = in.readString();
 
         contact = in.readString();
         email = in.readString();
-        ChiefName = in.readString();
-        serviceCapability = in.readString();
+        chief_hospital = in.readString();
+        service_capability = in.readString();
+        license_status = in.readString();
         ownership = in.readString();
-        hospitalStatus = in.readString();
-        phicAccreditation = in.readString();
-        vaccineUsed = in.readString();
-        triCity = in.readString();
-        referralUsed = in.readString();
+        facility_status = in.readString();
+        phic_status = in.readString();
+
+        referral_status = in.readString();
         transport = in.readString();
         latitude = in.readString();
         longitude = in.readString();
 
-        schedDayFrom = in.readString();
-        schedDayTo = in.readString();
-        schedTimeFrom = in.readString();
-        schedTimeTo = in.readString();
-        schedNotes = in.readString();
+        sched_day_from = in.readString();
+        sched_day_to = in.readString();
+        sched_time_from = in.readString();
+        sched_time_to = in.readString();
+        sched_notes = in.readString();
+
+
+        status = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
-        dest.writeString(facilityCode);
-        dest.writeString(facilityName);
-        dest.writeString(facilityAbbr);
-        dest.writeString(provinceId);
-        dest.writeString(municipalityId);
-        dest.writeString(barangayId);
+        dest.writeString(facility_code);
+        dest.writeString(facility_name);
+        dest.writeString(facility_abbr);
+
+        dest.writeString(prov_id);
+        dest.writeString(muncity_id);
+        dest.writeString(brgy_id);
         dest.writeString(address);
+
         dest.writeString(contact);
         dest.writeString(email);
-        dest.writeString(ChiefName);
-        dest.writeString(serviceCapability);
+        dest.writeString(chief_hospital);
+        dest.writeString(service_capability);
+        dest.writeString(license_status);
         dest.writeString(ownership);
-        dest.writeString(hospitalStatus);
-        dest.writeString(phicAccreditation);
-        dest.writeString(vaccineUsed);
-        dest.writeString(triCity);
-        dest.writeString(referralUsed);
+        dest.writeString(facility_status);
+        dest.writeString(phic_status);
+
+        dest.writeString(referral_status);
         dest.writeString(transport);
         dest.writeString(latitude);
         dest.writeString(longitude);
-        dest.writeString(schedDayFrom);
-        dest.writeString(schedDayTo);
-        dest.writeString(schedTimeFrom);
-        dest.writeString(schedTimeTo);
-        dest.writeString(schedNotes);
+        dest.writeString(sched_day_from);
+        dest.writeString(sched_day_to);
+        dest.writeString(sched_time_from);
+        dest.writeString(sched_time_to);
+        dest.writeString(sched_notes);
 
+        dest.writeString(status);
     }
 
     @Override

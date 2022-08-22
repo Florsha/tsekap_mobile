@@ -3,17 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_add_specialist"
+        android:id="@+id/action_add"
         android:orderInCategory="100"
         android:title="add"
         android:icon="@drawable/add_icon"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_download_specialist"
+        android:id="@+id/action_download"
         android:orderInCategory="200"
         android:title="Download"
         android:icon="@android:drawable/stat_sys_download"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_upload"
+        android:orderInCategory="200"
+        android:title="Upload"
+        android:icon="@android:drawable/stat_sys_upload"
+        app:showAsAction="ifRoom" />
+
 
 </menu>

@@ -10,7 +10,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_download_specialist"
+        android:id="@+id/action_download"
         android:orderInCategory="200"
         android:title="Download"
         android:icon="@android:drawable/stat_sys_download"

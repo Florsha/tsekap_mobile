@@ -1,33 +1,26 @@
 package com.example.mvopo.tsekapp.Model;
 
 import android.content.Context;
-import android.os.Build;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
-
-import com.example.mvopo.tsekapp.Helper.DBHelper;
 import com.example.mvopo.tsekapp.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.ref.WeakReference;
-import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -65,7 +58,6 @@ public class Constants {
 
         JSONObject request = new JSONObject();
         JSONObject data = new JSONObject();
-
        try {
             data.accumulate("unique_id", profile.uniqueId);
             data.accumulate("familyID", profile.familyId);
@@ -129,6 +121,136 @@ public class Constants {
 
             request.accumulate("data", data);
             //request.accumulate("_token", MainActivity.user.token);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return request;
+    }
+
+   public static JSONObject getSpecialistsJson(){
+       ArrayList<SpecialistModel> specialistsDb = MainActivity.db.getSpecialistsForSync();
+       JSONObject request = new JSONObject();
+       JSONObject data = new JSONObject();
+       JSONArray specialist = new JSONArray();
+
+       try {
+           data.accumulate("muncity", MainActivity.user.muncity);  //Add string muncity in data
+           data.accumulate("province", MainActivity.user.province); //Add string province in data
+       }catch (JSONException e) {
+           e.printStackTrace();
+       }
+
+       for(SpecialistModel model : specialistsDb){
+           ArrayList<AffiliatedFacilitiesModel> facilitiesDb = MainActivity.db.getAffiliatedFacilities(model.username);
+           JSONObject specialistData = new JSONObject();
+           try {
+                specialistData.accumulate("username", model.username); //Add string muncity in specialist data
+                specialistData.accumulate("fname", model.fname);        // ""
+                specialistData.accumulate("mname", model.mname);        // ""
+                specialistData.accumulate("lname", model.lname);        // ""
+           }catch (JSONException e) {
+               e.printStackTrace();
+           }
+
+           JSONArray affiliated = new JSONArray();
+           for (AffiliatedFacilitiesModel model1 : facilitiesDb){
+               JSONObject affiliatedData = new JSONObject();
+               try {
+                   affiliatedData.accumulate("facility_code", model1.facility_code); //Add string muncity in affiliated data
+                   affiliatedData.accumulate("specialization", model1.specialization);  // ""
+                   affiliatedData.accumulate("contact", model1.contact);                // ""
+                   affiliatedData.accumulate("email", model1.email);                    // ""
+                   affiliatedData.accumulate("schedule", model1.schedule);              // ""
+                   affiliatedData.accumulate("fee", model1.fee);                        // ""
+
+                   affiliated.put(affiliatedData); //todo: add affiliatedData in JSONArray "Affiliated"
+               }catch (JSONException e) {
+                   e.printStackTrace();
+               }
+           }
+
+           try {
+               specialistData.accumulate("affiliated", affiliated); //todo: add JSONArray Affiliated in specialist data
+               specialist.put(specialistData);//todo: add specialist data in JSONArray "Specialist"
+           }catch (JSONException e) {
+               e.printStackTrace();
+           }
+       }
+
+
+       try {
+           data.accumulate("specialist", specialist); //Add JSONArray Specialist in data
+           request.accumulate("data", data);
+       }catch (JSONException e) {
+           e.printStackTrace();
+       }
+
+
+        return request;
+    }
+
+    public static JSONObject getFacilitiesJson(){
+        ArrayList<FacilityModel> facilitiesDb = MainActivity.db.getFacilitiesForSync();
+        JSONObject request = new JSONObject();
+        JSONArray data = new JSONArray();
+
+        for(FacilityModel model : facilitiesDb){
+            ArrayList<FacilityService> facilityServicesDb = MainActivity.db.getFacilityServices(model.facility_code);
+            JSONObject facility_data = new JSONObject();
+            try{
+                facility_data.accumulate("facility_code", model.facility_code);
+                facility_data.accumulate("facility_name", model.facility_name);
+                facility_data.accumulate("facility_abbr", model.facility_abbr);
+                facility_data.accumulate("prov_id", model.prov_id);
+                facility_data.accumulate("muncity_id", model.muncity_id);
+                facility_data.accumulate("brgy_id", model.brgy_id);
+                facility_data.accumulate("address", model.address);
+                facility_data.accumulate("contact", model.contact);
+                facility_data.accumulate("email", model.email);
+                facility_data.accumulate("chief_hospital", model.chief_hospital);
+                facility_data.accumulate("service_capability", model.service_capability);
+                facility_data.accumulate("license_status", model.license_status);
+                facility_data.accumulate("ownership", model.ownership);
+                facility_data.accumulate("facility_status", model.facility_status);
+                facility_data.accumulate("phic_status", model.phic_status);
+                facility_data.accumulate("referral_status", model.referral_status);
+                facility_data.accumulate("transport", model.transport);
+                facility_data.accumulate("latitude", model.latitude);
+                facility_data.accumulate("longitude", model.longitude);
+                facility_data.accumulate("sched_day_from", model.sched_day_from);
+                facility_data.accumulate("sched_day_to", model.sched_day_to);
+                facility_data.accumulate("sched_time_from", model.sched_time_from);
+                facility_data.accumulate("sched_time_to", model.sched_time_to);
+                facility_data.accumulate("sched_notes", model.sched_notes);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            JSONArray services_cost = new JSONArray();
+            for (FacilityService model1 : facilityServicesDb){
+                JSONObject facilityService_data = new JSONObject();
+                try{
+                    facilityService_data.accumulate("service_type", model1.service_type);
+                    facilityService_data.accumulate("service", model1.service);
+                    facilityService_data.accumulate("cost", model1.cost);
+
+                    services_cost.put(facilityService_data);
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+
+            try{
+                facility_data.accumulate("services_cost", services_cost);
+                data.put(facility_data);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try{
+            request.accumulate("data", data);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -280,17 +280,17 @@
 
     <string-array name="accreditation_status">
         <item>Accredited</item>
-        <item>Non Accredited</item>
+        <item>Non-Accredited</item>
     </string-array>
 
     <string-array name="license_status">
         <item>Licensed</item>
-        <item>Non Licensed</item>
+        <item>Unlicensed</item>
     </string-array>
 
     <string-array name="laboratory_services">
         <item>Chest X-ray</item>
-        <item>Complete Blood Count</item>
+        <item>Complete Blood Count w/ Platelet Count</item>
         <item>Creatinine</item>
         <item>ECG</item>
         <item>FBS</item>
@@ -298,8 +298,8 @@
         <item>Fecal Occult Blood</item>
         <item>HbAIC</item>
         <item>Lipid profile</item>
-        <item>Oral Glucose Tolerance</item>
-        <item>Pap smear</item>
+        <item>Oral Glucose Tolerance Test</item>
+        <item>Pap Smear</item>
         <item>Sputum Microscopy</item>
         <item>Urinalysis</item>
     </string-array>
@@ -309,7 +309,7 @@
         <item>Temporary Filling</item>
         <item>Permanent Filling</item>
         <item>Orthodontics</item>
-        <item>Oral prophylaxis (Cleaning)</item>
+        <item>Oral Prophylaxis (Cleaning)</item>
     </string-array>
 
     <string-array name="familyPlanning_services">
@@ -319,10 +319,10 @@
         <item>LAM</item>
         <item>Progesterone</item>
         <item>Implant</item>
-        <item>(Oral Pills) Progesterone Only Pills</item>
-        <item>(Oral Pills) Combine Oral Contraceptive</item>
-        <item>(DMPA) Pure Inject Contraceptive</item>
-        <item>(DMPA) Combine Inject Contraceptive</item>
+        <item>(Oral Pills) Progesterone Only</item>
+        <item>(Oral Pills) Combined Oral Contraceptives</item>
+        <item>(DMPA) Pure Inject Contraceptives</item>
+        <item>(DMPA) Combined Inject Contraceptives</item>
         <item>(IUD) Internal</item>
         <item>(IUD) Postpartum</item>
     </string-array>
@@ -348,4 +348,6 @@
         <item>Dialysis Center</item>
         <item>Pharmacy</item>
     </string-array>
+
+ 
 </resources>
