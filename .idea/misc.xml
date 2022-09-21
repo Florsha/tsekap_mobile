@@ -17,7 +17,7 @@
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_change_password.xml" value="0.23822463768115942" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_manage_facility.xml" value="0.33" />
-        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_manage_member.xml" value="0.3092255125284738" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_manage_member.xml" value="0.29437706725468576" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_manage_specialist.xml" value="0.33" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/fragment_must_services.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/layout/list_layout.xml" value="0.33" />
@@ -39,6 +39,7 @@
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/menu/add_head.xml" value="0.2851851851851852" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/menu/download.xml" value="0.2851851851851852" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/menu/download_add.xml" value="0.3296875" />
+        <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/menu/feedback.xml" value="0.278125" />
         <entry key="..\:/Users/Romaine Lorena/AndroidStudioProjects/TsekApp-master-master/app/src/main/res/xml/network_security_config.xml" value="0.13229166666666667" />
       </map>
     </option>

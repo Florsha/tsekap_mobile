@@ -8,7 +8,7 @@ import android.os.Parcelable;
  */
 
 public class FamilyProfile implements Parcelable {
-    public String id, uniqueId, familyId, philId, nhtsId, isHead, relation, fname, lname, mname, suffix, dob,
+    public String id, uniqueId, familyId, philId, nhts, isHead, relation, fname, lname, mname, suffix, dob,
             sex, barangayId, muncityId, provinceId, income, unmetNeed, waterSupply, sanitaryToilet, educationalAttainment,
             status;
 
@@ -19,12 +19,12 @@ public class FamilyProfile implements Parcelable {
     //Update r
     public String birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
             tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
-            immu_stat, nutri_stat, pwd_desc, sexually_active;
+            immu_stat, nutri_stat, pwd_desc, sexually_active, ip, four_ps, balik_probinsya, member_others;
 
-    public FamilyProfile(String id, String uniqueId, String familyId, String philId, String nhtsId, String isHead,
-                         String relation, String fname, String lname, String mname, String suffix, String dob, String sex,
+    public FamilyProfile(String id, String uniqueId, String familyId, String philId, String nhts, String four_ps, String ip, String isHead,
+                         String relation, String member_others, String fname, String lname, String mname, String suffix, String dob, String sex,
                          String barangayId, String muncityId, String provinceId, String income, String unmetNeed, String waterSupply,
-                         String sanitaryToilet, String educationalAttainment, String status , String diabetic, String hypertension, String pwd, String pregnant,
+                         String sanitaryToilet, String educationalAttainment, String balik_probinsya, String status , String diabetic, String hypertension, String pwd, String pregnant,
                          String birth_place, String civil_status, String religion, String other_religion, String contact, String height, String weight, String cancer,
                          String cancer_type, String mental_med, String tbdots_med, String cvd_med, String covid_status, String menarche, String menarche_age, String newborn_screen,
                          String newborn_text, String deceased, String deceased_date, String immu_stat, String nutri_stat, String pwd_desc, String sexually_active) {
@@ -32,9 +32,13 @@ public class FamilyProfile implements Parcelable {
         this.uniqueId = uniqueId;
         this.familyId = familyId;
         this.philId = philId;
-        this.nhtsId = nhtsId;
+        this.nhts = nhts;
+        this.four_ps = four_ps;
+        this.ip = ip;
+
         this.isHead = isHead;
         this.relation = relation;
+        this.member_others = member_others;
         this.fname = fname;
         this.lname = lname;
         this.mname = mname;
@@ -49,6 +53,7 @@ public class FamilyProfile implements Parcelable {
         this.waterSupply = waterSupply;
         this.sanitaryToilet = sanitaryToilet;
         this.educationalAttainment = educationalAttainment;
+        this.balik_probinsya = balik_probinsya;
         this.status = status;
 
         // UPDATE
@@ -88,9 +93,12 @@ public class FamilyProfile implements Parcelable {
         uniqueId = in.readString();
         familyId = in.readString();
         philId = in.readString();
-        nhtsId = in.readString();
+        nhts = in.readString();
+        four_ps = in.readString();
+        ip = in.readString();
         isHead = in.readString();
         relation = in.readString();
+        member_others = in.readString();
         fname = in.readString();
         lname = in.readString();
         mname = in.readString();
@@ -105,6 +113,7 @@ public class FamilyProfile implements Parcelable {
         waterSupply = in.readString();
         sanitaryToilet = in.readString();
         educationalAttainment = in.readString();
+        balik_probinsya = in.readString();
         status = in.readString();
         // UPDATE
         diabetic = in.readString();
@@ -144,9 +153,12 @@ public class FamilyProfile implements Parcelable {
         dest.writeString(uniqueId);
         dest.writeString(familyId);
         dest.writeString(philId);
-        dest.writeString(nhtsId);
+        dest.writeString(nhts);
+        dest.writeString(four_ps);
+        dest.writeString(ip);
         dest.writeString(isHead);
         dest.writeString(relation);
+        dest.writeString(member_others);
         dest.writeString(fname);
         dest.writeString(lname);
         dest.writeString(mname);
@@ -161,6 +173,7 @@ public class FamilyProfile implements Parcelable {
         dest.writeString(waterSupply);
         dest.writeString(sanitaryToilet);
         dest.writeString(educationalAttainment);
+        dest.writeString(balik_probinsya);
         dest.writeString(status);
         // UPDATE
         dest.writeString(diabetic);

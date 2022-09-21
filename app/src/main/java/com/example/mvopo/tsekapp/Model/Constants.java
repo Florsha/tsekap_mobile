@@ -62,9 +62,12 @@ public class Constants {
             data.accumulate("unique_id", profile.uniqueId);
             data.accumulate("familyID", profile.familyId);
             data.accumulate("phicID", profile.philId);
-            data.accumulate("nhtsID", profile.nhtsId);
+            data.accumulate("nhts", profile.nhts);
+            data.accumulate("four_ps", profile.four_ps);
+            data.accumulate("ip", profile.ip);
             data.accumulate("head", profile.isHead);
             data.accumulate("relation", profile.relation);
+            data.accumulate("member_others", profile.member_others);
             data.accumulate("fname", profile.fname);
             data.accumulate("mname", profile.mname);
             data.accumulate("lname", profile.lname);
@@ -89,7 +92,7 @@ public class Constants {
 
             data.accumulate("toilet",toilet);
             data.accumulate("education", profile.educationalAttainment);
-
+            data.accumulate("balik_probinsya", profile.balik_probinsya);
             data.accumulate("diabetic", profile.diabetic);
             data.accumulate("hypertension", profile.hypertension);
             data.accumulate("pwd", profile.pwd);
@@ -117,7 +120,7 @@ public class Constants {
             data.accumulate("immu_stat", profile.immu_stat);
             data.accumulate("nutri_stat", profile.nutri_stat);
             data.accumulate("pwd_desc", profile.pwd_desc);
-           data.accumulate("sexually_active", profile.sexually_active);
+            data.accumulate("sexually_active", profile.sexually_active);
 
             request.accumulate("data", data);
             //request.accumulate("_token", MainActivity.user.token);

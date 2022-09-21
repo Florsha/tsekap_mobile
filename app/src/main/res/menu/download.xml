@@ -13,7 +13,7 @@
         android:id="@+id/action_download"
         android:orderInCategory="200"
         android:title="Download"
-        android:icon="@android:drawable/stat_sys_download"
+        android:icon="@drawable/ic_sync"
         app:showAsAction="ifRoom" />
 
 </menu>

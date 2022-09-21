@@ -63,9 +63,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 "uniqueId varchar(100), " +
                 "familyId varchar(50), " +
                 "philId varchar(50), " +
-                "nhtsId varchar(50), " +
+                "nhts varchar(50), " +
+                "four_ps varchar(50), " +
+                "ip varchar(50), " +
                 "isHead varchar(50), " +
                 "relation varchar(50), " +
+                "member_others varchar(50), " +
                 "fname varchar(50), " +
                 "mname varchar(50), " +
                 "lname varchar(50), " +
@@ -80,6 +83,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "waterSupply varchar(50), " +
                 "sanitaryToilet varchar(50), " +
                 "educationalAttainment varchar(50)," +
+                "balik_probinsya varchar(50)," +
                 "status varchar(3)," +
                 "diabetic varchar(30)," +
                 "hypertension varchar(30)," +
@@ -278,9 +282,13 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("uniqueId", familyProfile.uniqueId);
         cv.put("familyId", familyProfile.familyId);
         cv.put("philId", familyProfile.philId);
-        cv.put("nhtsId", familyProfile.nhtsId);
+        cv.put("nhts", familyProfile.nhts);
+        cv.put("four_ps", familyProfile.four_ps);
+        cv.put("ip", familyProfile.ip);
+
         cv.put("isHead", familyProfile.isHead);
         cv.put("relation", familyProfile.relation);
+        cv.put("member_others", familyProfile.member_others);
         cv.put("fname", familyProfile.fname);
         cv.put("mname", familyProfile.mname);
         cv.put("lname", familyProfile.lname);
@@ -295,6 +303,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("waterSupply", familyProfile.waterSupply);
         cv.put("sanitaryToilet", familyProfile.sanitaryToilet);
         cv.put("educationalAttainment", familyProfile.educationalAttainment);
+        cv.put("balik_probinsya", familyProfile.balik_probinsya);
         cv.put("status", familyProfile.status);
         cv.put("diabetic", familyProfile.diabetic);
         cv.put("hypertension", familyProfile.hypertension);
@@ -335,9 +344,13 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("uniqueId", familyProfile.uniqueId);
         cv.put("familyId", familyProfile.familyId);
         cv.put("philId", familyProfile.philId);
-        cv.put("nhtsId", familyProfile.nhtsId);
+        cv.put("nhts", familyProfile.nhts);
+        cv.put("four_ps", familyProfile.four_ps);
+        cv.put("ip", familyProfile.ip);
+
         cv.put("isHead", familyProfile.isHead);
         cv.put("relation", familyProfile.relation);
+        cv.put("member_others", familyProfile.member_others);
         cv.put("fname", familyProfile.fname);
         cv.put("mname", familyProfile.mname);
         cv.put("lname", familyProfile.lname);
@@ -352,6 +365,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("waterSupply", familyProfile.waterSupply);
         cv.put("sanitaryToilet", familyProfile.sanitaryToilet);
         cv.put("educationalAttainment", familyProfile.educationalAttainment);
+        cv.put("balik_probinsya", familyProfile.balik_probinsya);
         cv.put("status", familyProfile.status);
         cv.put("diabetic", familyProfile.diabetic);
         cv.put("hypertension", familyProfile.hypertension);
@@ -398,9 +412,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 String uniqueId = c.getString(c.getColumnIndexOrThrow("uniqueId"));
                 String familyId = c.getString(c.getColumnIndexOrThrow("familyId"));
                 String philId = c.getString(c.getColumnIndexOrThrow("philId"));
-                String nhtsId = c.getString(c.getColumnIndexOrThrow("nhtsId"));
+                String nhts = c.getString(c.getColumnIndexOrThrow("nhts"));
+                String four_ps = c.getString(c.getColumnIndexOrThrow("four_ps"));
+                String ip = c.getString(c.getColumnIndexOrThrow("ip"));
                 String isHead = c.getString(c.getColumnIndexOrThrow("isHead"));
                 String relation = c.getString(c.getColumnIndexOrThrow("relation"));
+                String member_others = c.getString(c.getColumnIndexOrThrow("member_others"));
                 String fname = c.getString(c.getColumnIndexOrThrow("fname"));
                 String mname = c.getString(c.getColumnIndexOrThrow("mname"));
                 String lname = c.getString(c.getColumnIndexOrThrow("lname"));
@@ -415,6 +432,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String waterSupply = c.getString(c.getColumnIndexOrThrow("waterSupply"));
                 String sanitaryToilet = c.getString(c.getColumnIndexOrThrow("sanitaryToilet"));
                 String educationalAttainment = c.getString(c.getColumnIndexOrThrow("educationalAttainment"));
+                String balik_probinsya = c.getString(c.getColumnIndexOrThrow("balik_probinsya"));
                 String status = c.getString(c.getColumnIndexOrThrow("status"));
                 String diabetic = c.getString(c.getColumnIndexOrThrow("diabetic"));
                 String hypertension = c.getString(c.getColumnIndexOrThrow("hypertension"));
@@ -447,31 +465,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
                 FamilyProfile profile = new FamilyProfile(
                         id + "", /**Hello am here*/
-                        uniqueId,
-                        familyId,
-                        philId,
-                        nhtsId,
-                        isHead,
-                        relation,
-                        fname,
-                        lname,
-                        mname,
-                        suffix,
-                        dob,
-                        sex,
-                        barangayId,
-                        muncityId,
-                        provinceId,
-                        income,
-                        unmetNeed,
-                        waterSupply,
-                        sanitaryToilet,
-                        educationalAttainment,
-                        status,
-                        diabetic,
-                        hypertension,
-                        pwd,
-                        pregnant,
+                        uniqueId, familyId, philId,
+                        nhts, four_ps, ip,
+                        isHead, relation, member_others,
+                        fname, lname, mname, suffix, dob, sex, barangayId, muncityId, provinceId, income, unmetNeed, waterSupply, sanitaryToilet,
+                        educationalAttainment, balik_probinsya, status, diabetic, hypertension, pwd, pregnant,
                         birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
                         tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
                         immu_stat, nutri_stat, pwd_desc, sexually_active);
@@ -497,9 +495,12 @@ public class DBHelper extends SQLiteOpenHelper {
             String uniqueId = c.getString(c.getColumnIndexOrThrow("uniqueId"));
             String familyId = c.getString(c.getColumnIndexOrThrow("familyId"));
             String philId = c.getString(c.getColumnIndexOrThrow("philId"));
-            String nhtsId = c.getString(c.getColumnIndexOrThrow("nhtsId"));
+            String nhts = c.getString(c.getColumnIndexOrThrow("nhts"));
+            String four_ps = c.getString(c.getColumnIndexOrThrow("four_ps"));
+            String ip = c.getString(c.getColumnIndexOrThrow("ip"));
             String isHead = c.getString(c.getColumnIndexOrThrow("isHead"));
             String relation = c.getString(c.getColumnIndexOrThrow("relation"));
+            String member_others = c.getString(c.getColumnIndexOrThrow("member_others"));
             String fname = c.getString(c.getColumnIndexOrThrow("fname"));
             String mname = c.getString(c.getColumnIndexOrThrow("mname"));
             String lname = c.getString(c.getColumnIndexOrThrow("lname"));
@@ -514,6 +515,7 @@ public class DBHelper extends SQLiteOpenHelper {
             String waterSupply = c.getString(c.getColumnIndexOrThrow("waterSupply"));
             String sanitaryToilet = c.getString(c.getColumnIndexOrThrow("sanitaryToilet"));
             String educationalAttainment = c.getString(c.getColumnIndexOrThrow("educationalAttainment"));
+            String balik_probinsya =  c.getString(c.getColumnIndexOrThrow("balik_probinsya"));
             String status = c.getString(c.getColumnIndexOrThrow("status"));
             String diabetic = c.getString(c.getColumnIndexOrThrow("diabetic"));
             String hypertension = c.getString(c.getColumnIndexOrThrow("hypertension"));
@@ -549,9 +551,11 @@ public class DBHelper extends SQLiteOpenHelper {
                     uniqueId,
                     familyId,
                     philId,
-                    nhtsId,
+                    nhts,
+                    four_ps,
+                    ip,
                     isHead,
-                    relation,
+                    relation, member_others,
                     fname,
                     lname,
                     mname,
@@ -565,7 +569,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     unmetNeed,
                     waterSupply,
                     sanitaryToilet,
-                    educationalAttainment,
+                    educationalAttainment, balik_probinsya,
                     status,
                     diabetic,
                     hypertension,
@@ -592,9 +596,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 String uniqueId = c.getString(c.getColumnIndexOrThrow("uniqueId"));
                 String familyId = c.getString(c.getColumnIndexOrThrow("familyId"));
                 String philId = c.getString(c.getColumnIndexOrThrow("philId"));
-                String nhtsId = c.getString(c.getColumnIndexOrThrow("nhtsId"));
+                String nhts= c.getString(c.getColumnIndexOrThrow("nhts"));
+                String four_ps = c.getString(c.getColumnIndexOrThrow("four_ps"));
+                String ip = c.getString(c.getColumnIndexOrThrow("ip"));
                 String isHead = c.getString(c.getColumnIndexOrThrow("isHead"));
                 String relation = c.getString(c.getColumnIndexOrThrow("relation"));
+                String member_others = c.getString(c.getColumnIndexOrThrow("member_others"));
                 String fname = c.getString(c.getColumnIndexOrThrow("fname"));
                 String mname = c.getString(c.getColumnIndexOrThrow("mname"));
                 String lname = c.getString(c.getColumnIndexOrThrow("lname"));
@@ -609,6 +616,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String waterSupply = c.getString(c.getColumnIndexOrThrow("waterSupply"));
                 String sanitaryToilet = c.getString(c.getColumnIndexOrThrow("sanitaryToilet"));
                 String educationalAttainment = c.getString(c.getColumnIndexOrThrow("educationalAttainment"));
+                String balik_probinsya = c.getString(c.getColumnIndexOrThrow("balik_probinsya"));
                 String status = c.getString(c.getColumnIndexOrThrow("status"));
                 String diabetic = c.getString(c.getColumnIndexOrThrow("diabetic"));
                 String hypertension = c.getString(c.getColumnIndexOrThrow("hypertension"));
@@ -644,9 +652,11 @@ public class DBHelper extends SQLiteOpenHelper {
                         uniqueId,
                         familyId,
                         philId,
-                        nhtsId,
+                        nhts,
+                        four_ps,
+                        ip,
                         isHead,
-                        relation,
+                        relation, member_others,
                         fname,
                         lname,
                         mname,
@@ -660,7 +670,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         unmetNeed,
                         waterSupply,
                         sanitaryToilet,
-                        educationalAttainment,
+                        educationalAttainment, balik_probinsya,
                         status,
                         diabetic,
                         hypertension,

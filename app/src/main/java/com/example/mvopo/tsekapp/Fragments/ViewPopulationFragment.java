@@ -236,8 +236,8 @@ public class ViewPopulationFragment extends Fragment {
                         String.format("%02d", (c.get(Calendar.HOUR))) + String.format("%02d", (c.get(Calendar.MINUTE))) +
                 String.format("%02d", (c.get(Calendar.SECOND)));
 
-                FamilyProfile familyProfile = new FamilyProfile("", "", famId, "", "", "", "", "", "", "", "", "",
-                        "", "", "", "", "", "", "","", "", "1", "", "", "", ""
+                FamilyProfile familyProfile = new FamilyProfile("", "", famId, "", "", "", "", "", "", "", "", "", "", "", "",
+                        "", "", "", "", "", "", "","", "", "","1", "", "", "", ""
                         , "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                         "", "", "", "", "", "", "","");
 

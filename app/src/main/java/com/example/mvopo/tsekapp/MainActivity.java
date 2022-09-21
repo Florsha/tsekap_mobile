@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity
                         public void onClick(DialogInterface dialogInterface, int i) {
 
                             MainActivity.pd = ProgressDialog.show(MainActivity.this, "Uploading 1/" + (uploadableCount + serviceCount),
-                                    "Please wait...", false, true);
+                                    "Please wait...",   false, true);
 
                             if (uploadableCount > 0) {
                                 String url = Constants.url.replace("?", "/syncprofilev21");

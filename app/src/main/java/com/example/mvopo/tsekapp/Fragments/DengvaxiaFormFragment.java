@@ -634,7 +634,7 @@ public class DengvaxiaFormFragment extends Fragment implements View.OnClickListe
             jsonObject.accumulate("unique_id", familyProfile.uniqueId);
             jsonObject.accumulate("familyID", familyProfile.familyId);
             jsonObject.accumulate("phicID", familyProfile.philId);
-            jsonObject.accumulate("nhtsID", familyProfile.nhtsId);
+            jsonObject.accumulate("nhtsID", familyProfile.nhts);
             jsonObject.accumulate("head", familyProfile.isHead);
             jsonObject.accumulate("relation", familyProfile.relation);
             jsonObject.accumulate("fname", familyProfile.fname);

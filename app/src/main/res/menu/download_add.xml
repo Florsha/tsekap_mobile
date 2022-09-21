@@ -13,14 +13,14 @@
         android:id="@+id/action_download"
         android:orderInCategory="200"
         android:title="Download"
-        android:icon="@android:drawable/stat_sys_download"
+        android:icon="@drawable/ic_sync"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_upload"
         android:orderInCategory="200"
         android:title="Upload"
-        android:icon="@android:drawable/stat_sys_upload"
+        android:icon="@drawable/ic_upload"
         app:showAsAction="ifRoom" />
 
 

@@ -17,6 +17,7 @@
         <item>college_grad</item>
         <item>vocational</item>
         <item>master</item>
+        <item>doctorate</item>
     </string-array>
 
     <string-array name="educational_attainment">
@@ -29,6 +30,7 @@
         <item>College Graduate</item>
         <item>Vocational Course</item>
         <item>Masteral Degree</item>
+        <item>Doctorate Degree</item>
     </string-array>
 
     <string-array name="yes_no">
@@ -36,7 +38,7 @@
         <item>NO</item>
     </string-array>
 
-    <string-array name="realation_to_head">
+    <string-array name="relation_to_head">
         <item>Son</item>
         <item>Daughter</item>
         <item>Husband</item>
@@ -349,5 +351,12 @@
         <item>Pharmacy</item>
     </string-array>
 
- 
+    <string-array name="covid_vaccine">
+        <item>None</item>
+        <item>Primary Dose</item>
+        <item>Second Dose</item>
+        <item>Booster Dose</item>
+    </string-array>
+
+
 </resources>

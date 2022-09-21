@@ -116,6 +116,7 @@ public class ManageFacilityFragment extends Fragment implements View.OnClickList
         tils_laboratory = new TextInputLayout[] {tilLabXray, tilLabCBC, tilLabCreatine, tilLabECG, tilLabFBS, tilLabFecal, tilLabFOB, tilLabHbAIC, tilLabLipid, tilLabOGT, tilLabPap, tilLabSputum, tilLabUrine};
         tils_famPlan = new TextInputLayout[] {tilFamNSV, tilFamBTL, tilFamCondom, tilFamLAM, tilFamProgesterone, tilFamImplant, tilFamPOP, tilFamCOC, tilFamPIC, tilFamCIC, tilFamInternal, tilFamPostpartum};
 
+
         updateBtn.setOnClickListener(this);
         txtServiceCapability.setOnClickListener(this);
         txtOwnership.setOnClickListener(this);

@@ -330,9 +330,13 @@ public class JSONApi {
                                         String unique_id = response.getString("unique_id");
                                         String familyID = response.getString("familyID");
                                         String phicID = response.getString("phicID");
-                                        String nhtsID = response.getString("nhtsID");
+                                        String nhts = response.getString("nhts");
+                                        String four_ps = response.getString("four_ps");
+                                        String ip = response.getString("ip");
+
                                         String head = response.getString("head");
                                         String relation = response.getString("relation");
+                                        String member_others = response.getString("member_others");
                                         String fname = response.getString("fname");
                                         String mname = response.getString("mname");
                                         String lname = response.getString("lname");
@@ -347,6 +351,7 @@ public class JSONApi {
                                         String water = response.getString("water");
                                         String toilet = response.getString("toilet");
                                         String education = response.getString("education");
+                                        String balik_probinsya =  response.getString("balik_probinsya");
                                         String diabetic = response.getString("diabetic");
                                         String hypertension = response.getString("hypertension");
                                         String pwd = response.getString("pwd");
@@ -376,8 +381,8 @@ public class JSONApi {
                                         String pwd_desc = response.getString("pwd_desc");
                                         String sexually_active = response.getString("sexually_active");
 
-                                        db.addProfile(new FamilyProfile(id, unique_id, familyID, phicID, nhtsID, head, relation, fname, lname, mname, suffix, dob, sex,
-                                                barangay_id, muncity_id, province_id, income, unmet, water, toilet, education, "0", diabetic, hypertension, pwd,
+                                        db.addProfile(new FamilyProfile(id, unique_id, familyID, phicID, nhts, four_ps, ip, head, relation, member_others, fname, lname, mname, suffix, dob, sex,
+                                                barangay_id, muncity_id, province_id, income, unmet, water, toilet, education, balik_probinsya, "0", diabetic, hypertension, pwd,
                                                 pregnant, birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
                                                 tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
                                                 immu_stat, nutri_stat, pwd_desc, sexually_active));
