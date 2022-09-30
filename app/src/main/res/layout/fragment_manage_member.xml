@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:focusable="false"
-                android:hint="Family Head?"
+                android:hint="* Family Head?"
                 android:padding="5dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -153,7 +153,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:focusable="false"
-                android:hint="Relation to Head"
+                android:hint="* Relation to Head"
                 android:padding="5dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -174,7 +174,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Specify Relation to Head"
+                android:hint="* Specify Relation to Head"
                 android:padding="5dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -192,7 +192,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:capitalize="sentences"
-                android:hint="First Name"
+                android:hint="* First Name"
                 android:inputType="textCapWords"
                 android:padding="5dp"
                 android:singleLine="true" />
@@ -212,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:capitalize="sentences"
-                android:hint="Middle Name"
+                android:hint="* Middle Name"
                 android:inputType="textCapWords"
                 android:padding="5dp"
                 android:singleLine="true" />
@@ -232,7 +232,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:capitalize="sentences"
-                android:hint="Last Name"
+                android:hint="* Last Name"
                 android:inputType="textCapWords"
                 android:padding="5dp"
                 android:singleLine="true" />
@@ -310,7 +310,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:focusable="false"
-                android:hint="Sex"
+                android:hint="* Sex"
                 android:padding="5dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -495,7 +495,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:focusable="false"
-                android:hint="Civil Status"
+                android:hint="* Civil Status"
                 android:padding="5dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -514,7 +514,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:focusable="false"
-                android:hint="Religion Status"
+                android:hint="* Religion Status"
                 android:padding="5dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -535,7 +535,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Specify Religion"
+                android:hint="* Specify Religion"
                 android:padding="5dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -614,7 +614,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:focusable="false"
-                android:hint="Barangay"
+                android:hint="* Barangay"
                 android:padding="5dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -657,7 +657,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:focusable="false"
-                    android:hint="Safe Water Supply"
+                    android:hint="* Safe Water Supply"
                     android:padding="5dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -675,7 +675,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:focusable="false"
-                    android:hint="Sanitary Toilet"
+                    android:hint="* Sanitary Toilet"
                     android:padding="5dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -821,7 +821,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:capitalize="sentences"
-                android:hint="Recent Covid Vaccination Status"
+                android:hint="* Recent Covid Vaccination Status"
                 android:padding="5dp"
                 android:singleLine="true"
                 android:focusable="false"/>

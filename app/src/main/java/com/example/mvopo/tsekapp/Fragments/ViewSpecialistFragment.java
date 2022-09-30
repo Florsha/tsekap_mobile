@@ -1,6 +1,8 @@
 package com.example.mvopo.tsekapp.Fragments;
 
-import android.app.ProgressDialog;
+import androidx.fragment.app.Fragment;
+
+/*import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -22,7 +24,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
 
 import com.example.mvopo.tsekapp.Helper.JSONApi;
 import com.example.mvopo.tsekapp.Helper.ListAdapter;
@@ -33,9 +34,12 @@ import com.example.mvopo.tsekapp.Model.SpecialistModel;
 import com.example.mvopo.tsekapp.R;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.List;*/
+
+//todo: Uncomment for managing specialist
 
 public class ViewSpecialistFragment extends Fragment {
+/*
     public View view;
     ListView lv ;
     ListAdapter adapter;
@@ -220,6 +224,7 @@ public class ViewSpecialistFragment extends Fragment {
 
         MainActivity.startSequence();
     }
+*/
 
 
 }

@@ -17,7 +17,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -131,6 +131,7 @@ public class Constants {
         return request;
     }
 
+   /* //todo: Uncomment for managing facility and specialist
    public static JSONObject getSpecialistsJson(){
        ArrayList<SpecialistModel> specialistsDb = MainActivity.db.getSpecialistsForSync();
        JSONObject request = new JSONObject();
@@ -167,15 +168,15 @@ public class Constants {
                    affiliatedData.accumulate("schedule", model1.schedule);              // ""
                    affiliatedData.accumulate("fee", model1.fee);                        // ""
 
-                   affiliated.put(affiliatedData); //todo: add affiliatedData in JSONArray "Affiliated"
+                   affiliated.put(affiliatedData); //adding affiliatedData in JSONArray "Affiliated"
                }catch (JSONException e) {
                    e.printStackTrace();
                }
            }
 
            try {
-               specialistData.accumulate("affiliated", affiliated); //todo: add JSONArray Affiliated in specialist data
-               specialist.put(specialistData);//todo: add specialist data in JSONArray "Specialist"
+               specialistData.accumulate("affiliated", affiliated); //adding JSONArray Affiliated in specialist data
+               specialist.put(specialistData);//adding specialist data in JSONArray "Specialist"
            }catch (JSONException e) {
                e.printStackTrace();
            }
@@ -259,7 +260,7 @@ public class Constants {
         }
 
         return request;
-    }
+    }*/
 
     public static void setDateTextWatcher(final Context context, final EditText editText){
         editText.addTextChangedListener(new TextWatcher() {
@@ -269,7 +270,6 @@ public class Constants {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //                //Log.e("QWEQWE", i + " " + i1 + " " + i2);
 
                 String date = editText.getText().toString();
                 Calendar c = Calendar.getInstance();
@@ -354,7 +354,7 @@ public class Constants {
                 String initialText = editText.getText().toString();
                 String formatted;
                 String decimal="", integer="";
-                /**Remove all not numbers, (, . PHP)*/
+                /*Remove all not numbers, (, . PHP)*/
                 String tempo1 = initialText.replaceAll("PHP ", "");
                 String tempo2 = tempo1.replaceAll(",", "");
                 String currentValue = tempo2.replaceAll("\\.", "");

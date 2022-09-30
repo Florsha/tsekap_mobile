@@ -52,7 +52,6 @@
                         android:background="@android:color/transparent"
                         android:drawableRight="@drawable/user"
                         android:hint="Login ID"
-                        android:text="rtayong_barangay"
                         android:padding="10dp"
                         android:singleLine="true" />
 
@@ -73,7 +72,6 @@
                         android:drawableRight="@drawable/password"
                         android:hint="Password"
                         android:inputType="textPassword"
-                        android:text="rtayong_barangay"
                         android:padding="10dp"
                         android:singleLine="true" />
 

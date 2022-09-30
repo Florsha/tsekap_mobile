@@ -40,24 +40,27 @@ import com.example.mvopo.tsekapp.BuildConfig;
 import com.example.mvopo.tsekapp.Fragments.HomeFragment;
 import com.example.mvopo.tsekapp.Fragments.PendingDengvaxiaFragment;
 import com.example.mvopo.tsekapp.Fragments.ServicesStatusFragment;
-import com.example.mvopo.tsekapp.Fragments.ViewFacilitiesFragment;
-import com.example.mvopo.tsekapp.Fragments.ViewSpecialistFragment;
 import com.example.mvopo.tsekapp.LoginActivity;
 import com.example.mvopo.tsekapp.MainActivity;
-import com.example.mvopo.tsekapp.Model.AffiliatedFacilitiesModel;
-import com.example.mvopo.tsekapp.Model.BarangayModel;
+
 import com.example.mvopo.tsekapp.Model.Constants;
 import com.example.mvopo.tsekapp.Model.DengvaxiaPatient;
-import com.example.mvopo.tsekapp.Model.FacilityModel;
-import com.example.mvopo.tsekapp.Model.FacilityService;
 import com.example.mvopo.tsekapp.Model.FamilyProfile;
-import com.example.mvopo.tsekapp.Model.MuncityModel;
-import com.example.mvopo.tsekapp.Model.ProvinceModel;
 import com.example.mvopo.tsekapp.Model.ServiceAvailed;
 import com.example.mvopo.tsekapp.Model.ServicesStatus;
-import com.example.mvopo.tsekapp.Model.SpecialistModel;
 import com.example.mvopo.tsekapp.Model.User;
 import com.example.mvopo.tsekapp.R;
+
+/* //todo: Uncomment for managing facility and specialist
+import com.example.mvopo.tsekapp.Fragments.ViewFacilitiesFragment;
+import com.example.mvopo.tsekapp.Fragments.ViewSpecialistFragment;
+import com.example.mvopo.tsekapp.Model.AffiliatedFacilitiesModel;
+import com.example.mvopo.tsekapp.Model.BarangayModel;
+import com.example.mvopo.tsekapp.Model.FacilityModel;
+import com.example.mvopo.tsekapp.Model.FacilityService;
+import com.example.mvopo.tsekapp.Model.MuncityModel;
+import com.example.mvopo.tsekapp.Model.ProvinceModel;
+import com.example.mvopo.tsekapp.Model.SpecialistModel;*/
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -258,7 +261,6 @@ public class JSONApi {
                         try {
                             String uniqueId = request.getJSONObject("data").getString("unique_id");
                             Log.e(TAG, uniqueId);
-                            Log.e(TAG, "SUD SIYA");
                             db.updateProfileById(uniqueId);
                             int count = db.getUploadableCount();
                             int serviceCount = db.getServicesCount();
@@ -911,14 +913,13 @@ public class JSONApi {
         TelephonyManager tMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String mPhoneNumber="";
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_NUMBERS) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
+            // TODO: Consider calling ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            //return TODO;
+            //return TO-DO;
             mPhoneNumber = tMgr.getLine1Number();
         }
 
@@ -929,7 +930,7 @@ public class JSONApi {
 
         return senderInfo;
     }
-
+    /* //todo: Uncomment for managing facility and specialist
     public void getSpecialist(final String url, final int totalCount, final int offset) {
         Log.e(TAG,"getSpecialist(" + url);
 
@@ -1172,7 +1173,6 @@ public class JSONApi {
         mRequestQueue.add(jsonObjectRequest);
     }
 
-
     public void getProvinces(final String url) {
         final JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url.replace("?", "/getProvinces"), "",
                 new Response.Listener<JSONArray>() {
@@ -1305,6 +1305,6 @@ public class JSONApi {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         mRequestQueue.add(jsonObjectRequest);
-    }
+    }*/
 
 }

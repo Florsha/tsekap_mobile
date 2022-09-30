@@ -45,7 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
     final static String FACILITYSERVICES = "tbl_facility_services";
 
     final static String PROVINCE = "tbl_province";
-    final static String MUNCITY = "tbl_municty"; //todo change typo
+    final static String MUNCITY = "tbl_muncity";
     final static String BRGY = "tbl_barangay";
 
     public DBHelper(Context context) {
@@ -274,6 +274,18 @@ public class DBHelper extends SQLiteOpenHelper {
         c.close();
         return user;
     }
+
+/*    public String getUserId() {
+        String id="";
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "Select * from " + USERS;
+        Cursor c = db.rawQuery(sql, null);
+        if (c.moveToFirst()) {
+             id = c.getString(c.getColumnIndexOrThrow("id"));
+        }
+        c.close();
+        return id;
+    }*/
 
     public void addProfile(FamilyProfile familyProfile) {
         SQLiteDatabase db = this.getWritableDatabase();
