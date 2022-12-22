@@ -20,10 +20,10 @@
                         android:id="@+id/nav_manage_population"
                         android:icon="@drawable/manage"
                         android:title="Manage Population" />
-                    <item
+                    <!--<item
                         android:id="@+id/nav_services_status"
                         android:icon="@drawable/view"
-                        android:title="3 Must Services Status" />
+                        android:title="3 Must Services Status" />-->
                 </group>
             </menu>
         </item>
@@ -83,10 +83,10 @@
                         android:icon="@drawable/check_update_icon"
                         android:title="Check for Update" />
 
-                    <item
+          <!--          <item
                         android:id="@+id/nav_chat"
                         android:icon="@drawable/chat_icon"
-                        android:title="Online Chat" />
+                        android:title="Online Chat" />-->
 
                     <item
                         android:id="@+id/nav_feedback"

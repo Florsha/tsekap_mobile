@@ -38,7 +38,10 @@ import java.util.ArrayList;
  * Created by mvopo on 10/20/2017.
  */
 
-public class ServicesStatusFragment extends Fragment {
+public class ServicesStatusFragment extends Fragment
+{}
+
+/*{ //todo: uncomment for 3 must services status
 
     ListView lv;
     ArrayList<ServicesStatus> servicesStatuses = new ArrayList<>();
@@ -324,4 +327,5 @@ public class ServicesStatusFragment extends Fragment {
 
         MainActivity.startSequence();
     }
-}
+
+}*/

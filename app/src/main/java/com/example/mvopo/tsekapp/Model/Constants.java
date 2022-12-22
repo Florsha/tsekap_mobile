@@ -18,6 +18,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 //import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -44,9 +45,10 @@ public class Constants {
     public static String apkUrl = "http://192.168.110.62:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk";*/
 
 
-    public static String url = "http://222.127.126.34/tsekap/dummy/apiv21?"; /**updated on 02/14/2022*/
-    // public static String url = "http://222.127.126.34/tsekap/vii/apiv21?"; /**updated on 02/14/2022*/
-    public static String apkUrl = "http://192.168.81.4:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk"; /**updated on 02/14/2022*/
+    // public static String url = "http://222.127.126.34/tsekap/dummy/apiv21?"; /**updated on 02/14/2022*/
+       public static String url = "http://222.127.126.34/tsekap/vii/apiv21?"; /**updated on 02/14/2022*/
+    //public static String apkUrl = "http://192.168.81.4:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk"; /**updated on 02/14/2022*/
+    public static String apkUrl = "http://222.127.126.34/tsekap/vii/resources/apk/PHA%20Check-App.apk"; /**updated on 10/07/2022*/
 
     private static  final NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("ph", "PH"));
 
@@ -55,6 +57,7 @@ public class Constants {
     public static JSONObject getProfileJson() {
 
         FamilyProfile profile = MainActivity.db.getProfileForSync();
+        ArrayList<ProfileMedication> profileMedications = MainActivity.db.getProfileMedications(profile.uniqueId);
 
         JSONObject request = new JSONObject();
         JSONObject data = new JSONObject();
@@ -93,8 +96,6 @@ public class Constants {
             data.accumulate("toilet",toilet);
             data.accumulate("education", profile.educationalAttainment);
             data.accumulate("balik_probinsya", profile.balik_probinsya);
-            data.accumulate("diabetic", profile.diabetic);
-            data.accumulate("hypertension", profile.hypertension);
             data.accumulate("pwd", profile.pwd);
             data.accumulate("pregnant", profile.pregnant);
             //update r
@@ -107,9 +108,6 @@ public class Constants {
             data.accumulate("weight", profile.weight);
             data.accumulate("cancer", profile.cancer);
             data.accumulate("cancer_type", profile.cancer_type);
-            data.accumulate("mental_med", profile.mental_med);
-            data.accumulate("tbdots_med", profile.tbdots_med);
-            data.accumulate("cvd_med", profile.cvd_med);
             data.accumulate("covid_status", profile.covid_status);
             data.accumulate("menarche", profile.menarche);
             data.accumulate("menarche_age", profile.menarche_age);
@@ -121,12 +119,35 @@ public class Constants {
             data.accumulate("nutri_stat", profile.nutri_stat);
             data.accumulate("pwd_desc", profile.pwd_desc);
             data.accumulate("sexually_active", profile.sexually_active);
-
-            request.accumulate("data", data);
+            //request.accumulate("data", data); //original end
             //request.accumulate("_token", MainActivity.user.token);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+       //update start
+        JSONArray medication = new JSONArray();
+        for (ProfileMedication model1 : profileMedications){
+            JSONObject profileMedicationData = new JSONObject();
+            try{
+                profileMedicationData.accumulate("type", model1.type);
+                profileMedicationData.accumulate("status", model1.medication_status);
+                profileMedicationData.accumulate("remarks", model1.remarks);
+
+                medication.put(profileMedicationData);
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+
+        try{
+            data.accumulate("medication", medication);
+            request.accumulate("data", data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //update end
 
         return request;
     }
@@ -193,7 +214,7 @@ public class Constants {
 
         return request;
     }
-
+*/
     public static JSONObject getFacilitiesJson(){
         ArrayList<FacilityModel> facilitiesDb = MainActivity.db.getFacilitiesForSync();
         JSONObject request = new JSONObject();

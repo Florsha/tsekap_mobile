@@ -14,6 +14,7 @@ import com.example.mvopo.tsekapp.Model.FacilityModel;
 import com.example.mvopo.tsekapp.Model.FacilityService;
 import com.example.mvopo.tsekapp.Model.FamilyProfile;
 import com.example.mvopo.tsekapp.Model.FeedBack;
+import com.example.mvopo.tsekapp.Model.ProfileMedication;
 import com.example.mvopo.tsekapp.Model.MuncityModel;
 import com.example.mvopo.tsekapp.Model.ProvinceModel;
 import com.example.mvopo.tsekapp.Model.ServicesStatus;
@@ -33,7 +34,10 @@ public class DBHelper extends SQLiteOpenHelper {
     final static String USERS = "tbl_user";
     final static String SERVICES = "tbl_services";
     final static String SERVICESTATUS = "tbl_must_services";
+
     final static String PROFILES = "tbl_profile";
+    final static String PROFILE_MEDICATION = "tbl_medication";
+
     final static String FEEDBACK = "tbl_feedback";
     final static String CHPHS = "tbl_chphs";
     final static String CLUSTER = "tbl_cluster";
@@ -85,8 +89,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "educationalAttainment varchar(50)," +
                 "balik_probinsya varchar(50)," +
                 "status varchar(3)," +
-                "diabetic varchar(30)," +
-                "hypertension varchar(30)," +
+
                 "pwd varchar(5)," +
                 "pregnant varchar(15)," +
 
@@ -99,9 +102,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 "weight varchar(10)," +
                 "cancer varchar(5)," +
                 "cancer_type varchar(100)," +
-                "mental_med varchar(30)," +
-                "tbdots_med varchar(30)," +
-                "cvd_med varchar(30)," +
                 "covid_status varchar(30)," +
                 "menarche varchar(30)," +
                 "menarche_age varchar(30)," +
@@ -195,6 +195,21 @@ public class DBHelper extends SQLiteOpenHelper {
                 "prov_id varchar(100), " +
                 "muncity_id varchar(100))";
 
+        String sql12 = "Create table " + PROFILE_MEDICATION + " " +
+                "(id integer  primary key autoincrement, " +
+                "uniqueId varchar(100), " +
+                "type varchar(30)," +
+                "medication_status varchar(100)," +
+                "remarks varchar(100)," +
+                "status varchar(5))";
+
+       /* "mental_med varchar(30)," +
+                "tbdots_med varchar(30)," +
+                "cvd_med varchar(30)," +
+                "diabetic varchar(30)," +
+                "hypertension varchar(30)," +
+        */
+
         db.execSQL(sql);
         db.execSQL(sql1);
         db.execSQL(sql2);
@@ -208,6 +223,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(sql9);
         db.execSQL(sql10);
         db.execSQL(sql11);
+
+        db.execSQL(sql12);
 
     }
 
@@ -317,8 +334,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("educationalAttainment", familyProfile.educationalAttainment);
         cv.put("balik_probinsya", familyProfile.balik_probinsya);
         cv.put("status", familyProfile.status);
-        cv.put("diabetic", familyProfile.diabetic);
-        cv.put("hypertension", familyProfile.hypertension);
+
         cv.put("pwd", familyProfile.pwd);
         cv.put("pregnant", familyProfile.pregnant);
 
@@ -331,9 +347,6 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("weight", familyProfile.weight);
         cv.put("cancer", familyProfile.cancer);
         cv.put("cancer_type", familyProfile.cancer_type);
-        cv.put("mental_med", familyProfile.mental_med);
-        cv.put("tbdots_med", familyProfile.tbdots_med);
-        cv.put("cvd_med", familyProfile.cvd_med);
         cv.put("covid_status", familyProfile.covid_status);
         cv.put("menarche", familyProfile.menarche);
         cv.put("menarche_age", familyProfile.menarche_age);
@@ -379,8 +392,6 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("educationalAttainment", familyProfile.educationalAttainment);
         cv.put("balik_probinsya", familyProfile.balik_probinsya);
         cv.put("status", familyProfile.status);
-        cv.put("diabetic", familyProfile.diabetic);
-        cv.put("hypertension", familyProfile.hypertension);
         cv.put("pwd", familyProfile.pwd);
         cv.put("pregnant", familyProfile.pregnant);
 
@@ -393,9 +404,6 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("weight", familyProfile.weight);
         cv.put("cancer", familyProfile.cancer);
         cv.put("cancer_type", familyProfile.cancer_type);
-        cv.put("mental_med", familyProfile.mental_med);
-        cv.put("tbdots_med", familyProfile.tbdots_med);
-        cv.put("cvd_med", familyProfile.cvd_med);
         cv.put("covid_status", familyProfile.covid_status);
         cv.put("menarche", familyProfile.menarche);
         cv.put("menarche_age", familyProfile.menarche_age);
@@ -446,8 +454,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 String educationalAttainment = c.getString(c.getColumnIndexOrThrow("educationalAttainment"));
                 String balik_probinsya = c.getString(c.getColumnIndexOrThrow("balik_probinsya"));
                 String status = c.getString(c.getColumnIndexOrThrow("status"));
-                String diabetic = c.getString(c.getColumnIndexOrThrow("diabetic"));
-                String hypertension = c.getString(c.getColumnIndexOrThrow("hypertension"));
+//                String diabetic = c.getString(c.getColumnIndexOrThrow("diabetic"));
+//                String hypertension = c.getString(c.getColumnIndexOrThrow("hypertension"));
                 String pwd = c.getString(c.getColumnIndexOrThrow("pwd"));
                 String pregnant = c.getString(c.getColumnIndexOrThrow("pregnant"));
 
@@ -460,9 +468,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 String weight = c.getString(c.getColumnIndexOrThrow("weight"));
                 String cancer = c.getString(c.getColumnIndexOrThrow("cancer"));
                 String cancer_type = c.getString(c.getColumnIndexOrThrow("cancer_type"));
-                String mental_med = c.getString(c.getColumnIndexOrThrow("mental_med"));
+               /* String mental_med = c.getString(c.getColumnIndexOrThrow("mental_med"));
                 String tbdots_med = c.getString(c.getColumnIndexOrThrow("tbdots_med"));
-                String cvd_med = c.getString(c.getColumnIndexOrThrow("cvd_med"));
+                String cvd_med = c.getString(c.getColumnIndexOrThrow("cvd_med"));*/
                 String covid_status = c.getString(c.getColumnIndexOrThrow("covid_status"));
                 String menarche = c.getString(c.getColumnIndexOrThrow("menarche"));
                 String menarche_age = c.getString(c.getColumnIndexOrThrow("menarche_age"));
@@ -481,9 +489,9 @@ public class DBHelper extends SQLiteOpenHelper {
                         nhts, four_ps, ip,
                         isHead, relation, member_others,
                         fname, lname, mname, suffix, dob, sex, barangayId, muncityId, provinceId, income, unmetNeed, waterSupply, sanitaryToilet,
-                        educationalAttainment, balik_probinsya, status, diabetic, hypertension, pwd, pregnant,
-                        birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
-                        tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
+                        educationalAttainment, balik_probinsya, status, pwd, pregnant,
+                        birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type,
+                        covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
                         immu_stat, nutri_stat, pwd_desc, sexually_active);
 
                 if(familyId.equals(name.substring(0, name.length()-1)) && relation.equalsIgnoreCase("Head")) profiles.add(0, profile);
@@ -529,8 +537,8 @@ public class DBHelper extends SQLiteOpenHelper {
             String educationalAttainment = c.getString(c.getColumnIndexOrThrow("educationalAttainment"));
             String balik_probinsya =  c.getString(c.getColumnIndexOrThrow("balik_probinsya"));
             String status = c.getString(c.getColumnIndexOrThrow("status"));
-            String diabetic = c.getString(c.getColumnIndexOrThrow("diabetic"));
-            String hypertension = c.getString(c.getColumnIndexOrThrow("hypertension"));
+           /* String diabetic = c.getString(c.getColumnIndexOrThrow("diabetic"));
+            String hypertension = c.getString(c.getColumnIndexOrThrow("hypertension"));*/
             String pwd = c.getString(c.getColumnIndexOrThrow("pwd"));
             String pregnant = c.getString(c.getColumnIndexOrThrow("pregnant"));
 
@@ -543,9 +551,9 @@ public class DBHelper extends SQLiteOpenHelper {
             String weight = c.getString(c.getColumnIndexOrThrow("weight"));
             String cancer = c.getString(c.getColumnIndexOrThrow("cancer"));
             String cancer_type = c.getString(c.getColumnIndexOrThrow("cancer_type"));
-            String mental_med = c.getString(c.getColumnIndexOrThrow("mental_med"));
+            /*String mental_med = c.getString(c.getColumnIndexOrThrow("mental_med"));
             String tbdots_med = c.getString(c.getColumnIndexOrThrow("tbdots_med"));
-            String cvd_med = c.getString(c.getColumnIndexOrThrow("cvd_med"));
+            String cvd_med = c.getString(c.getColumnIndexOrThrow("cvd_med"));*/
             String covid_status = c.getString(c.getColumnIndexOrThrow("covid_status"));
             String menarche = c.getString(c.getColumnIndexOrThrow("menarche"));
             String menarche_age = c.getString(c.getColumnIndexOrThrow("menarche_age"));
@@ -583,12 +591,10 @@ public class DBHelper extends SQLiteOpenHelper {
                     sanitaryToilet,
                     educationalAttainment, balik_probinsya,
                     status,
-                    diabetic,
-                    hypertension,
                     pwd,
                     pregnant,
-                    birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
-                    tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
+                    birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type,
+                    covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
                     immu_stat, nutri_stat,pwd_desc, sexually_active);
         }
         c.close();
@@ -630,8 +636,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 String educationalAttainment = c.getString(c.getColumnIndexOrThrow("educationalAttainment"));
                 String balik_probinsya = c.getString(c.getColumnIndexOrThrow("balik_probinsya"));
                 String status = c.getString(c.getColumnIndexOrThrow("status"));
-                String diabetic = c.getString(c.getColumnIndexOrThrow("diabetic"));
-                String hypertension = c.getString(c.getColumnIndexOrThrow("hypertension"));
+                /*String diabetic = c.getString(c.getColumnIndexOrThrow("diabetic"));
+                String hypertension = c.getString(c.getColumnIndexOrThrow("hypertension"));*/
                 String pwd = c.getString(c.getColumnIndexOrThrow("pwd"));
                 String pregnant = c.getString(c.getColumnIndexOrThrow("pregnant"));
 
@@ -644,9 +650,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 String weight = c.getString(c.getColumnIndexOrThrow("weight"));
                 String cancer = c.getString(c.getColumnIndexOrThrow("cancer"));
                 String cancer_type = c.getString(c.getColumnIndexOrThrow("cancer_type"));
-                String mental_med = c.getString(c.getColumnIndexOrThrow("mental_med"));
+                /*String mental_med = c.getString(c.getColumnIndexOrThrow("mental_med"));
                 String tbdots_med = c.getString(c.getColumnIndexOrThrow("tbdots_med"));
-                String cvd_med = c.getString(c.getColumnIndexOrThrow("cvd_med"));
+                String cvd_med = c.getString(c.getColumnIndexOrThrow("cvd_med"));*/
                 String covid_status = c.getString(c.getColumnIndexOrThrow("covid_status"));
                 String menarche = c.getString(c.getColumnIndexOrThrow("menarche"));
                 String menarche_age = c.getString(c.getColumnIndexOrThrow("menarche_age"));
@@ -684,12 +690,10 @@ public class DBHelper extends SQLiteOpenHelper {
                         sanitaryToilet,
                         educationalAttainment, balik_probinsya,
                         status,
-                        diabetic,
-                        hypertension,
                         pwd,
                         pregnant,
-                        birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
-                        tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
+                        birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type,
+                        covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
                         immu_stat, nutri_stat, pwd_desc, sexually_active);
 
                 if(relation.equalsIgnoreCase("Head")) profiles.add(0, profile);
@@ -711,6 +715,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.update(PROFILES, cv, "uniqueId = ?", new String[]{uniqueId});
     }
 
+
     public void deleteProfiles() {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(PROFILES, null, null);
@@ -730,7 +735,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    public int getUploadableCount() {
+    public int getProfileUploadableCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         String countQuery = "SELECT  * FROM " + PROFILES + " where status = '1'";
 
@@ -741,6 +746,10 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return count;
     }
+
+
+
+
 
     //    public void addAccoount(Accounts acc) {
 //        SQLiteDatabase db = this.getWritableDatabase();
@@ -1733,6 +1742,72 @@ public class DBHelper extends SQLiteOpenHelper {
         c.close();
         db.close();
         return name;
+    }
+
+    /**Manage Profiles - Medication Avail**/
+    public void deleteProfileMedications() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(PROFILE_MEDICATION, null, null);
+    }
+
+    public void deleteProfileMedication(String id){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(PROFILE_MEDICATION, "id=?", new String[]{id});
+    }
+
+    public void addProfileMedication(ProfileMedication medication) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("uniqueId", medication.uniqueId);
+        cv.put("type", medication.type);
+        cv.put("medication_status", medication.medication_status);
+        cv.put("remarks", medication.remarks);
+        cv.put("status", medication.status);
+
+        db.insertWithOnConflict(PROFILE_MEDICATION, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
+        db.close();
+    }
+
+    public ArrayList<ProfileMedication> getProfileMedications(String name) {
+        name += "%";
+        ArrayList<ProfileMedication> profileMedications = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.query(PROFILE_MEDICATION, null, "uniqueId LIKE ?", new String[]{name}, null, null, null);
+
+        if (c.moveToFirst()) {
+            while (!c.isAfterLast()) {
+                int id = c.getInt(c.getColumnIndexOrThrow("id"));
+                String uniqueId = c.getString(c.getColumnIndexOrThrow("uniqueId"));
+                String type = c.getString(c.getColumnIndexOrThrow("type"));
+                String medication_status = c.getString(c.getColumnIndexOrThrow("medication_status"));
+                String remarks = c.getString(c.getColumnIndexOrThrow("remarks"));
+                String status = c.getString(c.getColumnIndexOrThrow("status"));
+
+                ProfileMedication profileMedication =  new ProfileMedication(id+"", uniqueId, type,
+                        medication_status, remarks,  status );
+                profileMedications.add(profileMedication);
+
+                c.moveToNext();
+            }
+            c.close();
+        }
+        db.close();
+        return profileMedications;
+    }
+
+    public void updateProfileMedication(ProfileMedication medication){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("uniqueId", medication.uniqueId);
+        cv.put("type", medication.type);
+        cv.put("medication_status", medication.medication_status);
+        cv.put("remarks", medication.remarks);
+        cv.put("status", medication.status);
+
+        db.update(PROFILE_MEDICATION, cv, "id=?", new String[]{medication.id});
+        db.close();
     }
 
 }

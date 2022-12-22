@@ -269,7 +269,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Birth Date (YYYY-MM-DD)"
+                android:hint="* Birth Date (YYYY-MM-DD)"
                 android:inputType="number"
                 android:maxLength="10"
                 android:padding="5dp"
@@ -712,8 +712,28 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:focusable="false"
-                android:hint="Balik Probinsya, Bagong Pag asa (PP2)"
+                android:hint="Balik Probinsya, Bagong Pag asa (BP2)"
                 android:padding="5dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_edittext"
+            android:padding="5dp">
+
+            <EditText
+                android:id="@+id/manage_covid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:capitalize="sentences"
+                android:hint="* Recent Covid Vaccination Status"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:focusable="false"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -767,10 +787,31 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:focusable="false"
-                android:hint="Mental Health"
+                android:hint="Mental Health Medication(clear choice if N/A)"
                 android:padding="5dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/mental_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_edittext"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp">
+
+            <EditText
+                android:id="@+id/manage_mental_remarks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:background="@android:color/transparent"
+                android:padding="5dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -785,9 +826,29 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:focusable="false"
-                android:hint="TBDOTS"
+                android:hint="TB Medication(clear choice if N/A)"
                 android:padding="5dp" />
 
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tbdots_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_edittext"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp">
+
+            <EditText
+                android:id="@+id/manage_tbdots_remarks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:background="@android:color/transparent"
+                android:padding="5dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -803,32 +864,30 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:focusable="false"
-                android:hint="CVD"
+                android:hint="CVD Medication(clear choice if N/A)"
                 android:padding="5dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/cvd_frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@drawable/rounded_edittext"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:visibility="gone"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp">
 
             <EditText
-                android:id="@+id/manage_covid"
+                android:id="@+id/manage_cvd_remarks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:capitalize="sentences"
-                android:hint="* Recent Covid Vaccination Status"
-                android:padding="5dp"
                 android:singleLine="true"
-                android:focusable="false"/>
-
+                android:background="@android:color/transparent"
+                android:padding="5dp" />
         </com.google.android.material.textfield.TextInputLayout>
-
-
 
 
         <LinearLayout
@@ -850,10 +909,31 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:focusable="false"
-                    android:hint="Diabetic"
+                    android:hint="Diabetic Medication(clear choice if N/A)"
                     android:padding="5dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/diabetes_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"
+                android:padding="5dp"
+                android:visibility="gone"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp">
+
+                <EditText
+                    android:id="@+id/manage_diabetes_remarks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:background="@android:color/transparent"
+                    android:padding="5dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -868,9 +948,29 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:focusable="false"
-                    android:hint="Hypertension"
+                    android:hint="Hypertension Medication(clear choice if N/A)"
                     android:padding="5dp" />
 
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/hypertension_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rounded_edittext"
+                android:padding="5dp"
+                android:visibility="gone"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp">
+
+                <EditText
+                    android:id="@+id/manage_hypertension_remarks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:background="@android:color/transparent"
+                    android:padding="5dp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 

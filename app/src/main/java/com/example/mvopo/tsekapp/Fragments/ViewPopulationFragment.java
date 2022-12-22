@@ -239,7 +239,7 @@ public class ViewPopulationFragment extends Fragment {
                 FamilyProfile familyProfile = new FamilyProfile("", "", famId, "", "", "", "", "", "", "", "", "", "", "", "",
                         "", "", "", "", "", "", "","", "", "","1", "", "", "", ""
                         , "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-                        "", "", "", "", "", "", "","");
+                        "", "", "");
 
                 mpf = new ManagePopulationFragment();
                 bundle.putParcelable("familyProfile", familyProfile);

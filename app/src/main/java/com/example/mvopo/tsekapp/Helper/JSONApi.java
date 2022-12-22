@@ -3,7 +3,6 @@ package com.example.mvopo.tsekapp.Helper;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -39,15 +38,14 @@ import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
 import com.example.mvopo.tsekapp.BuildConfig;
 import com.example.mvopo.tsekapp.Fragments.HomeFragment;
 import com.example.mvopo.tsekapp.Fragments.PendingDengvaxiaFragment;
-import com.example.mvopo.tsekapp.Fragments.ServicesStatusFragment;
 import com.example.mvopo.tsekapp.LoginActivity;
 import com.example.mvopo.tsekapp.MainActivity;
 
 import com.example.mvopo.tsekapp.Model.Constants;
 import com.example.mvopo.tsekapp.Model.DengvaxiaPatient;
 import com.example.mvopo.tsekapp.Model.FamilyProfile;
+import com.example.mvopo.tsekapp.Model.ProfileMedication;
 import com.example.mvopo.tsekapp.Model.ServiceAvailed;
-import com.example.mvopo.tsekapp.Model.ServicesStatus;
 import com.example.mvopo.tsekapp.Model.User;
 import com.example.mvopo.tsekapp.R;
 
@@ -166,8 +164,6 @@ public class JSONApi {
 
                                 if(prov && muncity1 && brgy)*/
                                     ((LoginActivity) context).showPinDialog(false, user);
-
-
                             } else {
                                 Toast.makeText(context, "Invalid credentials.", Toast.LENGTH_SHORT).show();
                             }
@@ -262,24 +258,24 @@ public class JSONApi {
                             String uniqueId = request.getJSONObject("data").getString("unique_id");
                             Log.e(TAG, uniqueId);
                             db.updateProfileById(uniqueId);
-                            int count = db.getUploadableCount();
-                            int serviceCount = db.getServicesCount();
+                            int count = db.getProfileUploadableCount();
+                            // int serviceCount = db.getServicesCount(); //todo: uncomment for 3 must services status
 
                             if (count > 0) {
-                                MainActivity.pd.setTitle("Uploading " + currentCount + "/" + (totalCount + serviceCount));
+                                MainActivity.pd.setTitle("Uploading " + currentCount + "/" + (totalCount/* + serviceCount*/)); //todo: uncomment for 3 must services status
                                 uploadProfile(url, Constants.getProfileJson(), totalCount, currentCount + 1);
                             } else {
-                                if (serviceCount > 0) {
+                               /* if (serviceCount > 0) { //todo: uncomment for 3 must services status
                                     ServiceAvailed serviceAvailed = db.getServiceForUpload();
                                     uploadServices(Constants.url.replace("?", "/syncservices"), serviceAvailed, currentCount, totalCount + serviceCount);
-                                } else {
+                                } else {*/
                                     Toast.makeText(context, "Upload completed", Toast.LENGTH_SHORT).show();
 //                                    compareVersion(Constants.url + "r=version");
                                     MainActivity.pd.dismiss();
 
                                     int feedbackCount = MainActivity.db.getFeedbacksCount();
                                     if (feedbackCount > 0) showFeedbackUploadDialog(feedbackCount);
-                                }
+                                //}
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -354,8 +350,7 @@ public class JSONApi {
                                         String toilet = response.getString("toilet");
                                         String education = response.getString("education");
                                         String balik_probinsya =  response.getString("balik_probinsya");
-                                        String diabetic = response.getString("diabetic");
-                                        String hypertension = response.getString("hypertension");
+
                                         String pwd = response.getString("pwd");
                                         String pregnant = response.getString("pregnant");
 
@@ -368,9 +363,11 @@ public class JSONApi {
                                         String weight = response.getString("weight");
                                         String cancer = response.getString("cancer");
                                         String cancer_type = response.getString("cancer_type");
+                                      /*String diabetic = response.getString("diabetic");
+                                        String hypertension = response.getString("hypertension");
                                         String mental_med = response.getString("mental_med");
                                         String tbdots_med = response.getString("tbdots_med");
-                                        String cvd_med = response.getString("cvd_med");
+                                        String cvd_med = response.getString("cvd_med");*/
                                         String covid_status = response.getString("covid_status");
                                         String menarche = response.getString("menarche");
                                         String menarche_age = response.getString("menarche_age");
@@ -384,10 +381,24 @@ public class JSONApi {
                                         String sexually_active = response.getString("sexually_active");
 
                                         db.addProfile(new FamilyProfile(id, unique_id, familyID, phicID, nhts, four_ps, ip, head, relation, member_others, fname, lname, mname, suffix, dob, sex,
-                                                barangay_id, muncity_id, province_id, income, unmet, water, toilet, education, balik_probinsya, "0", diabetic, hypertension, pwd,
-                                                pregnant, birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
-                                                tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
+                                                barangay_id, muncity_id, province_id, income, unmet, water, toilet, education, balik_probinsya, "0", pwd,
+                                                pregnant, birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type,
+                                                covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
                                                 immu_stat, nutri_stat, pwd_desc, sexually_active));
+
+                                        //Saving list of medication
+
+                                        JSONArray medicationArray = response.getJSONArray("medication");
+                                        for(int x = 0; x < medicationArray.length(); x++) {
+                                            JSONObject affiliated = medicationArray.getJSONObject(x);
+
+                                            String type = affiliated.getString("type");
+                                            String status = affiliated.getString("status");
+                                            String remarks = affiliated.getString("remarks");
+
+                                            db.addProfileMedication(new ProfileMedication("", unique_id, type,status, remarks,"0"));
+                                        }
+
 
                                         if (i == array.length() - 1) {
                                             currentCount = db.getProfilesCount(barangay_id);
@@ -498,15 +509,16 @@ public class JSONApi {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                 builder.setTitle("Notice!");
                                 builder.setMessage("PHA Check-App v" + version + " is now available, please update your app." +
-                                        "\nUPDATES:" + updateInfo + "\n\nNote: Updating will close the application to apply changes.");
-                                builder.setPositiveButton("Download", new DialogInterface.OnClickListener() {
+                                        "\nUPDATES:" + updateInfo + "\n\nNote: Updating will close the application to apply changes." +
+                                        "\n\nNote: Download and install through ' http://222.127.126.34/tsekap/vii '");
+                              /*  builder.setPositiveButton("Download", new DialogInterface.OnClickListener() { //todo: fix download and install
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         MainActivity.pd = ProgressDialog.show(context, "Downloading", "Please wait...", false, false);
                                         downloadAndInstallApk();
                                     }
-                                });
-                                builder.setNegativeButton("Later", null);
+                                });*/
+                                builder.setNegativeButton("Okay", null); //replaced from Later
                                 builder.show();
                             } else {
                                 Toast.makeText(context, "This is the latest version.", Toast.LENGTH_SHORT).show();
@@ -704,7 +716,7 @@ public class JSONApi {
 
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
             request.setDescription("Download new version of the App");
-            request.setTitle("PHA Check-App APK");
+            request.setTitle("PHA Check-App");
 
             request.setDestinationUri(uri);
 
@@ -735,7 +747,7 @@ public class JSONApi {
         }
     }
 
-    public void getServicesStatus(final String url, final int totalCount, final int offset, final int brgyCount, final String brgyId) {
+    /*public void getServicesStatus(final String url, final int totalCount, final int offset, final int brgyCount, final String brgyId) { todo: uncomment for 3 must services status
         Log.e(TAG, url);
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, "",
@@ -778,7 +790,7 @@ public class JSONApi {
 
                                                     String url = Constants.url + "r=countmustservices" + "&brgy=" + barangayId;
                                                     JSONApi.getInstance(context).getServiceStatusCount(url, barangayId, brgyCount + 1);
-                                                } else {
+                                                } else { todo: uncomment for 3 must services status
                                                     ((Activity) context).runOnUiThread(new Runnable() {
                                                         @Override
                                                         public void run() {
@@ -813,9 +825,9 @@ public class JSONApi {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         mRequestQueue.add(jsonObjectRequest);
-    }
+    }*/
 
-    public void getServiceStatusCount(String url, final String brgyId, final int brgyCount) {
+   /* public void getServiceStatusCount(String url, final String brgyId, final int brgyCount) { todo: uncomment for 3 must services status
         Log.e(TAG, url);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, "",
                 new Response.Listener<JSONObject>() {
@@ -871,7 +883,7 @@ public class JSONApi {
             }
         });
         mRequestQueue.add(jsonObjectRequest);
-    }
+    }*/
 
     public void showFeedbackUploadDialog(int feedbackCount) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

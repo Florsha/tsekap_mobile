@@ -35,19 +35,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mvopo.tsekapp.Fragments.AvailServicesPopulationFragment;
 import com.example.mvopo.tsekapp.Fragments.ChangePassFragment;
 import com.example.mvopo.tsekapp.Fragments.FeedbackFragment;
 import com.example.mvopo.tsekapp.Fragments.HomeFragment;
 import com.example.mvopo.tsekapp.Fragments.PendingDengvaxiaFragment;
-import com.example.mvopo.tsekapp.Fragments.ServicesStatusFragment;
 import com.example.mvopo.tsekapp.Fragments.ViewChatThreadFragment;
 import com.example.mvopo.tsekapp.Fragments.ViewPopulationFragment;
 import com.example.mvopo.tsekapp.Helper.ConnectionChecker;
 import com.example.mvopo.tsekapp.Helper.DBHelper;
 import com.example.mvopo.tsekapp.Helper.JSONApi;
 import com.example.mvopo.tsekapp.Model.Constants;
-import com.example.mvopo.tsekapp.Model.ServiceAvailed;
 import com.example.mvopo.tsekapp.Model.User;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -88,7 +85,7 @@ public class MainActivity extends AppCompatActivity
 
     public static HomeFragment hf = new HomeFragment();
     public static ViewPopulationFragment vpf = new ViewPopulationFragment();
-    public static ServicesStatusFragment ssf = new ServicesStatusFragment();
+    //public static ServicesStatusFragment ssf = new ServicesStatusFragment(); todo: uncomment for 3 must services status
 
     /* //todo: Uncomment for managing facility and specialist
     public static ViewFacilitiesFragment vff = new ViewFacilitiesFragment();
@@ -166,14 +163,14 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
 //                try{ takePicture(); }catch (Exception e){ Log.e("QWEASD", e.getMessage()); };
 
-                int uploadableCount = db.getUploadableCount();
+                int uploadableCount = db.getProfileUploadableCount();
                 // int serviceCount = db.getServicesCount(); //todo: Uncomment for avail services
                 int profileCount = db.getProfilesCount("");
                 if (profileCount == 0) {
                     downloadProfiles();
                 } else if (uploadableCount > 0) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setMessage("Please upload data before syncing from server.\n\nProfile(s): "/* + uploadableCount +
+                    builder.setMessage("Please upload data before syncing from server.\n\nProfile(s): " + uploadableCount /*+
                             "\nServices Availed: " + serviceCount*/); //todo: Uncomment for avail services
                     builder.setPositiveButton("Ok", null);
                     builder.show();
@@ -185,6 +182,7 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             db.deleteProfiles();
+                            db.deleteProfileMedications();
                             downloadProfiles();
                         }
                     });
@@ -197,12 +195,12 @@ public class MainActivity extends AppCompatActivity
         fabUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final int uploadableCount = db.getUploadableCount();
+                final int uploadableCount = db.getProfileUploadableCount();
                 //final int serviceCount = db.getServicesCount(); //todo: Uncomment for avail services
 
                 if (uploadableCount /*+ serviceCount*/ > 0) { //todo: Uncomment for avail services
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setMessage("Uploadable Profile: " + uploadableCount + "\nUploadable Services: "/* + serviceCount*/); //todo: Uncomment for avail services
+                    builder.setMessage("Uploadable Profile: " + uploadableCount /*+ "\nUploadable Services: " + serviceCount*/); //todo: Uncomment for avail services
                     builder.setPositiveButton("Upload", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -377,23 +375,24 @@ public class MainActivity extends AppCompatActivity
         } */
         else if (id == R.id.nav_manage_population) {
             ft.replace(R.id.fragment_container, vpf).commit();
-        } else if (id == R.id.nav_services_status) {
+        } /*else if (id == R.id.nav_services_status) { //todo: uncomment for 3 must services status
             ssf = new ServicesStatusFragment();
             ft.replace(R.id.fragment_container, ssf).commit();
-//            Toast.makeText(MainActivity.this, "This feature is under development", Toast.LENGTH_SHORT).show();
-//        } else if (id == R.id.nav_services_report) {
+            Toast.makeText(MainActivity.this, "This feature is under development", Toast.LENGTH_SHORT).show();
+        }*/
+//        else if (id == R.id.nav_services_report) {
 //
 //        } else if (id == R.id.nav_case_referred) {
 //
 //        } else if (id == R.id.nav_change_pass) {
 //            ft.replace(R.id.fragment_container, cpf).commit();
-        } else if (id == R.id.nav_check_update) {
+        else if (id == R.id.nav_check_update) {
             pd = ProgressDialog.show(this, "Loading", "Please wait...", false, false);
             JSONApi.getInstance(this).compareVersion(Constants.url + "r=version");
-        } else if (id == R.id.nav_chat) {
+        } /*else if (id == R.id.nav_chat) { //todo: uncomment for online chat
             vctf = new ViewChatThreadFragment();
             ft.replace(R.id.fragment_container, vctf).commit();
-        } else if (id == R.id.nav_feedback) {
+        } */else if (id == R.id.nav_feedback) {
             ft.replace(R.id.fragment_container, ff).commit();
 //        } else if (id == R.id.nav_cross_match) {
 //            Toast.makeText(this, "This feature is under development process", Toast.LENGTH_SHORT).show();
@@ -410,7 +409,7 @@ public class MainActivity extends AppCompatActivity
         }*/
         else if (id == R.id.nav_logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            int uploadableCount = db.getUploadableCount();
+            int uploadableCount = db.getProfileUploadableCount();
             /*int uploadableSpecialist = db.getSpecialistUploadableCount(); //todo: Uncomment for managing facility and specialist
             int uploadableFacilities = db.getFacilityUploadableCount();*/
 
@@ -420,8 +419,9 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         db.deleteProfiles();
+                        db.deleteProfileMedications();
                         db.deleteUser();
-                        db.deleteServiceStatus();
+                      //  db.deleteServiceStatus(); todo: Uncomment for 3 must services status
 
                         //updates
                        /* //todo: Uncomment for managing facility and specialist

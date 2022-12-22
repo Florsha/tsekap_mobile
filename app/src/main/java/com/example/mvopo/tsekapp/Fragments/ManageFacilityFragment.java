@@ -1263,6 +1263,7 @@ public class ManageFacilityFragment extends Fragment implements View.OnClickList
 
     }
 
+
     public void showFacilityCheckerDialog() {
         View checkerDialogView = LayoutInflater.from(getContext()).inflate(R.layout.profile_checker_dialog, null, false);
 

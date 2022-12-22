@@ -9,9 +9,12 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.mvopo.tsekapp.Model.ProfileMedication;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -96,12 +99,22 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
     TextInputLayout til_otherReligion, til_pwdDesc, til_cancerType, til_deceased, til_deceasedDate, til_menarche, til_menarcheAge, til_newborn, til_sexually, til_otherRelation;
     String[] brgyIds;
     LinearLayout layout_adult, layout_age5;
+
+
+    TextInputLayout til_mental, til_cvd, til_diabetic, til_hypertension, til_tbdots;
+    EditText txtMentalRemarks, txtCvdRemarks, txtDiabeticRemarks, txtHypertensionRemarks, txtTbdotsRemarks;
+    String mental_remarks, cvd_remarks, diabetic_remarks, hypertension_remarks, tbdots_remarks;
+
+
+    ArrayList<ProfileMedication> profileMedicationsList = new ArrayList<>();
+    ProfileMedication profileMedication;
     /*END*/
 
     String[] brgys, value;
     int age = 0;
     boolean brgyFieldClicked = false;
     boolean toUpdate, addHead;
+
 
     String males = "Son, Husband, Father, Brother, Nephew, Grandfather, Grandson, Son in Law, Brother in Law, Father in Law";
     String females = "Daughter, Wife, Mother, Sister, Niece, Grandmother, Granddaugther, Daughter in Law, Sister in Law, Mother in Law";
@@ -124,6 +137,9 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         addHead = getArguments().getBoolean("addHead");
         familyProfile = getArguments().getParcelable("familyProfile");
 
+        if(familyProfile!=null)
+        profileMedicationsList = MainActivity.db.getProfileMedications(familyProfile.uniqueId);
+       // Log.e("med", ""+profileMedicationsList.size());
         //Toast.makeText(getContext(), addHead+"", Toast.LENGTH_SHORT).show();
         dpd.setMaxDate(now);
         value = getResources().getStringArray(R.array.educational_attainment_value);
@@ -141,7 +157,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
             e.printStackTrace();
         }
 
-//        manageDengvaxia = view.findViewById(R.id.manageDengvaxia);
+//       manageDengvaxia = view.findViewById(R.id.manageDengvaxia);
 
         txtBalikProbinsya.setOnClickListener(this);
         txtCovid.setOnClickListener(this);
@@ -290,6 +306,10 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
             public void afterTextChanged(Editable editable) {
 
                 if (age > 5 && txtSex.getText().toString().equalsIgnoreCase("Female")){ //6 and above
+                    if(!txtMenarche.getText().toString().trim().isEmpty()){
+                        String txt = txtMenarche.getText().toString().trim();
+                        txtMenarche.setText(txt);
+                    }
                     til_menarche.setVisibility(View.VISIBLE);
                 }else {
                     til_menarche.setVisibility(View.GONE);
@@ -410,7 +430,145 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
             }
         });
 
+        txtMental.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                txtMentalRemarks.setText("");
+                if (txtMental.getText().toString().trim().equalsIgnoreCase("Medication Avail"))
+                {
+                    til_mental.setVisibility(View.VISIBLE);
+                    til_mental.setHint("Facility where medicine was availed(tap again for choices)");
+                    txtMentalRemarks.setOnClickListener(ManagePopulationFragment.this);
+                }
+                else if (txtMental.getText().toString().trim().equalsIgnoreCase("No Medication Avail")) {
+                    til_mental.setVisibility(View.VISIBLE);
+                    til_mental.setHint("Reason for not availing medicine");
+                    txtMentalRemarks.setOnClickListener(null);
+                }
+                else {
+                    txtMentalRemarks.setText("");
+                    til_mental.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        txtTBDOTS.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                txtTbdotsRemarks.setText("");
+                if (txtTBDOTS.getText().toString().trim().equalsIgnoreCase("Medication Avail"))
+                {
+                    til_tbdots.setVisibility(View.VISIBLE);
+                    til_tbdots.setHint("Facility where medicine was availed(tap again for choices)");
+                    txtTbdotsRemarks.setOnClickListener(ManagePopulationFragment.this);
+                }
+                else if (txtTBDOTS.getText().toString().trim().equalsIgnoreCase("No Medication Avail")) {
+                    til_tbdots.setVisibility(View.VISIBLE);
+                    til_tbdots.setHint("Reason for not availing medicine");
+                    txtTbdotsRemarks.setOnClickListener(null);
+                }
+                else {
+                    txtTbdotsRemarks.setText("");
+                    til_tbdots.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        txtCVD.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                txtCvdRemarks.setText("");
+                if (txtCVD.getText().toString().trim().equalsIgnoreCase("Medication Avail"))
+                {
+                    til_cvd.setVisibility(View.VISIBLE);
+                    til_cvd.setHint("Facility where medicine was availed(tap again for choices)");
+                    txtCvdRemarks.setOnClickListener(ManagePopulationFragment.this);
+                }
+                else if (txtCVD.getText().toString().trim().equalsIgnoreCase("No Medication Avail")) {
+                    til_cvd.setVisibility(View.VISIBLE);
+                    til_cvd.setHint("Reason for not availing medicine");
+                    txtCvdRemarks.setOnClickListener(null);
+                }
+                else {
+                    txtCvdRemarks.setText("");
+                    til_cvd.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        txtDiabetic.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                txtDiabeticRemarks.setText("");
+                if (txtDiabetic.getText().toString().trim().equalsIgnoreCase("Medication Avail"))
+                {
+                    til_diabetic.setVisibility(View.VISIBLE);
+                    til_diabetic.setHint("Facility where medicine was availed(tap again for choices)");
+                    txtDiabeticRemarks.setOnClickListener(ManagePopulationFragment.this);
+                }
+                else if (txtDiabetic.getText().toString().trim().equalsIgnoreCase("No Medication Avail")) {
+                    til_diabetic.setVisibility(View.VISIBLE);
+                    til_diabetic.setHint("Reason for not availing medicine");
+                    txtDiabeticRemarks.setOnClickListener(null);
+                }
+                else {
+                    txtDiabeticRemarks.setText("");
+                    til_diabetic.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        txtHypertension.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                txtHypertensionRemarks.setText("");
+                if (txtHypertension.getText().toString().trim().equalsIgnoreCase("Medication Avail"))
+                {
+                    til_hypertension.setVisibility(View.VISIBLE);
+                    til_hypertension.setHint("Facility where medicine was availed(tap again for choices)");
+                    txtHypertensionRemarks.setOnClickListener(ManagePopulationFragment.this);
+                }
+                else if (txtHypertension.getText().toString().trim().equalsIgnoreCase("No Medication Avail")) {
+                    til_hypertension.setVisibility(View.VISIBLE);
+                    til_hypertension.setHint("Reason for not availing medicine");
+                    txtHypertensionRemarks.setOnClickListener(null);
+                }
+                else {
+                    txtHypertensionRemarks.setText("");
+                    til_hypertension.setVisibility(View.GONE);
+                }
+            }
+        });
 
         if (!toUpdate){
             showProfileCheckerDialog();
@@ -464,21 +622,42 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
             case R.id.manage_nutrition:
                 showChecklistDialog(R.array.nutrition, txtNutrition);
                 break;
+
             case R.id.manage_diabetes:
                 showOptionDialog(R.array.medication_availment, txtDiabetic);
                 break;
+            case R.id.manage_diabetes_remarks:
+                showOptionDialog(R.array.facility_availment, txtDiabeticRemarks);
+                break;
+
             case R.id.manage_hypertension:
                 showOptionDialog(R.array.medication_availment, txtHypertension);
                 break;
+            case R.id.manage_hypertension_remarks:
+                showOptionDialog(R.array.facility_availment, txtHypertensionRemarks);
+                break;
+
             case R.id.manage_mental:
                 showOptionDialog(R.array.medication_availment, txtMental);
                 break;
+            case R.id.manage_mental_remarks:
+                showOptionDialog(R.array.facility_availment, txtMentalRemarks);
+                break;
+
             case R.id.manage_tbdots:
                 showOptionDialog(R.array.medication_availment, txtTBDOTS);
                 break;
+            case R.id.manage_tbdots_remarks:
+                showOptionDialog(R.array.facility_availment, txtTbdotsRemarks);
+                break;
+
             case R.id.manage_cvd:
                 showOptionDialog(R.array.medication_availment, txtCVD);
                 break;
+            case R.id.manage_cvd_remarks:
+                showOptionDialog(R.array.facility_availment, txtCvdRemarks);
+                break;
+
             case R.id.manage_religion:
                 showOptionDialog(R.array.religion, txtReligion);
 
@@ -658,6 +837,22 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 civil_status = txtCivil.getText().toString().trim();
                 covid_status = txtCovid.getText().toString().trim();
 
+                tbdots_med = txtTBDOTS.getText().toString().trim();
+                tbdots_remarks = txtTbdotsRemarks.getText().toString().trim();
+
+                cvd_med = txtCVD.getText().toString().trim();
+                cvd_remarks = txtCvdRemarks.getText().toString().trim();
+
+                mental_med = txtMental.getText().toString().trim();
+                mental_remarks = txtMentalRemarks.getText().toString().trim();
+
+                diabetic = txtDiabetic.getText().toString().trim();
+                diabetic_remarks = txtDiabeticRemarks.getText().toString().trim();
+
+                hypertension = txtHypertension.getText().toString().trim();
+                hypertension_remarks = txtHypertensionRemarks.getText().toString().trim();
+
+
                 religion = txtReligion.getText().toString().trim();
                 if(religion.trim().equalsIgnoreCase("others")) other_religion = txtOtherReligion.getText().toString().trim();
                 else other_religion = "";
@@ -693,7 +888,23 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                     }
                 }
 
-                if (fname.isEmpty()) {
+
+                if (!mental_med.isEmpty() && mental_remarks.isEmpty()) {
+                    txtMentalRemarks.setError("Required");
+                    txtMentalRemarks.requestFocus();
+                } else if (!tbdots_med.isEmpty() && tbdots_remarks.isEmpty()) {
+                    txtTbdotsRemarks.setError("Required");
+                    txtTbdotsRemarks.requestFocus();
+                }  else if (!cvd_med.isEmpty() && cvd_remarks.isEmpty()) {
+                    txtCvdRemarks.setError("Required");
+                    txtCvdRemarks.requestFocus();
+                }else if (age>5 && !diabetic.isEmpty() && diabetic_remarks.isEmpty()) {
+                    txtDiabeticRemarks.setError("Required");
+                    txtDiabeticRemarks.requestFocus();
+                }else if (age>5 && !hypertension.isEmpty() && hypertension_remarks.isEmpty()) {
+                    txtHypertensionRemarks.setError("Required");
+                    txtHypertensionRemarks.requestFocus();
+                }else if (fname.isEmpty()) {
                     txtFname.setError("Required");
                     txtFname.requestFocus();
                 } else if (mname.isEmpty()) {
@@ -721,7 +932,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 } else if (relation.isEmpty() && head.equalsIgnoreCase("no")) {
                     txtRelation.setError("Required");
                     txtRelation.requestFocus();
-                } else if (relation.equalsIgnoreCase("others") && head.equalsIgnoreCase("no")) {
+                } else if (relation.equalsIgnoreCase("others") && head.equalsIgnoreCase("no") && member_others.isEmpty()) {
                     txtOther_relation.setError("Required");
                     txtOther_relation.requestFocus();
                 }else if (supply.isEmpty() && head.equalsIgnoreCase("yes")) {
@@ -730,17 +941,10 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 } else if (toilet.isEmpty() && head.equalsIgnoreCase("yes")) {
                     txtToilet.setError("Required");
                     txtToilet.requestFocus();
-                }/*else if (age > 5 && diabetic.isEmpty()) {
-                    Toast.makeText(getContext(), "Is the person Diabetic?", Toast.LENGTH_SHORT).show();
-                } else if(age > 5 && hypertension.isEmpty()) {
-                    Toast.makeText(getContext(), "Is the person experiencing Hypertension?", Toast.LENGTH_SHORT).show();
-                } else if(pwd.isEmpty()) {
-                    Toast.makeText(getContext(), "Is the person with disabilities?", Toast.LENGTH_SHORT).show();
-                }*/
-                else if (brgy.isEmpty())
+                } else if (brgy.isEmpty())
                 {
                     Toast.makeText(getContext(), "Barangay required", Toast.LENGTH_SHORT).show();
-                } else {
+                } else { // filled out all required fields
                     if (brgyFieldClicked) brgy = txtBrgy.getTag().toString();
                     else brgy = familyProfile.barangayId;
 
@@ -755,10 +959,6 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                     contact = txtContact.getText().toString().trim();
                     height = txtHeight.getText().toString().trim();
                     weight = txtWeight.getText().toString().trim();
-
-                    mental_med = txtMental.getText().toString().trim();
-                    tbdots_med = txtTBDOTS.getText().toString().trim();
-                    cvd_med = txtCVD.getText().toString().trim();
 
                     cancer = txtCancer.getText().toString().trim();
                     if(cancer.trim().equalsIgnoreCase("NO")) cancer_type = "";
@@ -792,10 +992,17 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                         unmet="0";
                     }
 
+                    //todo: insert meds
+                    saveUpdateProfileMedication(txtMental, "Mental Health Medication", mental_remarks);
+                    saveUpdateProfileMedication(txtTBDOTS, "TB Medication", tbdots_remarks);
+                    saveUpdateProfileMedication(txtCVD, "CVD Medication", cvd_remarks);
+                    saveUpdateProfileMedication(txtDiabetic, "Diabetic", diabetic_remarks);
+                    saveUpdateProfileMedication(txtHypertension, "Hypertension", hypertension_remarks);
+
                     // Adult and child inputs
                     if(age < 5){
-                        diabetic="";
-                        hypertension="";
+                       /* diabetic="";
+                        hypertension="";*/
 
                         newborn_screen = txtNewbornScreen.getText().toString().trim();
                         if(newborn_screen.equalsIgnoreCase("NO")) newborn_text = "";
@@ -804,8 +1011,8 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                         immu_stat = txtImmunization.getText().toString().trim();
                         nutri_stat = txtNutrition.getText().toString().trim();
                     }else{
-                        diabetic = txtDiabetic.getText().toString().trim();
-                        hypertension = txtHypertension.getText().toString().trim();
+                       /* diabetic = txtDiabetic.getText().toString().trim();
+                        hypertension = txtHypertension.getText().toString().trim();*/
 
                         newborn_screen="";
                         newborn_text = "";
@@ -842,9 +1049,9 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                                 fname + mname + lname + suffix + brgy + MainActivity.user.muncity,
                                 famId, philId, nhts,fourPs, ip, head, relation, member_others,  fname, lname, mname, suffix, bday, sex, brgy,
                                 MainActivity.user.muncity,
-                                "", income, unmet, supply, toilet, education, balik_probinsya,"1", diabetic, hypertension, pwd, pregnant_date,
-                                birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
-                                tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
+                                "", income, unmet, supply, toilet, education, balik_probinsya,"1",  pwd, pregnant_date,
+                                birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type,
+                                covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
                                 immu_stat, nutri_stat, pwd_desc, sexually_active);
                         MainActivity.db.addProfile(newFamilyProfile);
                         Toast.makeText(getContext(), "Successfully added", Toast.LENGTH_SHORT).show();
@@ -854,9 +1061,9 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
 
                         FamilyProfile updatedFamilyProfile = new FamilyProfile(familyProfile.id, familyProfile.uniqueId, famId, philId,
                                 nhts,fourPs, ip, head, relation, member_others, fname, lname, mname, suffix, bday, sex, brgy, familyProfile.muncityId, familyProfile.provinceId,
-                                income, unmet, supply, toilet, education, balik_probinsya, "1", diabetic, hypertension, pwd,
-                                pregnant_date, birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
-                                tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
+                                income, unmet, supply, toilet, education, balik_probinsya, "1", pwd,
+                                pregnant_date, birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type,
+                                covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
                                 immu_stat, nutri_stat, pwd_desc, sexually_active);
                         MainActivity.db.updateProfile(updatedFamilyProfile);
                         Toast.makeText(getContext(), "Successfully updated", Toast.LENGTH_SHORT).show();
@@ -971,11 +1178,44 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         txtImmunization.setText(familyProfile.immu_stat);
 
         //adult
-        txtDiabetic.setText(familyProfile.diabetic);
+      /*  txtDiabetic.setText(familyProfile.diabetic);
         txtHypertension.setText(familyProfile.hypertension);
         txtMental.setText(familyProfile.mental_med);
         txtTBDOTS.setText(familyProfile.tbdots_med);
-        txtCVD.setText(familyProfile.cvd_med);
+        txtCVD.setText(familyProfile.cvd_med);*/
+
+        for(ProfileMedication med : profileMedicationsList){
+            switch (med.type){
+                case "Mental Health Medication":
+                    txtMental.setText(med.medication_status);
+                    txtMental.setTag(med.id);
+                    txtMentalRemarks.setText(med.remarks);
+                    break;
+                case "TB Medication":
+                    txtTBDOTS.setText(med.medication_status);
+                    txtTBDOTS.setTag(med.id);
+                    txtTbdotsRemarks.setText(med.remarks);
+                    break;
+                case "CVD Medication":
+                    txtCVD.setText(med.medication_status);
+                    txtCVD.setTag(med.id);
+                    txtCvdRemarks.setText(med.remarks);
+                    break;
+                case "Hypertension":
+                    txtHypertension.setText(med.medication_status);
+                    txtHypertension.setTag(med.id);
+                    txtHypertensionRemarks.setText(med.remarks);
+                    break;
+                case "Diabetic":
+                    txtDiabetic.setText(med.medication_status);
+                    txtDiabetic.setTag(med.id);
+                    txtDiabeticRemarks.setText(med.remarks);
+                    break;
+            }
+        }
+
+
+
 
         for (int i = 0; i < value.length; i++) {
             if (familyProfile.educationalAttainment.equals(value[i])) {
@@ -1062,24 +1302,36 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
             public void onClick(View v) {
                 RadioButton radioButton = radioGroup.findViewById(radioGroup.getCheckedRadioButtonId());
                 if (radioButton != null) {
-                    txtView.setText(radioButton.getText());
 
-                    if (txtView.getId() == R.id.manage_barangay) {
-                        txtView.setTag(radioButton.getId());
-                        txtBrgy = txtView;
-
-                    } else if (txtView.getId() == R.id.manage_education) {
-                        txtView.setTag(radioButton.getTag().toString());
-
-                    } else if (txtView.getId() == R.id.manage_income || txtView.getId() == R.id.manage_unmet || txtView.getId() == R.id.manage_supply || txtView.getId() == R.id.manage_toilet) {
-                        txtView.setTag(radioButton.getId());
-
-                    } else if (txtView.getId() == R.id.manage_relation) {
-                        String relation = txtView.getText().toString();
-                        if (males.contains(relation)) txtSex.setText("Male");
-                        else if (females.contains(relation)) txtSex.setText("Female");
-                        else txtSex.setText("");
+                    if(txtView.getId() == R.id.manage_mental || txtView.getId() == R.id.manage_cvd || txtView.getId() == R.id.manage_hypertension || txtView.getId() == R.id.manage_diabetes || txtView.getId() == R.id.manage_tbdots){
+                        if(radioButton.getText().toString().trim().equalsIgnoreCase("Clear Choice")){
+                            txtView.setText("");
+                        }else {
+                            txtView.setText(radioButton.getText());
+                        }
                     }
+                    else {
+                        txtView.setText(radioButton.getText());
+
+                        if (txtView.getId() == R.id.manage_barangay) {
+                            txtView.setTag(radioButton.getId());
+                            txtBrgy = txtView;
+
+                        } else if (txtView.getId() == R.id.manage_education) {
+                            txtView.setTag(radioButton.getTag().toString());
+
+                        } else if (txtView.getId() == R.id.manage_income || txtView.getId() == R.id.manage_unmet || txtView.getId() == R.id.manage_supply || txtView.getId() == R.id.manage_toilet) {
+                            txtView.setTag(radioButton.getId());
+
+                        } else if (txtView.getId() == R.id.manage_relation) {
+                            String relation = txtView.getText().toString();
+                            if (males.contains(relation)) txtSex.setText("Male");
+                            else if (females.contains(relation)) txtSex.setText("Female");
+                            else txtSex.setText("");
+                        }
+                    }
+
+
                 } else {
                     txtView.setText("");
                     txtView.setTag("");
@@ -1319,6 +1571,43 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         });
     }
 
+    public void saveUpdateProfileMedication(EditText editText, String type, String remark){
+        String medication_status = editText.getText().toString().trim();
+        String uniqueId = familyProfile.uniqueId;
+
+       if(uniqueId.isEmpty())
+           uniqueId = fname + mname + lname + suffix + brgy + MainActivity.user.muncity;
+
+       profileMedication = new ProfileMedication("", uniqueId, type, medication_status, remark,"1" );
+
+        if(!medication_status.isEmpty()){
+            if(editText.getTag()!=null){ //update
+                if(!editText.getTag().toString().isEmpty()){
+                    if(age<5 && (type.equalsIgnoreCase("Diabetic") || type.equalsIgnoreCase("Hypertension"))){
+                        MainActivity.db.deleteProfileMedication(editText.getTag().toString());
+                    }else{
+                        profileMedication = new ProfileMedication(editText.getTag().toString(),uniqueId, type, medication_status, remark,"1" );
+                        MainActivity.db.updateProfileMedication(profileMedication);
+                    }
+                }
+            }else { //add, if not existing to db
+                if((!type.equalsIgnoreCase("Diabetic") && !type.equalsIgnoreCase("Hypertension")) || // for any ages, cvd/tb/mental)
+                        (age>5 && (type.equalsIgnoreCase("Diabetic") || type.equalsIgnoreCase("Hypertension")))){
+                    MainActivity.db.addProfileMedication(profileMedication);
+                }
+            }
+        }else {
+            if(editText.getTag()!=null){ //delete if empty, and existing DB
+                if(!editText.getTag().toString().isEmpty()){
+                    MainActivity.db.deleteProfileMedication(editText.getTag().toString());
+                }
+            }
+        }
+
+
+    }
+
+
     public void findViewByIds(){
         txtFamilyId = view.findViewById(R.id.manage_familyId);
         txtPhilHealthId = view.findViewById(R.id.manage_philhealthId);
@@ -1406,6 +1695,19 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
         txtBalikProbinsya = view.findViewById(R.id.manage_balikprobinsya);
         txtOther_relation = view.findViewById(R.id.manage_other_relation);
         til_otherRelation = view.findViewById(R.id.layout_other_relation);
+
+        til_mental = view.findViewById(R.id.mental_frame);
+        til_cvd = view.findViewById(R.id.cvd_frame);
+        til_diabetic = view.findViewById(R.id.diabetes_frame);
+        til_hypertension = view.findViewById(R.id.hypertension_frame);
+        til_tbdots = view.findViewById(R.id.tbdots_frame);
+
+        txtMentalRemarks =  view.findViewById(R.id.manage_mental_remarks);
+        txtCvdRemarks =  view.findViewById(R.id.manage_cvd_remarks);
+        txtDiabeticRemarks =  view.findViewById(R.id.manage_diabetes_remarks);
+        txtHypertensionRemarks =  view.findViewById(R.id.manage_hypertension_remarks);
+        txtTbdotsRemarks =  view.findViewById(R.id.manage_tbdots_remarks);
+
     }
 
     public void setVisibilityFemale(int visibility){

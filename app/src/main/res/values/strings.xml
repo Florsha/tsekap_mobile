@@ -81,10 +81,19 @@
     </string-array>
 
     <string-array name="medication_availment">
+        <item>Clear Choice</item>
         <item>Medication Avail</item>
         <item>No Medication Avail</item>
     </string-array>
 
+    <string-array name="facility_availment">
+        <item>BHS</item>
+        <item>RHU</item>
+        <item>Public Hospital</item>
+        <item>Private Clinic</item>
+        <item>Private Hospital</item>
+        <item>Personal Expenses</item>
+    </string-array>
 
 
     <string-array name="monthly_income">
@@ -108,6 +117,7 @@
         <item>Level 1\nFarthest user is not more than 250m from point source</item>
         <item>Level 2\nFarthest user is not more than 25m from communal faucet</item>
         <item>Level 3\nIt has service connection from system.</item>
+        <item>none of the above</item>
     </string-array>
 
     <string-array name="sanitary_toilet">

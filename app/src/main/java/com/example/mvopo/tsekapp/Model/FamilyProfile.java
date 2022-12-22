@@ -13,20 +13,20 @@ public class FamilyProfile implements Parcelable {
             status;
 
     // UPDATE
-    public String diabetic, hypertension, pwd;
+    public String  pwd;
     public String pregnant;
 
     //Update r
-    public String birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type, mental_med,
-            tbdots_med, cvd_med, covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
+    public String birth_place, civil_status, religion, other_religion, contact, height, weight, cancer, cancer_type,
+             covid_status, menarche, menarche_age, newborn_screen, newborn_text, deceased, deceased_date,
             immu_stat, nutri_stat, pwd_desc, sexually_active, ip, four_ps, balik_probinsya, member_others;
 
     public FamilyProfile(String id, String uniqueId, String familyId, String philId, String nhts, String four_ps, String ip, String isHead,
                          String relation, String member_others, String fname, String lname, String mname, String suffix, String dob, String sex,
                          String barangayId, String muncityId, String provinceId, String income, String unmetNeed, String waterSupply,
-                         String sanitaryToilet, String educationalAttainment, String balik_probinsya, String status , String diabetic, String hypertension, String pwd, String pregnant,
+                         String sanitaryToilet, String educationalAttainment, String balik_probinsya, String status ,  String pwd, String pregnant,
                          String birth_place, String civil_status, String religion, String other_religion, String contact, String height, String weight, String cancer,
-                         String cancer_type, String mental_med, String tbdots_med, String cvd_med, String covid_status, String menarche, String menarche_age, String newborn_screen,
+                         String cancer_type,  String covid_status, String menarche, String menarche_age, String newborn_screen,
                          String newborn_text, String deceased, String deceased_date, String immu_stat, String nutri_stat, String pwd_desc, String sexually_active) {
         this.id = id;
         this.uniqueId = uniqueId;
@@ -57,8 +57,6 @@ public class FamilyProfile implements Parcelable {
         this.status = status;
 
         // UPDATE
-        this.diabetic = diabetic;
-        this.hypertension = hypertension;
         this.pwd = pwd;
         this.pregnant = pregnant;
 
@@ -72,9 +70,6 @@ public class FamilyProfile implements Parcelable {
         this.weight = weight;
         this.cancer = cancer;
         this.cancer_type = cancer_type;
-        this.mental_med = mental_med;
-        this.tbdots_med = tbdots_med;
-        this.cvd_med = cvd_med;
         this.covid_status = covid_status;
         this.menarche = menarche;
         this.menarche_age = menarche_age;
@@ -116,8 +111,6 @@ public class FamilyProfile implements Parcelable {
         balik_probinsya = in.readString();
         status = in.readString();
         // UPDATE
-        diabetic = in.readString();
-        hypertension = in.readString();
         pwd = in.readString();
         pregnant = in.readString();
 
@@ -131,9 +124,6 @@ public class FamilyProfile implements Parcelable {
         weight = in.readString();
         cancer = in.readString();
         cancer_type = in.readString();
-        mental_med = in.readString();
-        tbdots_med = in.readString();
-        cvd_med = in.readString();
         covid_status = in.readString();
         menarche = in.readString();
         menarche_age = in.readString();
@@ -176,8 +166,6 @@ public class FamilyProfile implements Parcelable {
         dest.writeString(balik_probinsya);
         dest.writeString(status);
         // UPDATE
-        dest.writeString(diabetic);
-        dest.writeString(hypertension);
         dest.writeString(pwd);
         dest.writeString(pregnant);
 
@@ -191,9 +179,6 @@ public class FamilyProfile implements Parcelable {
         dest.writeString(weight);
         dest.writeString(cancer);
         dest.writeString(cancer_type);
-        dest.writeString(mental_med);
-        dest.writeString(tbdots_med);
-        dest.writeString(cvd_med);
         dest.writeString(covid_status);
         dest.writeString(menarche);
         dest.writeString(menarche_age);
