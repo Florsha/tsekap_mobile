@@ -484,7 +484,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String sexually_active = c.getString(c.getColumnIndexOrThrow("sexually_active"));
 
                 FamilyProfile profile = new FamilyProfile(
-                        id + "", /**Hello am here*/
+                        id + "",
                         uniqueId, familyId, philId,
                         nhts, four_ps, ip,
                         isHead, relation, member_others,

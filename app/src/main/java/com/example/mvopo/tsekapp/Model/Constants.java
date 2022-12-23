@@ -45,8 +45,10 @@ public class Constants {
     public static String apkUrl = "http://192.168.110.62:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk";*/
 
 
-    // public static String url = "http://222.127.126.34/tsekap/dummy/apiv21?"; /**updated on 02/14/2022*/
-       public static String url = "http://222.127.126.34/tsekap/vii/apiv21?"; /**updated on 02/14/2022*/
+     public static String url = "http://222.127.126.34/tsekap/dummy/apiv21?"; /**updated on 02/14/2022*/
+    //  public static String url = "http://222.127.126.34/tsekap/vii/apiv21?"; /**updated on 02/14/2022*/
+
+
     //public static String apkUrl = "http://192.168.81.4:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk"; /**updated on 02/14/2022*/
     public static String apkUrl = "http://222.127.126.34/tsekap/vii/resources/apk/PHA%20Check-App.apk"; /**updated on 10/07/2022*/
 
@@ -215,7 +217,7 @@ public class Constants {
         return request;
     }
 */
-    public static JSONObject getFacilitiesJson(){
+ /*   public static JSONObject getFacilitiesJson(){
         ArrayList<FacilityModel> facilitiesDb = MainActivity.db.getFacilitiesForSync();
         JSONObject request = new JSONObject();
         JSONArray data = new JSONArray();

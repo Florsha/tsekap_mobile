@@ -818,7 +818,7 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                 }
                 break;*/
 
-            case R.id.manageBtn:
+            case R.id.manageBtn: //saving or updating
                 View view = getActivity().getCurrentFocus();
                 if (view != null) {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -992,7 +992,6 @@ public class ManagePopulationFragment extends Fragment implements View.OnClickLi
                         unmet="0";
                     }
 
-                    //todo: insert meds
                     saveUpdateProfileMedication(txtMental, "Mental Health Medication", mental_remarks);
                     saveUpdateProfileMedication(txtTBDOTS, "TB Medication", tbdots_remarks);
                     saveUpdateProfileMedication(txtCVD, "CVD Medication", cvd_remarks);
