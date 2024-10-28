@@ -43,10 +43,12 @@ public class Constants {
 
    /* public static String url = "http://124.6.144.164/tsekap/vii/apiv21?";
     public static String apkUrl = "http://192.168.110.62:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk";*/
+    //public static String url = "http://192.168.81.4/tsekap/dummy/apiv21?";
+//    public static String url = "http://222.168.81.4/tsekap/vii/apiv21?";
+//    public static String apkUrl = "http://192.168.81.4:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk";
 
-
-     public static String url = "http://222.127.126.34/tsekap/dummy/apiv21?"; /**updated on 02/14/2022*/
-    //  public static String url = "http://222.127.126.34/tsekap/vii/apiv21?"; /**updated on 02/14/2022*/
+//     public static String url = "http://222.127.126.34/tsekap/dummy/apiv21?"; /**updated on 02/14/2022*/
+      public static String url = "http://222.127.126.34/tsekap/vii/apiv21?"; /**updated on 02/14/2022*/
 
 
     //public static String apkUrl = "http://192.168.81.4:8000/tsekap/vii/resources/apk/PHA%20Check-App.apk"; /**updated on 02/14/2022*/
